@@ -81,6 +81,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.taranarmo = import ./home.nix;
         }
+        ./cachix.nix
         #./firefox.nix
       ];
     };
