@@ -260,6 +260,7 @@
     libreoffice-qt
     linuxPackages.v4l2loopback
     v4l-utils
+    cachix
   ];
   environment.shells = with pkgs; [ zsh ];
   environment.variables = {
