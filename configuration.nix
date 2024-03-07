@@ -18,6 +18,7 @@
     gc = {
       automatic = true;
       dates = "Thu";
+      options = "--delete-older-than 30d";
     };
   };
   imports =
