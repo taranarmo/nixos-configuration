@@ -14,6 +14,11 @@
     nur.url = "github:nix-community/NUR";
     nurpkgs.url = "github:nix-community/NUR";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
 #    nixpkgs-unfree = {
 #      url = "github:numtide/nixpkgs-unfree";
 #      inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -35,11 +40,6 @@
 #      inputs.nixpkgs.follows = "nixpkgs";
 #    };
 #    impermanence.url = "github:nix-community/impermanence";
-#
-#    disko = {
-#      url = "github:nix-community/disko";
-#      inputs.nixpkgs.follows = "nixpkgs";
-#    };
 #
 #    nixos-anywhere = {
 #      url = "github:numtide/nixos-anywhere";
