@@ -46,6 +46,9 @@
     gawk
     zstd
 
+    direnv
+    nix-direnv
+
     # nix related
 
     # it provides the command `nom` works just like `nix`
