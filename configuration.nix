@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, lib, pkgs, inputs, flake-inputs, ... }:
 
 {
@@ -24,23 +20,11 @@
   imports =
    [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # ./vim.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  #networking.hostName = "nixos-t14"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  #networking.networkmanager.enable = true;
-  #networking.networkmanager.dns = "systemd-resolved";
 
   networking = {
     hostName = "nixos-ideapad";
@@ -78,7 +62,6 @@
         cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
         minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
       };
-
       # You can choose a specific set of servers from https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
       # server_names = [ ... ];
     };
@@ -88,44 +71,30 @@
     StateDirectory = "dnscrypt-proxy";
   };
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-
-
-  # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_DK.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_LANG  = "en_DK.UTF-8";
-    LC_ADDRESS = "en_DK.UTF-8";
-    LC_IDENTIFICATION = "en_DK.UTF-8";
-    LC_MEASUREMENT = "en_DK.UTF-8";
-    LC_MONETARY = "en_DK.UTF-8";
-    LC_NAME = "en_DK.UTF-8";
-    LC_NUMERIC = "en_DK.UTF-8";
-    LC_PAPER = "en_DK.UTF-8";
-    LC_TELEPHONE = "en_DK.UTF-8";
-    LC_TIME = "en_DK.UTF-8";
+  i18n = {
+    defaultLocale = "en_DK.UTF-8";
+    extraLocaleSettings = {
+      LC_LANG  = "en_DK.UTF-8";
+      LC_ADDRESS = "en_DK.UTF-8";
+      LC_IDENTIFICATION = "en_DK.UTF-8";
+      LC_MEASUREMENT = "en_DK.UTF-8";
+      LC_MONETARY = "en_DK.UTF-8";
+      LC_NAME = "en_DK.UTF-8";
+      LC_NUMERIC = "en_DK.UTF-8";
+      LC_PAPER = "en_DK.UTF-8";
+      LC_TELEPHONE = "en_DK.UTF-8";
+      LC_TIME = "en_DK.UTF-8";
+    };
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
-
-  # Configure keymap in X11
   services.xserver = {
+    enable = true;
     layout = "eu,ru";
     xkbVariant = ",";
     xkbOptions = "grp:caps_switch,grp:lalt_lshift_toggle,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr";
+    displayManager.sddm.enable = true;
   };
 
   # Enable CUPS to print documents.
@@ -134,13 +103,10 @@
   services.avahi.nssmdns = true; # enables the mDNS NSS plug-in
   services.avahi.openFirewall = true; # opens the firewall for UDP port 5353
 
-  # Bluetooth
-
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
   # MTP mount service
-
   services.gvfs.enable = true;
 
   # xdg-desktop-portal works by exposing a series of D-Bus interfaces
@@ -166,8 +132,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
     wireplumber.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
@@ -414,10 +378,7 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
   services.pcscd.enable = true;
-  #services.resolved.enable = true;
   services.fwupd.enable = true;
   services.logind.lidSwitchDocked = "suspend-then-hibernate";
 
@@ -464,5 +425,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }
