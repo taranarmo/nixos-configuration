@@ -123,9 +123,9 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us,ru";
+    layout = "eu,ru";
     xkbVariant = ",";
-    xkbOptions = "grp:caps_switch,grp:lalt_lshift_toggle,lv3:ralt_switch_multikey";
+    xkbOptions = "grp:caps_switch,grp:lalt_lshift_toggle,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr";
   };
 
   # Enable CUPS to print documents.
