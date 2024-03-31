@@ -45,6 +45,7 @@
     gnutar
     gawk
     zstd
+    kitty
 
     direnv
     nix-direnv

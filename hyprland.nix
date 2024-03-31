@@ -15,8 +15,24 @@
           "$mod, l, movefocus, r"
           "$mod, k, movefocus, u"
           "$mod, j, movefocus, d"
+          # Move window with arrow keys
+          "$mod Shift, left, movewindow, l"
+          "$mod Shift, right, movewindow, r"
+          "$mod Shift, up, movewindow, u"
+          "$mod Shift, down, movewindow, d"
+          # Move window with vi-like keys
+          "$mod Shift, h, movewindow, l"
+          "$mod Shift, l, movewindow, r"
+          "$mod Shift, k, movewindow, u"
+          "$mod Shift, j, movewindow, d"
 
-          "$mod, F, exec, firefox"
+          "$mod, Q, exec, kitty"
+          "$mod, Return, exec, alacritty"
+          "$mod, C, killactive, "
+          "$mod, M, exit, "
+          "$mod, D, exec, wofi --show drun"
+          #"$mod, R, exec, wofi --show drun"
+
           ", Print, exec, grimblast copy area"
         ]
         ++ (
@@ -107,8 +123,8 @@ animations {
 
     bezier = myBezier, 0.05, 0.9, 0.1, 1.05
 
-    animation = windows, 1, 7, myBezier
-    animation = windowsOut, 1, 7, default, popin 80%
+    animation = windows, 1, 1, myBezier
+    animation = windowsOut, 1, 1, default, popin 80%
     animation = border, 1, 10, default
     animation = borderangle, 1, 8, default
     animation = fade, 1, 7, default
@@ -153,26 +169,28 @@ device:epic-mouse-v1 {
 $mainMod = SUPER
 
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-bind = $mainMod, Q, exec, kitty
-bind = $mainMod, C, killactive, 
-bind = $mainMod, M, exit, 
 bind = $mainMod, E, exec, dolphin
-bind = $mainMod, V, togglefloating, 
-bind = $mainMod, R, exec, wofi --show drun
+#bind = $mainMod, V, togglefloating, 
 bind = $mainMod, P, pseudo, # dwindle
-bind = $mainMod, J, togglesplit, # dwindle
+#bind = $mainMod, J, togglesplit, # dwindle
 
 # Example special workspace (scratchpad)
 bind = $mainMod, S, togglespecialworkspace, magic
 bind = $mainMod SHIFT, S, movetoworkspace, special:magic
 
-# Scroll through existing workspaces with mainMod + scroll
-bind = $mainMod, mouse_down, workspace, e+1
-bind = $mainMod, mouse_up, workspace, e-1
+bind=$mainMod,R,submap,resize # will switch to a submap called resize
+submap=resize # will start a submap called "resize"
+binde=,l,resizeactive,10 0
+binde=,h,resizeactive,-10 0
+binde=,k,resizeactive,0 -10
+binde=,j,resizeactive,0 10
+binde=Shift,l,resizeactive,50 0
+binde=Shift,h,resizeactive,-50 0
+binde=Shift,k,resizeactive,0 -50
+binde=Shift,j,resizeactive,0 50
+bind=,escape,submap,reset # use reset to go back to the global submap
+submap=reset # will reset the submap, meaning end the current one and return to the global one.
 
-# Move/resize windows with mainMod + LMB/RMB and dragging
-bindm = $mainMod, mouse:272, movewindow
-bindm = $mainMod, mouse:273, resizewindow
     '';
   };
 }
