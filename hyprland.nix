@@ -26,6 +26,8 @@
           "$mod Shift, k, movewindow, u"
           "$mod Shift, j, movewindow, d"
 
+          "$mod, f, fullscreen, "
+
           "$mod, Q, exec, kitty"
           "$mod, Return, exec, alacritty"
           "$mod, C, killactive, "
@@ -60,6 +62,7 @@ monitor=,preferred,auto,auto
 
 # Execute your favorite apps at launch
 # exec-once = waybar & hyprpaper & firefox
+exec = waybar
 
 # Source a file (multi-file configs)
 # source = ~/.config/hypr/myColors.conf
@@ -118,7 +121,6 @@ decoration {
 
 animations {
     enabled = yes
-
     # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
 
     bezier = myBezier, 0.05, 0.9, 0.1, 1.05
@@ -127,8 +129,8 @@ animations {
     animation = windowsOut, 1, 1, default, popin 80%
     animation = border, 1, 10, default
     animation = borderangle, 1, 8, default
-    animation = fade, 1, 7, default
-    animation = workspaces, 1, 6, default
+    animation = fade, 1, 2, default
+    animation = workspaces, 1, 3, default
 }
 
 dwindle {
@@ -149,7 +151,7 @@ gestures {
 
 misc {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
-    force_default_wallpaper = -1 # Set to 0 to disable the anime mascot wallpapers
+    force_default_wallpaper = 0 # Set to 0 to disable the anime mascot wallpapers
 }
 
 # Example per-device config

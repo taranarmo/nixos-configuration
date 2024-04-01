@@ -45,7 +45,6 @@
     gnutar
     gawk
     zstd
-    kitty
 
     direnv
     nix-direnv
@@ -98,6 +97,8 @@
       selection.save_to_clipboard = true;
     };
   };
+  programs.kitty.enable = true;
+  programs.wezterm.enable = true;
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
