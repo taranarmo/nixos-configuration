@@ -71,7 +71,7 @@
     };
     extraConfig = ''
 # See https://wiki.hyprland.org/Configuring/Monitors/
-monitor=,preferred,auto,1.1
+monitor=,preferred,auto,1
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
