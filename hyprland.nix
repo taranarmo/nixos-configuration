@@ -35,7 +35,22 @@
           "$mod, D, exec, wofi --show drun"
           #"$mod, R, exec, wofi --show drun"
 
+          #"$mod, L, exec, swaylock -f -c 000000"
+          "CTRL + ALT, L, exec, swaylock -f -c 000000"
+
           ", Print, exec, grimblast copy area"
+
+          ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+          ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+          ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+          ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+          ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+          ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPrev, exec, playerctl previous"
+          #", XF86Search, exec, $menu"
+
         ]
         ++ (
           # workspaces
@@ -48,7 +63,7 @@
                   builtins.toString (x + 1 - (c * 10));
               in [
                 "$mod, ${ws}, workspace, ${toString (x + 1)}"
-                "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+                "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
               ]
             )
             10)
@@ -56,13 +71,20 @@
     };
     extraConfig = ''
 # See https://wiki.hyprland.org/Configuring/Monitors/
-monitor=,preferred,auto,auto
+monitor=,preferred,auto,1.1
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
 # Execute your favorite apps at launch
 # exec-once = waybar & hyprpaper & firefox
-exec = waybar
+exec-once = waybar
+
+# Idle
+exec-once = swayidle -w timeout 300 'swaylock -f -c 000000' \
+            timeout 600 'hyprctl dispatch dpms off' \
+            resume 'hyprctl dispatch dpms on' \
+            timeout 900 'systemctl suspend' \
+            before-sleep 'swaylock -f -c 000000' &
 
 # Source a file (multi-file configs)
 # source = ~/.config/hypr/myColors.conf
