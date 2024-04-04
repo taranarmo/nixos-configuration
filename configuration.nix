@@ -367,6 +367,7 @@
       bemenu
       wofi
       swaynotificationcenter
+      nwg-bar
     ];
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland

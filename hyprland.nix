@@ -30,13 +30,14 @@
 
           "$mod, Q, exec, kitty"
           "$mod, Return, exec, alacritty"
-          "$mod, C, killactive, "
+          "$mod shift, Q, killactive, "
           "$mod, M, exit, "
           "$mod, D, exec, wofi --show drun"
           #"$mod, R, exec, wofi --show drun"
 
           #"$mod, L, exec, swaylock -f -c 000000"
           "CTRL + ALT, L, exec, swaylock -f -c 000000"
+          "CTRL + ALT, Del, exec, nwg-bar"
 
           ", Print, exec, grimblast copy area"
 
@@ -104,6 +105,7 @@ input {
 
     touchpad {
         natural_scroll = no
+        disable_while_typing = 1
     }
 
     sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
