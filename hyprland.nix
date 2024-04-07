@@ -1,4 +1,9 @@
+{ config, pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    hyprland-per-window-layout
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -78,7 +83,7 @@ monitor=,preferred,auto,1
 
 # Execute your favorite apps at launch
 # exec-once = waybar & hyprpaper & firefox
-exec-once = waybar
+exec-once = waybar & hyprland-per-window-layout
 
 # Idle
 exec-once = swayidle -w timeout 300 'swaylock -f -c 000000' \
