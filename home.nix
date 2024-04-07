@@ -21,6 +21,7 @@
 
     # utils
     ripgrep # recursively searches directories for a regex pattern
+    gojq
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processer https://github.com/mikefarah/yq
     eza # A modern replacement for ‘ls’
@@ -81,6 +82,7 @@
     enable = true;
     userName = "Sergey Volkov ";
     userEmail = "taranarmo@gmail.com";
+    difftastic.enable = true;
   };
 
   # alacritty - a cross-platform, GPU-accelerated terminal emulator
