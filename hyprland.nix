@@ -42,7 +42,7 @@
 
           #"$mod, L, exec, swaylock -f -c 000000"
           "CTRL + ALT, L, exec, swaylock -f -c 000000"
-          "CTRL + ALT, Del, exec, nwg-bar"
+          "CTRL + ALT, Delete, exec, nwg-bar"
 
           ", Print, exec, grimblast copy area"
 
