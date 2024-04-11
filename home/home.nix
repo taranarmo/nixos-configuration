@@ -3,7 +3,7 @@
 {
   imports = [
     ./hyprland.nix
-    ./waybar.nix
+    ./waybar
   ];
   home.username = "taranarmo";
   home.homeDirectory = "/home/taranarmo";
