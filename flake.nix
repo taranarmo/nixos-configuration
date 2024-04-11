@@ -79,7 +79,7 @@
         {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.taranarmo = import ./home.nix;
+            home-manager.users.taranarmo = import ./home/home.nix;
         }
         ./cachix.nix
         #./firefox.nix
