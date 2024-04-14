@@ -71,7 +71,7 @@
             "format" = "{capacity}% {icon}";
             "format-alt" = "{time} {icon}";
             "format-icons" = ["" "" "" "" ""];
-            "format-charging" = "{capacity}% ";
+            "format-charging" = "{capacity}% 󰂄";
             "interval" = 30;
             "states" = {
                 "warning" = 25;
@@ -83,16 +83,16 @@
             "thermal-zone" = 6;
             "critical-threshold" = 80;
             "format" = "{temperatureC}°C {icon}";
-            "format-icons" = ["" "" ""];
+            "format-icons" = ["" "" "" "" ""];
         };
         "network" = {
             "format" = "{icon}";
             "format-alt" = "{ipaddr}/{cidr} {icon}";
             "format-alt-click" = "click-right";
             "format-icons" = {
-                "wifi" = ["" "" ""];
-                "ethernet" = [""];
-                "disconnected" = [""];
+                "wifi" = ["󰤟" "󰤢" "󰤥" "󰤨"];
+                "ethernet" = ["󰈀"];
+                "disconnected" = ["󰌙 "];
             };
             "on-click" = "alacritty -e nmtui";
             "tooltip" = false;
@@ -101,10 +101,10 @@
             "format" = "{icon}";
             "format-alt" = "{volume} {icon}";
             "format-alt-click" = "click-right";
-            "format-muted" = "";
+            "format-muted" = "󰝟";
             "format-icons" = {
-                "phone" = [" " " " " " " "];
-                "default" = ["" "" "" ""];
+                "phone" = [" 󰕿" " 󰖀" " 󰕾"];
+                "default" = ["󰕿" "󰖀" "󰕾"];
             };
             "scroll-step" = 10;
             "on-click" = "pavucontrol";
