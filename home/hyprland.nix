@@ -74,6 +74,15 @@
             )
             10)
         );
+        exec-once = [
+          "waybar"
+          "hyprland-per-window-layout"
+          "swayidle -w timeout 300 'swaylock -f -c 000000' \
+           timeout 360 'hyprctl dispatch dpms off' \
+           resume 'hyprctl dispatch dpms on' \
+           timeout 900 'systemctl suspend' \
+           before-sleep 'swaylock -f -c 000000'"
+        ];
     };
     extraConfig = ''
 # See https://wiki.hyprland.org/Configuring/Monitors/
@@ -82,15 +91,7 @@ monitor=,preferred,auto,1
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
 
 # Execute your favorite apps at launch
-# exec-once = waybar & hyprpaper & firefox
-exec-once = waybar & hyprland-per-window-layout
-
-# Idle
-exec-once = swayidle -w timeout 300 'swaylock -f -c 000000' \
-            timeout 600 'hyprctl dispatch dpms off' \
-            resume 'hyprctl dispatch dpms on' \
-            timeout 900 'systemctl suspend' \
-            before-sleep 'swaylock -f -c 000000' &
+#exec-once = waybar & hyprland-per-window-layout
 
 # Source a file (multi-file configs)
 # source = ~/.config/hypr/myColors.conf
