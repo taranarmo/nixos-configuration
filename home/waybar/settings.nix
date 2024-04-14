@@ -5,7 +5,8 @@
       mainBar = {
         layer = "top";
         position = "top";
-        height = 30;
+        spacing = 5;
+        reload_style_on_change = true;
         modules-left = [
           "sway/workspaces"
           "sway/mode"
@@ -120,6 +121,10 @@
         };
         "tray" = {
             "icon-size" = 18;
+        };
+        "hyprland/window" = {
+          "max-length" = 200;
+          "separate-outputs" = true;
         };
         "custom/notification" =  {
             "tooltip" =  false;
