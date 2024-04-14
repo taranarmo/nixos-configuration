@@ -78,6 +78,9 @@
     usbutils # lsusb
   ];
 
+  # Install fonts via Home Manager
+  fonts.fontconfig.enable = true;
+
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
