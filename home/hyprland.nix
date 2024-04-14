@@ -32,6 +32,8 @@
           "$mod Shift, j, movewindow, d"
 
           "$mod, f, fullscreen, "
+          "$mod + SHIFT, space, togglefloating , "
+          "$mod, space, togglesplit, " # dwindle
 
           "$mod, Q, exec, kitty"
           "$mod, Return, exec, alacritty"
@@ -85,12 +87,6 @@
 monitor=,preferred,auto,1
 
 # See https://wiki.hyprland.org/Configuring/Keywords/ for more
-
-# Execute your favorite apps at launch
-#exec-once = waybar & hyprland-per-window-layout
-
-# Source a file (multi-file configs)
-# source = ~/.config/hypr/myColors.conf
 
 # Some default env vars.
 env = XCURSOR_SIZE,24
@@ -199,10 +195,7 @@ device:epic-mouse-v1 {
 $mainMod = SUPER
 
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-bind = $mainMod, E, exec, dolphin
-#bind = $mainMod, V, togglefloating, 
 bind = $mainMod, P, pseudo, # dwindle
-#bind = $mainMod, J, togglesplit, # dwindle
 
 # Example special workspace (scratchpad)
 bind = $mainMod, S, togglespecialworkspace, magic
