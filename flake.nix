@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    catppuccin.url = "github:catppuccin/nix";
+
     # home-manager related inputs
     home-manager = {
       #url = "github:nix-community/home-manager";
@@ -66,6 +68,7 @@
     nixpkgs,
     home-manager,
     nur,
+    catppuccin,
     ...
   }: {
     nixosConfigurations.nixos-ideapad = nixpkgs.lib.nixosSystem {
@@ -75,11 +78,17 @@
       modules = [
         ./configuration.nix
         nur.nixosModules.nur
+        catppuccin.nixosModules.catppuccin
         home-manager.nixosModules.home-manager
         {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.taranarmo = import ./home/home.nix;
+            home-manager.users.taranarmo = {
+              imports = [
+                ./home/home.nix
+                catppuccin.homeManagerModules.catppuccin
+              ];
+            };
         }
         ./cachix.nix
         #./firefox.nix
