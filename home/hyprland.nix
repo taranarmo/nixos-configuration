@@ -31,6 +31,12 @@
           "$mod Shift, k, movewindow, u"
           "$mod Shift, j, movewindow, d"
 
+          # Move workspace between monitors with vi-like keys
+          "$mod Control Shift, h, movecurrentworkspacetomonitor, l"
+          "$mod Control Shift, l, movecurrentworkspacetomonitor, r"
+          "$mod Control Shift, k, movecurrentworkspacetomonitor, u"
+          "$mod Control Shift, j, movecurrentworkspacetomonitor, d"
+
           "$mod, f, fullscreen, "
           "$mod + SHIFT, space, togglefloating , "
           "$mod, space, togglesplit, " # dwindle
