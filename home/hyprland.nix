@@ -8,65 +8,57 @@
     enable = true;
     settings = {
       "$mod" = "SUPER";
-      bind =
-        [
-          # Move focus with mainMod + arrow keys
-          "$mod, left, movefocus, l"
-          "$mod, right, movefocus, r"
-          "$mod, up, movefocus, u"
-          "$mod, down, movefocus, d"
-          # Move focus with mainMod + vi-like keys
-          "$mod, H, movefocus, l"
-          "$mod, L, movefocus, r"
-          "$mod, K, movefocus, u"
-          "$mod, J, movefocus, d"
-          # Move window with arrow keys
-          "$mod Shift, Left, movewindow, l"
-          "$mod Shift, Right, movewindow, r"
-          "$mod Shift, Up, movewindow, u"
-          "$mod Shift, Down, movewindow, d"
-          # Move window with vi-like keys
-          "$mod Shift, H, movewindow, l"
-          "$mod Shift, L, movewindow, r"
-          "$mod Shift, K, movewindow, u"
-          "$mod Shift, J, movewindow, d"
+      bind = [
+        # Move focus with mainMod + arrow keys
+        "$mod, left, movefocus, l"
+        "$mod, right, movefocus, r"
+        "$mod, up, movefocus, u"
+        "$mod, down, movefocus, d"
+        # Move focus with mainMod + vi-like keys
+        "$mod, H, movefocus, l"
+        "$mod, L, movefocus, r"
+        "$mod, K, movefocus, u"
+        "$mod, J, movefocus, d"
+        # Move window with arrow keys
+        "$mod Shift, Left, movewindow, l"
+        "$mod Shift, Right, movewindow, r"
+        "$mod Shift, Up, movewindow, u"
+        "$mod Shift, Down, movewindow, d"
+        # Move window with vi-like keys
+        "$mod Shift, H, movewindow, l"
+        "$mod Shift, L, movewindow, r"
+        "$mod Shift, K, movewindow, u"
+        "$mod Shift, J, movewindow, d"
 
-          # Move workspace between monitors with vi-like keys
-          "$mod Control Shift, H, movecurrentworkspacetomonitor, l"
-          "$mod Control Shift, L, movecurrentworkspacetomonitor, r"
-          "$mod Control Shift, K, movecurrentworkspacetomonitor, u"
-          "$mod Control Shift, J, movecurrentworkspacetomonitor, d"
+        # Move workspace between monitors with vi-like keys
+        "$mod Control Shift, H, movecurrentworkspacetomonitor, l"
+        "$mod Control Shift, L, movecurrentworkspacetomonitor, r"
+        "$mod Control Shift, K, movecurrentworkspacetomonitor, u"
+        "$mod Control Shift, J, movecurrentworkspacetomonitor, d"
 
-          "$mod, F, fullscreen, "
-          "$mod Shift, Space, togglefloating , "
-          "$mod, Space, togglesplit, " # dwindle
+        "$mod, F, fullscreen, "
+        "$mod Shift, Space, togglefloating , "
+        "$mod, Space, togglesplit, " # dwindle
 
-          "$mod, Q, exec, kitty"
-          "$mod, Return, exec, alacritty"
-          "$mod Shift, Q, killactive, "
-          "$mod, M, exit, "
-          "$mod, D, exec, wofi --show drun"
-          #"$mod, R, exec, wofi --show drun"
+        "$mod, Q, exec, kitty"
+        "$mod, Return, exec, alacritty"
+        "$mod Shift, Q, killactive, "
+        "$mod, M, exit, "
+        "$mod, D, exec, wofi --show drun"
+        #"$mod, R, exec, wofi --show drun"
 
-          #"$mod, L, exec, swaylock -f -c 000000"
-          "Control + Alt, L, exec, swaylock -f -c 000000"
-          "Control + Alt, Delete, exec, nwg-bar"
+        #"$mod, L, exec, swaylock -f -c 000000"
+        "Control + Alt, L, exec, swaylock -f -c 000000"
+        "Control + Alt, Delete, exec, nwg-bar"
 
-          ", Print, exec, grimblast copy area"
+        ", Print, exec, grimblast copy area"
 
-          ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
-          ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
-          ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-          ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-          ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-          ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
-          ", XF86AudioPlay, exec, playerctl play-pause"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioPrev, exec, playerctl previous"
-          #", XF86Search, exec, $menu"
-
-        ]
-        ++ (
+        ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+        ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPrev, exec, playerctl previous"
+      ] ++ (
           # workspaces
           # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
           builtins.concatLists (builtins.genList (
@@ -82,11 +74,17 @@
             )
             10)
         );
-        exec-once = [
-          "waybar"
-          "hyprland-per-window-layout"
-          "swayidle -w timeout 30 'brightnessctl -s & brightnessctl set 10%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 900 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
-        ];
+      binde = [
+        ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+        ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+        ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
+        ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
+      ];
+      exec-once = [
+        "waybar"
+        "hyprland-per-window-layout"
+        "swayidle -w timeout 30 'brightnessctl -s & brightnessctl set 10%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 900 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
+      ];
     };
     extraConfig = ''
 # See https://wiki.hyprland.org/Configuring/Monitors/
