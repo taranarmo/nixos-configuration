@@ -16,41 +16,41 @@
           "$mod, up, movefocus, u"
           "$mod, down, movefocus, d"
           # Move focus with mainMod + vi-like keys
-          "$mod, h, movefocus, l"
-          "$mod, l, movefocus, r"
-          "$mod, k, movefocus, u"
-          "$mod, j, movefocus, d"
+          "$mod, H, movefocus, l"
+          "$mod, L, movefocus, r"
+          "$mod, K, movefocus, u"
+          "$mod, J, movefocus, d"
           # Move window with arrow keys
-          "$mod Shift, left, movewindow, l"
-          "$mod Shift, right, movewindow, r"
-          "$mod Shift, up, movewindow, u"
-          "$mod Shift, down, movewindow, d"
+          "$mod Shift, Left, movewindow, l"
+          "$mod Shift, Right, movewindow, r"
+          "$mod Shift, Up, movewindow, u"
+          "$mod Shift, Down, movewindow, d"
           # Move window with vi-like keys
-          "$mod Shift, h, movewindow, l"
-          "$mod Shift, l, movewindow, r"
-          "$mod Shift, k, movewindow, u"
-          "$mod Shift, j, movewindow, d"
+          "$mod Shift, H, movewindow, l"
+          "$mod Shift, L, movewindow, r"
+          "$mod Shift, K, movewindow, u"
+          "$mod Shift, J, movewindow, d"
 
           # Move workspace between monitors with vi-like keys
-          "$mod Control Shift, h, movecurrentworkspacetomonitor, l"
-          "$mod Control Shift, l, movecurrentworkspacetomonitor, r"
-          "$mod Control Shift, k, movecurrentworkspacetomonitor, u"
-          "$mod Control Shift, j, movecurrentworkspacetomonitor, d"
+          "$mod Control Shift, H, movecurrentworkspacetomonitor, l"
+          "$mod Control Shift, L, movecurrentworkspacetomonitor, r"
+          "$mod Control Shift, K, movecurrentworkspacetomonitor, u"
+          "$mod Control Shift, J, movecurrentworkspacetomonitor, d"
 
-          "$mod, f, fullscreen, "
-          "$mod + SHIFT, space, togglefloating , "
-          "$mod, space, togglesplit, " # dwindle
+          "$mod, F, fullscreen, "
+          "$mod Shift, Space, togglefloating , "
+          "$mod, Space, togglesplit, " # dwindle
 
           "$mod, Q, exec, kitty"
           "$mod, Return, exec, alacritty"
-          "$mod shift, Q, killactive, "
+          "$mod Shift, Q, killactive, "
           "$mod, M, exit, "
           "$mod, D, exec, wofi --show drun"
           #"$mod, R, exec, wofi --show drun"
 
           #"$mod, L, exec, swaylock -f -c 000000"
-          "CTRL + ALT, L, exec, swaylock -f -c 000000"
-          "CTRL + ALT, Delete, exec, nwg-bar"
+          "Control + Alt, L, exec, swaylock -f -c 000000"
+          "Control + Alt, Delete, exec, nwg-bar"
 
           ", Print, exec, grimblast copy area"
 
