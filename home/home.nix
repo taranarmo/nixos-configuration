@@ -9,6 +9,10 @@
   home.homeDirectory = "/home/taranarmo";
 
   catppuccin.flavour = "mocha";
+  gtk = {
+    enable = true;
+    catppuccin.enable = true;
+  };
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
 
