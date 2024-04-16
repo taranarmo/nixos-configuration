@@ -2,6 +2,14 @@
 {
   home.packages = with pkgs; [
     hyprland-per-window-layout
+    wl-clipboard
+    grim # screenshots
+    sway-contrib.grimshot # screenshot helper
+    swaylock
+    swayidle
+    waybar
+    nwg-bar
+    wofi
   ];
 
   wayland.windowManager.hyprland = {
