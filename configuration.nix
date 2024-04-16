@@ -103,7 +103,20 @@
   services.avahi.nssmdns = true; # enables the mDNS NSS plug-in
   services.avahi.openFirewall = true; # opens the firewall for UDP port 5353
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    settings = {
+      General = {
+        FastConnectable = true;
+      };
+      GATT = {
+        ReconnectIntervals = "1. 2. 3";
+      };
+      Policy = {
+        ReconnectAttempts = 7;
+      };
+    };
+  };
   services.blueman.enable = true;
 
   # MTP mount service
