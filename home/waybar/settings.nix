@@ -13,7 +13,7 @@
           "hyprland/workspaces"
           "hyprland/submap"
         ];
-        modules-center = [ "sway/window" "hyprland/window" ];
+        modules-center = [ "clock" ];
         modules-right = [
           "custom/notification"
           "tray"
@@ -28,7 +28,6 @@
           "battery"
           "hyprland/language"
           "sway/language"
-          "clock"
         ];
         "bluetooth" = {
             "format" = " {status}";
