@@ -66,6 +66,10 @@
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
+
+        # Screenshots
+        "$mod Control Shift, c, exec, wl-copy < $(grimshot --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Area
+        "$mod, C, exec, wl-copy < $(grimshot --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Active window
       ] ++ (
           # workspaces
           # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
@@ -89,6 +93,7 @@
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
       ];
       exec-once = [
+        "[ -d /tmp/screenshots ] || mkdir /tmp/screenshots"
         "waybar"
         "hyprland-per-window-layout"
         "swayidle -w timeout 30 'brightnessctl -s & brightnessctl set 10%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 900 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
