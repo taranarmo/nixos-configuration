@@ -61,12 +61,6 @@
 
         ", Print, exec, grimblast copy area"
 
-        ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
-        ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl previous"
-
         # Screenshots
         "$mod Control Shift, c, exec, wl-copy < $(grimshot --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Area
         "$mod, C, exec, wl-copy < $(grimshot --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Active window
@@ -86,7 +80,14 @@
             )
             10)
         );
-      binde = [
+      bindl = [
+        ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
+        ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPrev, exec, playerctl previous"
+      ];
+      bindel = [
         ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
         ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
