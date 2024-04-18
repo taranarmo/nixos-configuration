@@ -29,6 +29,10 @@
           "hyprland/language"
           "sway/language"
         ];
+        "backlight" = {
+          "format" = "{percent}% {icon}";
+          "fotmat-icons" = ["󰃚" "󰃛" "󰃜" "󰃝" "󰃞" "󰃟" "󰃠"];
+        };
         "bluetooth" = {
           "format-on" = "󰂯";
           "format-off" = "󰂲";
