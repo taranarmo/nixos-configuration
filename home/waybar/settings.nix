@@ -29,6 +29,9 @@
           "hyprland/language"
           "sway/language"
         ];
+        "hyprland/language" = {
+          "format" = {};
+        };
         "backlight" = {
           "format" = "{percent}% {icon}";
           "fotmat-icons" = ["󰃚" "󰃛" "󰃜" "󰃝" "󰃞" "󰃟" "󰃠"];
