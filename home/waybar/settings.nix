@@ -22,7 +22,7 @@
           "cpu"
           "memory"
           "backlight"
-          "pulseaudio"
+          "wireplumber"
           "network"
           "idle_inhibitor"
           "battery"
@@ -105,7 +105,7 @@
           "on-click" = "alacritty -e nmtui";
           "tooltip" = false;
         };
-        "pulseaudio" = {
+        "wireplumber" = {
           "format" = "{icon}";
           "format-alt" = "{volume} {icon}";
           "format-alt-click" = "click-right";
