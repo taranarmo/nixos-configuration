@@ -30,7 +30,8 @@
           "sway/language"
         ];
         "hyprland/language" = {
-          "format" = {};
+          "format-eu" = "EU";
+          "format-ru" = "RU";
         };
         "backlight" = {
           "format" = "{percent}% {icon}";
