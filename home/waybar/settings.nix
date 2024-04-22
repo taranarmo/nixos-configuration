@@ -79,7 +79,7 @@
           "format" = "{capacity}% {icon}";
           "format-alt" = "{time} {icon}";
           "format-icons" = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
-          "format-charging" = "{capacity}% 󰂄";
+          "format-charging" = "{capacity}% {icon}󰚥";
           "interval" = 30;
           "states" = {
             "warning" = 25;
