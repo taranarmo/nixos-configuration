@@ -98,7 +98,7 @@
         "[ -d /tmp/screenshots ] || mkdir /tmp/screenshots"
         "waybar"
         "hyprland-per-window-layout"
-        "swayidle -w timeout 90 'brightnessctl -s & brightnessctl set 10%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 1200 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
+        "swayidle -w timeout 90 'brightnessctl -s & brightnessctl set 5%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 1200 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
       ];
     };
     extraConfig = ''
