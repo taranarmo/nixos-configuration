@@ -212,6 +212,7 @@
     brightnessctl
     pulseaudio
     pavucontrol
+    helvum
     bluez
     gnupg
     pinentry
