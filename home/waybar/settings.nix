@@ -34,7 +34,7 @@
           "format-ru" = "RU";
         };
         "backlight" = {
-          "format" = "{percent}% {icon}";
+          "format" = "{percent}󰳲";
           "fotmat-icons" = ["󰃚" "󰃛" "󰃜" "󰃝" "󰃞" "󰃟" "󰃠"];
         };
         "bluetooth" = {
