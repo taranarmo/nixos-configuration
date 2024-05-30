@@ -94,6 +94,9 @@
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
       ];
+      bindm = [
+        "$mod, mouse:272, movewindow" # move window with mouse
+      ];
       exec-once = [
         "[ -d /tmp/screenshots ] || mkdir /tmp/screenshots"
         "waybar"
