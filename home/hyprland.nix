@@ -46,7 +46,7 @@
         "$mod Control Shift, J, movecurrentworkspacetomonitor, d"
 
         "$mod, F, fullscreen, "
-        "$mod Shift, Space, togglefloating , "
+        "$mod Shift, Space, togglefloating, "
         "$mod, Space, togglesplit, " # dwindle
 
         "$mod, Q, exec, kitty"
