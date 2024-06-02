@@ -2,7 +2,7 @@
   description = "NixOS configuration with flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     catppuccin.url = "github:catppuccin/nix";
@@ -10,7 +10,7 @@
     # home-manager related inputs
     home-manager = {
       #url = "github:nix-community/home-manager";
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nur.url = "github:nix-community/NUR";

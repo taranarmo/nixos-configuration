@@ -93,16 +93,16 @@
 
   services.xserver = {
     enable = true;
-    layout = "eu,ru";
-    xkbVariant = ",";
-    xkbOptions = "grp:caps_switch,grp:lalt_lshift_toggle,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr";
-    displayManager.sddm.enable = true;
+    xkb.layout = "eu,ru";
+    xkb.variant = ",";
+    xkb.options = "grp:caps_switch,grp:lalt_lshift_toggle,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr";
   };
+  services.displayManager.sddm.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.avahi.enable = true; # runs the Avahi daemon
-  services.avahi.nssmdns = true; # enables the mDNS NSS plug-in
+  services.avahi.nssmdns4 = true; # enables the mDNS NSS plug-in
   services.avahi.openFirewall = true; # opens the firewall for UDP port 5353
 
   hardware.bluetooth = {
@@ -261,7 +261,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-    pinentryFlavor = "tty";
+    pinentryPackage = pkgs.pinentry-tty;
   };
   programs.zsh = {
     enable = true;
