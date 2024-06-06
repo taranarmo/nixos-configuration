@@ -6,7 +6,7 @@
   ];
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.latest;
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];
