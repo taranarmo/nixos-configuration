@@ -8,10 +8,12 @@
   home.username = "taranarmo";
   home.homeDirectory = "/home/taranarmo";
 
-  catppuccin.flavour = "mocha";
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+  };
   gtk = {
     enable = true;
-    catppuccin.enable = true;
   };
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
@@ -97,7 +99,6 @@
   # alacritty - a cross-platform, GPU-accelerated terminal emulator
   programs.alacritty = {
     enable = true;
-    catppuccin.enable = true;
     # custom settings
     settings = {
       env.TERM = "xterm-256color";
@@ -110,7 +111,6 @@
   };
   programs.kitty = {
     enable = true;
-    catppuccin.enable = true;
   };
   programs.wezterm = {
     enable = true;

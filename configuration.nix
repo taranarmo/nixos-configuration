@@ -408,7 +408,10 @@
   '';
   # SuspendState=freeze
 
-  catppuccin.flavor = "mocha";
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+  };
 
 
   programs.steam = {

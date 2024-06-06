@@ -14,7 +14,6 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    catppuccin.enable = true;
     settings = {
       "$mod" = "SUPER";
       bind = [
