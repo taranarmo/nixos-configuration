@@ -408,7 +408,7 @@
   '';
   # SuspendState=freeze
 
-  catppuccin.flavour = "mocha";
+  catppuccin.flavor = "mocha";
 
 
   programs.steam = {
