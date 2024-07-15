@@ -97,13 +97,18 @@
     xkb.variant = ",";
     xkb.options = "grp:caps_switch,grp:lalt_lshift_toggle,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr";
   };
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    package = pkgs.kdePackages.sddm;
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.avahi.enable = true; # runs the Avahi daemon
   services.avahi.nssmdns4 = true; # enables the mDNS NSS plug-in
   services.avahi.openFirewall = true; # opens the firewall for UDP port 5353
+
+  hardware.enableAllFirmware = true;
 
   hardware.bluetooth = {
     enable = true;
