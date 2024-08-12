@@ -77,6 +77,7 @@
       specialArgs.flake-inputs = inputs;
       modules = [
         ./configuration.nix
+        ./nixos-ideapad.nix
         nur.nixosModules.nur
         catppuccin.nixosModules.catppuccin
         home-manager.nixosModules.home-manager
