@@ -143,7 +143,7 @@ general {
     layout = dwindle
 
     # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-    allow_tearing = true
+    allow_tearing = false
 }
 
 env = WLR_DRM_NO_ATOMIC,1
