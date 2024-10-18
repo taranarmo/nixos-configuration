@@ -171,33 +171,36 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.taranarmo = {
-    isNormalUser = true;
-    description = "Sergey Volkov";
-    extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.zsh;
-    packages = with pkgs; [
-      firefox-wayland
-      qutebrowser
-      chromium
-      lynx
-      mpd
-      mpc-cli
-      gimp
-      kate
-      taskwarrior
-      telegram-desktop
-      apvlv
-      libnotify
-      mpv
-      aspell
-      aspellDicts.en
-      aspellDicts.de
-      aspellDicts.ru
-      AusweisApp2
-      htop-vim
-      hurl
-    ];
+  users = {
+    defaultUserShell = pkgs.zsh;
+
+    users.taranarmo = {
+      isNormalUser = true;
+      description = "Sergey Volkov";
+      extraGroups = [ "networkmanager" "wheel" ];
+      packages = with pkgs; [
+        firefox-wayland
+        qutebrowser
+        chromium
+        lynx
+        mpd
+        mpc-cli
+        gimp
+        kate
+        taskwarrior
+        telegram-desktop
+        apvlv
+        libnotify
+        mpv
+        aspell
+        aspellDicts.en
+        aspellDicts.de
+        aspellDicts.ru
+        AusweisApp2
+        htop-vim
+        hurl
+      ];
+    };
   };
 
   # Fonts should be put in separate section of other packages
@@ -256,7 +259,7 @@
     v4l-utils
     cachix
   ];
-  environment.shells = with pkgs; [ zsh ];
+  #environment.shells = with pkgs; [ zsh ];
   environment.variables = {
     EDITOR = "vim";
     XDG_SESSION_TYPE = "wayland";
@@ -275,21 +278,6 @@
   };
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    ohMyZsh = {
-      enable = true;
-      theme = "robbyrussell";
-      plugins = [
-        "git"
-        "colored-man-pages"
-        "pass"
-        "docker"
-        "aws"
-        #"vi-mode"
-     ];
-    };
   };
   programs.neovim = {
     enable = true;
