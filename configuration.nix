@@ -27,6 +27,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.tmp.cleanOnBoot = true;
+  systemd.tmpfiles.rules = [
+    "d /tmp/screenshots 1777 -"
+  ];
 
   networking = {
     hostName = "nixos-ideapad";

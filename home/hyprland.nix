@@ -4,7 +4,7 @@
     hyprland-per-window-layout
     wl-clipboard
     grim # screenshots
-    sway-contrib.grimshot # screenshot helper
+    grimblast
     swaylock
     swayidle
     waybar
@@ -62,8 +62,8 @@
         ", Print, exec, grimblast copy area"
 
         # Screenshots
-        "$mod Control Shift, c, exec, wl-copy < $(grimshot --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Area
-        "$mod, C, exec, wl-copy < $(grimshot --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Active window
+        "$mod Control Shift, c, exec, wl-copy < $(grimblast --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Area
+        "$mod, C, exec, wl-copy < $(grimblast --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Active window
       ] ++ (
           # workspaces
           # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
@@ -97,10 +97,10 @@
         "$mod, mouse:272, movewindow" # move window with mouse
       ];
       exec-once = [
-        "[ -d /tmp/screenshots ] || mkdir /tmp/screenshots"
         "waybar"
         "hyprland-per-window-layout"
         "swayidle -w timeout 90 'brightnessctl -s & brightnessctl set 5%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 1200 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
+        "[ -d /tmp/screenshots ] || mkdir /tmp/screenshots"
       ];
     };
     extraConfig = ''
