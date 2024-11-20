@@ -14,6 +14,7 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.enable = false;
     settings = {
       "$mod" = "SUPER";
       bind = [
@@ -159,10 +160,6 @@ decoration {
         passes = 1
     }
 
-    drop_shadow = yes
-    shadow_range = 4
-    shadow_render_power = 3
-    col.shadow = rgba(1a1a1aee)
 }
 
 animations {
@@ -206,31 +203,6 @@ misc {
 # Example windowrule v2
 # windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
 # See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
-
-
-# See https://wiki.hyprland.org/Configuring/Keywords/ for more
-$mainMod = SUPER
-
-# Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-bind = $mainMod, P, pseudo, # dwindle
-
-# Example special workspace (scratchpad)
-bind = $mainMod, S, togglespecialworkspace, magic
-bind = $mainMod SHIFT, S, movetoworkspace, special:magic
-
-bind=$mainMod,R,submap,resize # will switch to a submap called resize
-submap=resize # will start a submap called "resize"
-binde=,l,resizeactive,10 0
-binde=,h,resizeactive,-10 0
-binde=,k,resizeactive,0 -10
-binde=,j,resizeactive,0 10
-binde=Shift,l,resizeactive,50 0
-binde=Shift,h,resizeactive,-50 0
-binde=Shift,k,resizeactive,0 -50
-binde=Shift,j,resizeactive,0 50
-bind=,escape,submap,reset # use reset to go back to the global submap
-submap=reset # will reset the submap, meaning end the current one and return to the global one.
-
     '';
   };
 }

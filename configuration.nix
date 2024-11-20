@@ -209,7 +209,7 @@
   # Fonts should be put in separate section of other packages
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     liberation_ttf
     roboto
@@ -262,11 +262,9 @@
     v4l-utils
     cachix
   ];
-  #environment.shells = with pkgs; [ zsh ];
   environment.variables = {
     EDITOR = "vim";
     XDG_SESSION_TYPE = "wayland";
-    XDG_CURRENT_DESKTOP = "sway";
   };
 
 
@@ -284,8 +282,8 @@
   };
 
   security.polkit.enable = true;
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true; # so that gtk works properly
