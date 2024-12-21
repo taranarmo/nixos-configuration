@@ -13,6 +13,10 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur.url = "github:nix-community/NUR";
     nurpkgs.url = "github:nix-community/NUR";
 
@@ -69,6 +73,7 @@
     home-manager,
     nur,
     catppuccin,
+    nixvim,
     ...
   }: {
     nixosConfigurations.nixos-ideapad = nixpkgs.lib.nixosSystem {
@@ -88,6 +93,7 @@
               imports = [
                 ./home/home.nix
                 catppuccin.homeManagerModules.catppuccin
+                nixvim.homeManagerModules.nixvim
               ];
             };
         }
