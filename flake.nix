@@ -83,7 +83,7 @@
       modules = [
         ./configuration.nix
         ./nixos-ideapad.nix
-        nur.nixosModules.nur
+        nur.modules.nixos.default
         catppuccin.nixosModules.catppuccin
         home-manager.nixosModules.home-manager
         {
