@@ -113,6 +113,8 @@ monitor=,preferred,auto,1
 # Some default env vars.
 env = XCURSOR_SIZE,24
 
+#resize_on_border = true;
+
 # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
 input {
     kb_layout = eu,ru
