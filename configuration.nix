@@ -191,7 +191,7 @@
         mpc-cli
         gimp
         kate
-        taskwarrior
+        taskwarrior3
         telegram-desktop
         apvlv
         libnotify
