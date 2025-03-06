@@ -78,8 +78,7 @@
                 "$mod, ${ws}, workspace, ${toString (x + 1)}"
                 "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
               ]
-            )
-            10)
+          ) 10)
         );
       bindl = [
         ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
@@ -103,108 +102,92 @@
         "swayidle -w timeout 90 'brightnessctl -s & brightnessctl set 5%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 1200 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
         "[ -d /tmp/screenshots ] || mkdir /tmp/screenshots"
       ];
+      monitor = ",preferred,auto,1";
+
+      input = {
+        kb_layout = "eu,ru";
+        kb_variant = "";
+        kb_model = "pc101";
+        kb_options = "grp:lalt_lshift_toggle,grp:rctrl_switch,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr,ctrl:nocaps";
+        kb_rules = "";
+
+        follow_mouse = 1;
+
+        touchpad = {
+          natural_scroll = "no";
+          disable_while_typing = 1;
+        };
+
+        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+      };
+
+      general = {
+        gaps_in = 3;
+        gaps_out = 5;
+        border_size = 2;
+        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
+        layout = "dwindle";
+        allow_tearing = false;
+      };
+
+      decoration = {
+        rounding = 10;
+        blur = {
+          enabled = true;
+          size = 3;
+          passes = 1;
+        };
+      };
+
+      animations = {
+        enabled = true;
+        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+        animation = [
+          "windows, 1, 1, myBezier"
+          "windowsOut, 1, 1, default, popin 80%"
+          "border, 1, 10, default"
+          "borderangle, 1, 8, default"
+          "fade, 1, 2, default"
+          "workspaces, 1, 3, default"
+        ];
+      };
+
+      dwindle = {
+        pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+        preserve_split = true; # you probably want this
+      };
+
+      master = {
+        new_status = "master";
+      };
+
+      gestures = {
+        workspace_swipe = "off";
+      };
+
+      misc = {
+        force_default_wallpaper = 0; # Set to 0 to disable the anime mascot wallpapers
+      };
+
+      # Example windowrule v1
+      # windowrule = "float, ^(kitty)$";
+      # Example windowrule v2
+      # windowrulev2 = "float,class:^(kitty)$,title:^(kitty)$";
     };
     extraConfig = ''
-# See https://wiki.hyprland.org/Configuring/Monitors/
-monitor=,preferred,auto,1
-
-# See https://wiki.hyprland.org/Configuring/Keywords/ for more
-
-# Some default env vars.
-env = XCURSOR_SIZE,24
-
-#resize_on_border = true;
-
-# For all categories, see https://wiki.hyprland.org/Configuring/Variables/
-input {
-    kb_layout = eu,ru
-    kb_variant =
-    kb_model = pc101
-    kb_options = grp:lalt_lshift_toggle,grp:rctrl_switch,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr,ctrl:nocaps
-
-    kb_rules =
-
-    follow_mouse = 1
-
-    touchpad {
-        natural_scroll = no
-        disable_while_typing = 1
-    }
-
-    sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
-}
-
-general {
-    # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-    gaps_in = 3
-    gaps_out = 5
-    border_size = 2
-    col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
-    col.inactive_border = rgba(595959aa)
-
-    layout = dwindle
-
-    # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
-    allow_tearing = false
-}
-
-env = WLR_DRM_NO_ATOMIC,1
-
-decoration {
-    # See https://wiki.hyprland.org/Configuring/Variables/ for more
-
-    rounding = 10
-
-    blur {
-        enabled = true
-        size = 3
-        passes = 1
-    }
-
-}
-
-animations {
-    enabled = yes
-    # Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
-
-    bezier = myBezier, 0.05, 0.9, 0.1, 1.05
-
-    animation = windows, 1, 1, myBezier
-    animation = windowsOut, 1, 1, default, popin 80%
-    animation = border, 1, 10, default
-    animation = borderangle, 1, 8, default
-    animation = fade, 1, 2, default
-    animation = workspaces, 1, 3, default
-}
-
-dwindle {
-    # See https://wiki.hyprland.org/Configuring/Dwindle-Layout/ for more
-    pseudotile = yes # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-    preserve_split = yes # you probably want this
-}
-
-master {
-    # See https://wiki.hyprland.org/Configuring/Master-Layout/ for more
-    new_status=master
-}
-
-gestures {
-    # See https://wiki.hyprland.org/Configuring/Variables/ for more
-    workspace_swipe = off
-}
-
-misc {
-    # See https://wiki.hyprland.org/Configuring/Variables/ for more
-    force_default_wallpaper = 0 # Set to 0 to disable the anime mascot wallpapers
-}
-
-
-# Example windowrule v1
-# windowrule = float, ^(kitty)$
-# Example windowrule v2
-# windowrulev2 = float,class:^(kitty)$,title:^(kitty)$
-# See https://wiki.hyprland.org/Configuring/Window-Rules/ for more
+      bind = $mod, R, submap, resize
+      submap = resize
+      binde = , h, resizeactive, 10 0
+      binde = , l, resizeactive, -10 0
+      binde = , k, resizeactive, 0 -10
+      binde = , j, resizeactive, 0 10
+      binde = shift, h, resizeactive, 50 0
+      binde = shift, l, resizeactive, -50 0
+      binde = shift, k, resizeactive, 0 -50
+      binde = shift, j, resizeactive, 0 50
+      bind = , escape, submap, reset
+      submap = reset
     '';
   };
 }
