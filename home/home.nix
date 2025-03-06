@@ -5,7 +5,7 @@
     ./hyprland.nix
     ./waybar
     ./zsh.nix
-    ./neovim.nix
+    ./nixvim.nix
   ];
   home.username = "taranarmo";
   home.homeDirectory = "/home/taranarmo";
