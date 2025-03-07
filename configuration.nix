@@ -2,7 +2,7 @@
 
 {
   nixpkgs.overlays = [
-    flake-inputs.nurpkgs.overlay
+    flake-inputs.nurpkgs.overlays.default
   ];
 
   nix = {
