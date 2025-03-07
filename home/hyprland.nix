@@ -60,6 +60,8 @@
         "Control + Alt, L, exec, swaylock -f -c 000000"
         "Control + Alt, Delete, exec, nwg-bar"
 
+        "Control, Space, exec, hyprctl switchxkblayout current next"
+
         ", Print, exec, grimblast copy area"
 
         # Screenshots
