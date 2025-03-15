@@ -98,6 +98,9 @@
     userName = "Sergey Volkov ";
     userEmail = "taranarmo@gmail.com";
     difftastic.enable = true;
+    extraConfig = {
+      pull.rebase = true;
+    };
   };
 
   # alacritty - a cross-platform, GPU-accelerated terminal emulator
