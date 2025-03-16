@@ -3,6 +3,8 @@
 {
   imports = [
     ./hyprland.nix
+    ./hypridle.nix
+    ./hyprlock.nix
     ./waybar
     ./zsh.nix
     ./nixvim.nix

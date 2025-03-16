@@ -17,6 +17,9 @@
       url = "github:nix-community/nixvim/nixos-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix.url = "github:danth/stylix/release-24.11";
+
     nur.url = "github:nix-community/NUR";
     nurpkgs.url = "github:nix-community/NUR";
 
@@ -74,6 +77,7 @@
     nur,
     catppuccin,
     nixvim,
+    stylix,
     ...
   }: {
     nixosConfigurations.nixos-ideapad = nixpkgs.lib.nixosSystem {
@@ -86,6 +90,7 @@
         nur.modules.nixos.default
         catppuccin.nixosModules.catppuccin
         home-manager.nixosModules.home-manager
+        stylix.nixosModules.stylix
         {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

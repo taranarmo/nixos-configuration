@@ -337,6 +337,7 @@
     enable = true;
     flavor = "mocha";
   };
+  stylix.autoEnable = true;
 
 
   programs.steam = {
