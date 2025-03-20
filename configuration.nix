@@ -190,7 +190,6 @@
         mpd
         mpc-cli
         gimp
-        kate
         taskwarrior3
         telegram-desktop
         apvlv
