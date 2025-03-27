@@ -207,8 +207,7 @@
     liberation_ttf
     roboto
     font-awesome
-    nerdfonts
-  ];
+  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts); # should be redone to list of specific fonts
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
