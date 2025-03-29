@@ -94,6 +94,7 @@
         {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "hmbackup";
             home-manager.users.taranarmo = {
               imports = [
                 ./home/home.nix
