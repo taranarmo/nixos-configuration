@@ -18,10 +18,6 @@
       options = "--delete-older-than 30d";
     };
   };
-  imports =
-   [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -33,7 +29,6 @@
   ];
 
   networking = {
-    hostName = "nixos-ideapad";
     firewall = {
       enable = true;
       #package = pkgs.nftables;

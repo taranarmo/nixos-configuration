@@ -80,6 +80,7 @@
     stylix,
     ...
   }: {
+
     nixosConfigurations.nixos-ideapad = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       #specialArgs = { inherit inputs; };
@@ -104,6 +105,37 @@
             };
         }
         ./cachix.nix
+        ./hardware/ideapad.nix
+        { networking.hostName = "nixos-ideapad"; }
+        #./firefox.nix
+      ];
+    };
+
+    nixosConfigurations.hp-gaming = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      #specialArgs = { inherit inputs; };
+      specialArgs.flake-inputs = inputs;
+      modules = [
+        ./configuration.nix
+        nur.modules.nixos.default
+        catppuccin.nixosModules.catppuccin
+        home-manager.nixosModules.home-manager
+        stylix.nixosModules.stylix
+        {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "hmbackup";
+            home-manager.users.taranarmo = {
+              imports = [
+                ./home/home.nix
+                catppuccin.homeManagerModules.catppuccin
+                nixvim.homeManagerModules.nixvim
+              ];
+            };
+        }
+        ./cachix.nix
+        ./hardware/hp-gaming.nix
+        { networking.hostName = "hp-gaming"; }
         #./firefox.nix
       ];
     };
