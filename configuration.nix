@@ -107,6 +107,7 @@
     xkb.variant = ",";
     xkb.options = "grp:caps_switch,grp:lalt_lshift_toggle,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr";
   };
+
   services.displayManager.sddm = {
     enable = true;
     package = pkgs.kdePackages.sddm;
@@ -165,9 +166,6 @@
     pulse.enable = true;
     wireplumber.enable = true;
   };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users = {
@@ -277,8 +275,10 @@
   };
 
   security.polkit.enable = true;
-  hardware.graphics.enable = true;
-  hardware.graphics.enable32Bit = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true; # so that gtk works properly

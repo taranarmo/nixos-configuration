@@ -135,6 +135,7 @@
         }
         ./cachix.nix
         ./hardware/hp-gaming.nix
+        ./gaming.nix
         { networking.hostName = "hp-gaming"; }
         #./firefox.nix
       ];
