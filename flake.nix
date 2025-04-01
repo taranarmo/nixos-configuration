@@ -99,7 +99,7 @@
             home-manager.users.taranarmo = {
               imports = [
                 ./home/home.nix
-                catppuccin.homeManagerModules.catppuccin
+                catppuccin.homeModules.catppuccin
                 nixvim.homeManagerModules.nixvim
               ];
             };
@@ -128,7 +128,7 @@
             home-manager.users.taranarmo = {
               imports = [
                 ./home/home.nix
-                catppuccin.homeManagerModules.catppuccin
+                catppuccin.homeModules.catppuccin
                 nixvim.homeManagerModules.nixvim
               ];
             };
