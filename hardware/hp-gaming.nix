@@ -48,7 +48,7 @@
       nvidiaBusId = "PCI:1:0:0";
     };
     modesetting.enable = true;
-    powerManagement.enable = true;
+    powerManagement.enable = false;
     open = false;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
