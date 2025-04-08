@@ -218,7 +218,6 @@
   environment.systemPackages = with pkgs; [
     git
     vim-full
-    #vimPlugins.markdown-preview-nvim
     wget
     brightnessctl
     pulseaudio
@@ -286,7 +285,6 @@
       swaylock
       swayidle
       waybar
-      swaykbdd # remember keyboard layout per window
       wf-recorder
       wdisplays
       mako # notification daemon
@@ -325,21 +323,12 @@
     HibernateDelaySec=30m
     SuspendState=mem
   '';
-  # SuspendState=freeze
 
   catppuccin = {
     enable = true;
     flavor = "mocha";
   };
   stylix.autoEnable = true;
-
-
-  programs.steam = {
-    enable = true;
-    gamescopeSession.enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  };
 
   virtualisation = {
     docker = {
