@@ -12,6 +12,14 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [
+    "loglevel=2"
+    "rd.systemd.show_status=false"
+    "rd.udev.log_level=0"
+    "udev.log_priority=2"
+    "resume_offset=533760"
+    "mem_sleep_default=deep"
+  ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/3d6ce35e-1209-43da-bc08-993a6cac8cf7";
@@ -39,6 +47,7 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
+    open = false;
     prime = {
       offload = {
         enable = true;
@@ -47,9 +56,13 @@
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
+    nvidiaSettings = false;
     modesetting.enable = true;
-    powerManagement.enable = false;
-    open = false;
+    dynamicBoost.enable = true;
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 }
