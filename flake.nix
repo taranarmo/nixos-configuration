@@ -7,11 +7,11 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
-    # home-manager related inputs
     home-manager = {
       url = "github:nix-community/home-manager/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     nixvim = {
       url = "github:nix-community/nixvim/";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,12 +19,17 @@
 
     stylix.url = "github:danth/stylix/";
 
-    nur.url = "github:nix-community/NUR";
     nurpkgs.url = "github:nix-community/NUR";
 
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "hyprland/nixpkgs";
     };
 
 #    nixpkgs-unfree = {
@@ -33,11 +38,6 @@
 #    };
 
 #    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-#    hyprland.url = "github:hyprwm/Hyprland";
-#    hyprland-contrib = {
-#      url = "github:hyprwm/contrib";
-#      inputs.nixpkgs.follows = "hyprland/nixpkgs";
-#    };
 #    sops-nix = {
 #      url = "github:Mic92/sops-nix";
 #      inputs.nixpkgs.follows = "nixpkgs";
