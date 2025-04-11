@@ -105,6 +105,7 @@
         }
         ./cachix.nix
         ./hardware/ideapad.nix
+        ./hardware/keyboard.nix
         { networking.hostName = "nixos-ideapad"; }
         #./firefox.nix
       ];
@@ -134,6 +135,7 @@
         }
         ./cachix.nix
         ./hardware/hp-gaming.nix
+        ./hardware/keyboard.nix
         ./gaming.nix
         { networking.hostName = "hp-gaming"; }
         #./firefox.nix
