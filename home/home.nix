@@ -100,9 +100,6 @@
     userName = "Sergey Volkov ";
     userEmail = "taranarmo@gmail.com";
     difftastic.enable = true;
-    extraConfig = {
-      pull.rebase = true;
-    };
   };
 
   programs.gpg.enable = true;
