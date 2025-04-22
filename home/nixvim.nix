@@ -8,7 +8,7 @@
 
     colorschemes.catppuccin.enable = true;
 
-    diagnostics = {
+    diagnostics.settings = {
       virtual_lines.current_line = true;
     };
 
