@@ -8,6 +8,10 @@
 
     colorschemes.catppuccin.enable = true;
 
+    diagnostics = {
+      virtual_lines.current_line = true;
+    };
+
     # Basic options
     opts = {
       encoding = "utf-8";
@@ -146,12 +150,14 @@
       # LSP configuration
       lsp = {
         enable = true;
+        inlayHints = true;
         servers = {
           terraformls.enable = true;
           nixd.enable = true;
           jedi_language_server.enable = true;
           pyright.enable = true; # Add pyright for Python
         };
+
       };
 
       # Treesitter configuration
