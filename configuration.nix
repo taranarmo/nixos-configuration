@@ -248,6 +248,8 @@
     ]))
     julia
     (pass.withExtensions(ps: with ps; [ pass-otp pass-update ]))
+    dmenu-wayland
+    ydotool
     libreoffice-qt
     linuxPackages.v4l2loopback
     v4l-utils
