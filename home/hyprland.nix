@@ -134,6 +134,10 @@
         resize_on_border = true;
       };
 
+    ecosystem = {
+      no_update_news = true;
+    };
+
       decoration = {
         rounding = 10;
         blur = {
