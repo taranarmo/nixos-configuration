@@ -195,6 +195,7 @@
         AusweisApp2
         htop-vim
         hurl
+        zoom-us
       ];
     };
   };
