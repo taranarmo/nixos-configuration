@@ -56,12 +56,12 @@
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
     };
-    nvidiaSettings = false;
+    nvidiaSettings = true;
     modesetting.enable = true;
     dynamicBoost.enable = true;
     powerManagement = {
-      enable = true;
-      finegrained = true;
+      enable = false;
+      finegrained = false;
     };
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
