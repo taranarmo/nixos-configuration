@@ -247,6 +247,7 @@
       h5py
       boto3
     ]))
+    postgresql
     julia
     (pass.withExtensions(ps: with ps; [ pass-otp pass-update ]))
     dmenu-wayland
