@@ -155,7 +155,10 @@
           terraformls.enable = true;
           nixd.enable = true;
           jedi_language_server.enable = true;
-          pyright.enable = true; # Add pyright for Python
+          pyright.enable = true;
+          yamlls.enable = true;
+          jsonls.enable = true;
+          taplo.enable = true;
         };
 
       };
