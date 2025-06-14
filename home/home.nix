@@ -64,6 +64,11 @@
     direnv
     nix-direnv
 
+    # clouds
+    terraform
+    awscli2
+    aws-vault
+
     # nix related
 
     # it provides the command `nom` works just like `nix`
