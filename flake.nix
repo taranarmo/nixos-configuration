@@ -3,34 +3,21 @@
 
   inputs = {
     nixpkgs.url = "github:taranarmo/nixpkgs/temp-nixos-branch";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     catppuccin.url = "github:catppuccin/nix";
 
-    home-manager = {
-      url = "github:nix-community/home-manager/";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager/";
 
-    nixvim = {
-      url = "github:nix-community/nixvim/";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixvim.url = "github:nix-community/nixvim/";
 
     stylix.url = "github:danth/stylix/";
 
     nurpkgs.url = "github:nix-community/NUR";
 
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    disko.url = "github:nix-community/disko";
 
     hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "hyprland/nixpkgs";
-    };
+    hyprland-contrib.url = "github:hyprwm/contrib";
 
 #    nixpkgs-unfree = {
 #      url = "github:numtide/nixpkgs-unfree";
