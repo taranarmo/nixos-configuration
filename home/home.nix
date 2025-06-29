@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./darkman.nix
     ./hyprland.nix
     ./hypridle.nix
     ./hyprlock.nix

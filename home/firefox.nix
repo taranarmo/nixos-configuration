@@ -95,6 +95,8 @@ in {
           "identity.fxaccounts.enabled" = false;
           "privacy.trackingprotection.enabled" = true;
           "privacy.trackingprotection.socialtracking.enabled" = true;
+          # Theme will be handled by darkman/xdg-desktop-portal
+          "widget.use-xdg-desktop-portal.file-picker" = 1;
         };
       };
     };
