@@ -302,7 +302,6 @@
       slurp # screen area selector
      #kanshi
       zathura # PDF viewer
-      alacritty # Alacritty is the default terminal in the config
       bemenu
       wofi
       swaynotificationcenter

@@ -102,7 +102,7 @@
             "ethernet" = ["󰈀"];
             "disconnected" = ["󰌙 "];
           };
-          "on-click" = "alacritty -e nmtui";
+          "on-click" = "kitty -e nmtui";
           "tooltip" = false;
         };
         "wireplumber" = {

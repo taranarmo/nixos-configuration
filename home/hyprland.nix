@@ -50,7 +50,7 @@
         "$mod, Space, togglesplit, " # dwindle
 
         "$mod, Q, exec, kitty"
-        "$mod, Return, exec, alacritty"
+        "$mod, Return, exec, kitty"
         "$mod Shift, Q, killactive, "
         "$mod, M, exit, "
         "$mod, D, exec, wofi --show drun"
