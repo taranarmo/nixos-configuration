@@ -87,6 +87,7 @@
                 ./home/home.nix
                 catppuccin.homeModules.catppuccin
                 nixvim.homeManagerModules.nixvim
+                stylix.homeManagerModules.stylix
               ];
             };
         }
@@ -117,6 +118,7 @@
                 ./home/home.nix
                 catppuccin.homeModules.catppuccin
                 nixvim.homeManagerModules.nixvim
+                stylix.homeManagerModules.stylix
               ];
             };
         }
