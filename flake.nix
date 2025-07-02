@@ -69,7 +69,6 @@
 
     nixosConfigurations.nixos-ideapad = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      #specialArgs = { inherit inputs; };
       specialArgs.flake-inputs = inputs;
       modules = [
         ./configuration.nix
@@ -101,7 +100,6 @@
 
     nixosConfigurations.hp-gaming = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      #specialArgs = { inherit inputs; };
       specialArgs.flake-inputs = inputs;
       modules = [
         ./configuration.nix
@@ -127,7 +125,6 @@
         ./hardware/keyboard.nix
         ./gaming.nix
         { networking.hostName = "hp-gaming"; }
-        #./firefox.nix
       ];
     };
   };
