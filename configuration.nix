@@ -1,10 +1,6 @@
 { config, lib, pkgs, inputs, flake-inputs, ... }:
 
 {
-  nixpkgs.overlays = [
-    flake-inputs.nurpkgs.overlays.default
-  ];
-
   nix = {
     package = pkgs.nixVersions.latest;
     settings = {
