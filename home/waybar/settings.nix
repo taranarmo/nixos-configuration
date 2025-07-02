@@ -157,4 +157,8 @@
       };
     };
   };
+  home.packages = with pkgs; [
+      swaynotificationcenter
+      kitty
+  ];
 }

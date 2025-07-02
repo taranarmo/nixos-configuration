@@ -1,5 +1,8 @@
 # Hypridle is a daemon that listens for user activity and runs commands when the user is idle.
 { pkgs, ... }: {
+  home.packages = with pkgs; [
+    hyprlock
+  ];
   services.hypridle = {
     enable = true;
     settings = {

@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    gnome-themes-extra
+    adwaita-icon-theme
+    adwaita-qt
+  ];
   services.darkman = {
     enable = true;
     settings = {

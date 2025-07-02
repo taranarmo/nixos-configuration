@@ -7,9 +7,10 @@
     grimblast
     swaylock
     swayidle
-    waybar
     nwg-bar
     wofi
+    brightnessctl
+    playerctl
   ];
 
   wayland.windowManager.hyprland = {
