@@ -188,7 +188,7 @@
         lynx
         mpd
         mpc-cli
-        gimp
+        gimp3
         taskwarrior3
         telegram-desktop
         apvlv
