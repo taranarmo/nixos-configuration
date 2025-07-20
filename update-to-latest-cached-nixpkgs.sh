@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p curl jq
 
 # Fetch the latest cached nixos-unstable revision
 latest_revision=$(curl -sL "https://monitoring.nixos.org/prometheus/api/v1/query?query=channel_revision" | jq -r '.data.result[] | select(.metric.channel=="nixos-unstable") | .metric.revision')
