@@ -60,8 +60,8 @@
     modesetting.enable = true;
     dynamicBoost.enable = true;
     powerManagement = {
-      enable = false;
-      finegrained = false;
+      enable = true;
+      finegrained = true;
     };
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
