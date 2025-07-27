@@ -80,6 +80,7 @@
     # productivity
     hugo # static site generator
     glow # markdown previewer in terminal
+    gemini-cli
 
     btop  # replacement of htop/nmon
     iotop # io monitoring
