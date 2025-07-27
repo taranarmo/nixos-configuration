@@ -2,7 +2,7 @@
   description = "NixOS configuration with flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     catppuccin.url = "github:catppuccin/nix";
 
@@ -21,7 +21,6 @@
 
 #    nixpkgs-unfree = {
 #      url = "github:numtide/nixpkgs-unfree";
-#      inputs.nixpkgs.follows = "nixpkgs-unstable";
 #    };
 
 #    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
