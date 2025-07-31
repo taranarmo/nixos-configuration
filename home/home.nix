@@ -116,12 +116,10 @@
     pinentry.package = pkgs.pinentry-tty;
   };
 
-  programs.kitty = {
-    enable = true;
-  };
-  programs.wezterm = {
-    enable = true;
-  };
+  programs.kitty.enable = true;
+  programs.alacritty.enable = true;
+  programs.ghostty.enable = true;
+  programs.wezterm.enable = true;
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
