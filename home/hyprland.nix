@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     hyprland-per-window-layout
     wl-clipboard
+    wlr-randr # monitor management
     grim # screenshots
     grimblast
     swaylock
