@@ -346,6 +346,9 @@
         setSocketVariable = true;
       };
       extraOptions = "--iptables=False";
+      extraPackages = with pkgs; [
+        docker-buildx
+      ];
     };
     podman = {
       enable = true;
