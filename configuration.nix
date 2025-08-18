@@ -323,6 +323,7 @@
 
   # List services that you want to enable:
 
+  services.ollama.enable = true;
   services.pcscd.enable = true;
   services.fwupd.enable = true;
   services.logind.lidSwitchDocked = "suspend-then-hibernate";
