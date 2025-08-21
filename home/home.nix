@@ -63,9 +63,6 @@
     gawk
     zstd
 
-    direnv
-    nix-direnv
-
     # clouds
     terraform
     awscli2
@@ -116,10 +113,20 @@
     pinentry.package = pkgs.pinentry-tty;
   };
 
-  programs.kitty.enable = true;
-  programs.alacritty.enable = true;
-  programs.ghostty.enable = true;
-  programs.wezterm.enable = true;
+  programs = {
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
+
+    kitty.enable = true;
+    alacritty.enable = true;
+    ghostty.enable = true;
+    wezterm.enable = true;
+  };
+
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
