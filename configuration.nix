@@ -326,7 +326,7 @@
   services.ollama.enable = true;
   services.pcscd.enable = true;
   services.fwupd.enable = true;
-  services.logind.lidSwitchDocked = "suspend-then-hibernate";
+  services.logind.settings.Login.HandleLidSwitchDocked = "suspend-then-hibernate";
 
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=30m
