@@ -121,6 +121,10 @@
       nix-direnv.enable = true;
     };
 
+    pay-respects = {
+      enable = true;
+    };
+
     kitty.enable = true;
     alacritty.enable = true;
     ghostty.enable = true;
