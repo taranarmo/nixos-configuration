@@ -113,11 +113,11 @@
     pinentry.package = pkgs.pinentry-tty;
   };
 
+  home.shell.enableShellIntegration = true;
+
   programs = {
     direnv = {
       enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
       nix-direnv.enable = true;
     };
 
@@ -126,7 +126,6 @@
     ghostty.enable = true;
     wezterm.enable = true;
   };
-
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
