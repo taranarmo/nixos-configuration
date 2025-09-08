@@ -129,6 +129,8 @@
     alacritty.enable = true;
     ghostty.enable = true;
     wezterm.enable = true;
+
+    zathura.enable = true;
   };
 
   # This value determines the home Manager release that your

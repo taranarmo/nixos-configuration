@@ -301,7 +301,6 @@
       sway-contrib.grimshot # screenshot helper
       slurp # screen area selector
      #kanshi
-      zathura # PDF viewer
       bemenu
       wofi
       swaynotificationcenter
