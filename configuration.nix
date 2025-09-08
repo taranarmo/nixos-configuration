@@ -184,7 +184,6 @@
       packages = with pkgs; [
         firefox-wayland
         qutebrowser
-        chromium
         lynx
         mpd
         mpc-cli

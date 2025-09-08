@@ -9,6 +9,7 @@
     ./waybar
     ./zsh.nix
     ./nixvim.nix
+    ./chromium.nix
   ];
   home.username = "taranarmo";
   home.homeDirectory = "/home/taranarmo";
