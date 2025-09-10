@@ -2,7 +2,8 @@
 
 {
   nix = {
-    package = pkgs.nixVersions.latest;
+    # conflicts with determinate nix
+    # package = pkgs.nixVersions.latest;
     settings = {
       auto-optimise-store = true;
       experimental-features = [ "nix-command" "flakes" ];

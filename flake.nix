@@ -19,6 +19,8 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib.url = "github:hyprwm/contrib";
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+
 #    nixpkgs-unfree = {
 #      url = "github:numtide/nixpkgs-unfree";
 #    };
@@ -63,6 +65,7 @@
     catppuccin,
     nixvim,
     stylix,
+    determinate,
     ...
   }: {
 
@@ -70,6 +73,7 @@
       system = "x86_64-linux";
       specialArgs.flake-inputs = inputs;
       modules = [
+        determinate.nixosModules.default
         ./configuration.nix
         ./nixos-ideapad.nix
         nur.modules.nixos.default
@@ -101,6 +105,7 @@
       system = "x86_64-linux";
       specialArgs.flake-inputs = inputs;
       modules = [
+        determinate.nixosModules.default
         ./configuration.nix
         nur.modules.nixos.default
         catppuccin.nixosModules.catppuccin
