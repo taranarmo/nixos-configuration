@@ -103,9 +103,9 @@
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
+    delta.enable = true;
     userName = "Sergey Volkov ";
     userEmail = "taranarmo@gmail.com";
-    difftastic.enable = true;
   };
 
   programs.gpg.enable = true;
@@ -132,6 +132,7 @@
     wezterm.enable = true;
 
     zathura.enable = true;
+    bat.enable = true;
   };
 
   # This value determines the home Manager release that your
