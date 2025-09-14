@@ -171,10 +171,6 @@
         new_status = "master";
       };
 
-      gestures = {
-        workspace_swipe = "off";
-      };
-
       misc = {
         force_default_wallpaper = 0; # Set to 0 to disable the anime mascot wallpapers
         vrr = 3;
