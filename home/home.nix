@@ -70,6 +70,8 @@
     aws-vault
 
     # nix related
+    nix-index
+    nix-search-cli
 
     # it provides the command `nom` works just like `nix`
     # with more details log output
