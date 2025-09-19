@@ -81,6 +81,7 @@
     hugo # static site generator
     glow # markdown previewer in terminal
     gemini-cli
+    qwen-code
 
     btop  # replacement of htop/nmon
     iotop # io monitoring
