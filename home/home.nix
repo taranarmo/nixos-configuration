@@ -63,6 +63,7 @@
     gnutar
     gawk
     zstd
+    bashmount
 
     # clouds
     terraform
