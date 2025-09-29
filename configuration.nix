@@ -264,6 +264,7 @@
   environment.variables = {
     EDITOR = "vim";
     XDG_SESSION_TYPE = "wayland";
+    NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # temp solution for SSL/SSH issue with determinate nix
   };
 
 
