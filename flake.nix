@@ -2,7 +2,7 @@
   description = "NixOS configuration with flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     catppuccin.url = "github:catppuccin/nix";
 
