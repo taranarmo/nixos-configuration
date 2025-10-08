@@ -23,6 +23,7 @@
           "memory"
           "backlight"
           "wireplumber"
+          "wireplumber#source"
           "network"
           "idle_inhibitor"
           "battery"
@@ -116,7 +117,15 @@
           };
           "scroll-step" = 10;
           "on-click" = "pavucontrol";
-          "tooltip" = false;
+        };
+        "wireplumber#source" = {
+          "node-type" = "Audio/Source";
+          "format" = "";
+          "format-alt" = "{volume}% ";
+          "format-alt-click" = "click-right";
+          "format-muted" = "";
+          "on-click" = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
+          "scroll-step" = 1;
         };
         "idle_inhibitor" = {
           "format" = "{icon}";
