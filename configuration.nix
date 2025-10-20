@@ -255,7 +255,6 @@
       boto3
     ]))
     postgresql
-    julia
     (pass.withExtensions(ps: with ps; [ pass-otp pass-update pass-file ]))
     dmenu-wayland
     ydotool
