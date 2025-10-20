@@ -100,6 +100,10 @@
     ethtool
     pciutils # lspci
     usbutils # lsusb
+
+    sqlite
+
+    zoom-us
   ];
 
   # Install fonts via Home Manager
