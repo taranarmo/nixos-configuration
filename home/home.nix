@@ -73,6 +73,7 @@
     # nix related
     nix-index
     nix-search-cli
+    nixpkgs-review
 
     # it provides the command `nom` works just like `nix`
     # with more details log output
