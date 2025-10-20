@@ -95,12 +95,13 @@
           };
           sql = {
             sources = [
-              { name = "nvim_lsp"; priority = 1000; }
-              { name = "copilot"; priority = 900; }
-              { name = "treesitter"; priority = 800; }
-              { name = "buffer"; priority = 700; }
-              { name = "async_path"; priority = 600; }
-              { name = "calc"; priority = 500; }
+              { name = "vim-dadbod-completion"; priority = 900; }
+              { name = "nvim_lsp"; priority = 900; }
+              { name = "treesitter"; priority = 700; }
+              { name = "buffer"; priority = 600; }
+              { name = "async_path"; priority = 500; }
+              { name = "calc"; priority = 400; }
+              { name = "copilot"; priority = 100; }
             ];
           };
           markdown = {
@@ -147,6 +148,33 @@
       };
       copilot-cmp.enable = true;
       copilot-chat.enable = true;
+      # jupyter related
+      jupytext.enable = true;
+      hydra.enable = true;
+      notebook-navigator = {
+        enable = true;
+        settings = {
+          activate_hydra_keys = "<leader>h";
+          hydra_keys = {
+            add_cell_after = "b";
+            add_cell_before = "a";
+            # comment = "c";
+            move_down = "j";
+            move_up = "k";
+            merge_cell_above = "M";
+            merge_cell_below = "J";
+            run = "X";
+            run_and_move = "x";
+            split_cell = "s";
+          };
+        };
+      };
+      iron.enable = true; # default for notebook-navigator
+      # molten.enable = true; # doesn't respect current python environment
+
+      vim-dadbod.enable = true;
+      vim-dadbod-completion.enable = true;
+      vim-dadbod-ui.enable = true;
 
       # LSP configuration
       lsp = {
@@ -183,6 +211,7 @@
       terraform-ls
       nixd
       python3Packages.jedi-language-server
+      python3Packages.jupytext # should be done by plugin automatically
     ];
   };
 }
