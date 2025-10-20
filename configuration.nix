@@ -248,6 +248,7 @@
       scipy
       requests
       matplotlib
+      seaborn
       ipython
       hickle
       h5py
