@@ -112,9 +112,12 @@
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
-    delta.enable = true;
-    userName = "Sergey Volkov ";
-    userEmail = "taranarmo@gmail.com";
+    settings.user.name = "Sergey Volkov ";
+    settings.user.email = "taranarmo@gmail.com";
+  };
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
   };
 
   programs.gpg.enable = true;
