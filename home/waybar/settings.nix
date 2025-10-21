@@ -115,8 +115,9 @@
             "phone" = [" 󰕿" " 󰖀" " 󰕾"];
             "default" = ["󰕿" "󰖀" "󰕾"];
           };
-          "scroll-step" = 10;
+          "scroll-step" = 1;
           "on-click" = "pavucontrol";
+          "tooltip-format" = "{node_name}\nVolume: {volume}%";
         };
         "wireplumber#source" = {
           "node-type" = "Audio/Source";
@@ -126,6 +127,7 @@
           "format-muted" = "";
           "on-click" = "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle";
           "scroll-step" = 1;
+          "tooltip-format" = "{node_name}\nVolume: {volume}%";
         };
         "idle_inhibitor" = {
           "format" = "{icon}";
