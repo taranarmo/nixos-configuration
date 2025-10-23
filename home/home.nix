@@ -64,6 +64,7 @@
     gawk
     zstd
     bashmount
+    libreoffice-fresh
 
     # clouds
     terraform
