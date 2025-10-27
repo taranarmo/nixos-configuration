@@ -211,7 +211,6 @@
       terraform-ls
       nixd
       python3Packages.jedi-language-server
-      python3Packages.jupytext # should be done by plugin automatically
     ];
   };
 }
