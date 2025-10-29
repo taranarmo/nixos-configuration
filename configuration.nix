@@ -185,11 +185,11 @@
       description = "Sergey Volkov";
       extraGroups = [ "networkmanager" "wheel" ];
       packages = with pkgs; [
-        firefox-wayland
+        firefox
         qutebrowser
         lynx
         mpd
-        mpc-cli
+        mpc
         gimp3
         taskwarrior3
         telegram-desktop
@@ -200,7 +200,7 @@
         aspellDicts.en
         aspellDicts.de
         aspellDicts.ru
-        AusweisApp2
+        ausweisapp
         htop-vim
         hurl
       ];
@@ -211,7 +211,7 @@
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     liberation_ttf
     roboto
     font-awesome
@@ -231,7 +231,6 @@
     helvum
     bluez
     gnupg
-    pinentry
     rclone
     tmux
     screen
