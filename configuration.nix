@@ -246,6 +246,7 @@
       numpy
       pandas
       scipy
+      statsmodels
       requests
       matplotlib
       seaborn
