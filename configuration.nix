@@ -185,7 +185,7 @@
       description = "Sergey Volkov";
       extraGroups = [ "networkmanager" "wheel" ];
       packages = with pkgs; [
-        firefox
+        firefox-esr
         qutebrowser
         lynx
         mpd
