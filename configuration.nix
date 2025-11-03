@@ -255,6 +255,7 @@
       boto3
       plotly
       scikit-learn
+      catppuccin
     ]))
     postgresql
     (pass.withExtensions(ps: with ps; [ pass-otp pass-update pass-file ]))
