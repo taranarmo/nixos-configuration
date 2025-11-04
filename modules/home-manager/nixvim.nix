@@ -9,8 +9,10 @@
 
     colorschemes.catppuccin.enable = true;
 
-    diagnostics = {
-      virtual_lines.current_line = true;
+    diagnostic = {
+      settings = {
+        virtual_lines.current_line = true;
+      };
     };
 
     # Basic options

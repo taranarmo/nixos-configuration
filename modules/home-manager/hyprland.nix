@@ -1,4 +1,5 @@
 { config, pkgs, ... }:
+
 {
   home.packages = with pkgs; [
     hyprland-per-window-layout
@@ -138,9 +139,9 @@
         resize_on_border = true;
       };
 
-    ecosystem = {
-      no_update_news = true;
-    };
+      ecosystem = {
+        no_update_news = true;
+      };
 
       decoration = {
         rounding = 10;

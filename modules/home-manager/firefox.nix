@@ -5,41 +5,11 @@
   flake-inputs,
   inputs,
   ...
-}: let
-  inherit (pkgs) runCommandNoCC writeText;
-  inherit (pkgs.lib.strings) concatStrings;
-  inherit (pkgs.lib.attrsets) mapAttrsToList;
-
-  inherit (flake-inputs.self.packages.${pkgs.system}) firefox-ui-fix;
-
-  settings = writeText "user.js" (concatStrings (mapAttrsToList (
-      name: value: ''
-        user_pref("${name}", ${builtins.toJSON value});
-      ''
-    )
-    config.programs.firefox.profiles.taranarmo.settings));
-
-  settings-file = runCommandNoCC "firefox-settings" {} ''
-    cat '${firefox-ui-fix}/user.js' '${settings}' > $out
-  '';
-in {
+}: {
     programs.firefox = {
       enable = true;
       package = pkgs.firefox.override {cfg.enableTridactylNative = true;};
       profiles."taranarmo" = {
-        extensions = with config.nur.repos.rycee.firefox-addons; [
-          buster-captcha-solver
-          clearurls
-          decentraleyes
-          libredirect
-          tridactyl
-
-          # # Missing:
-          # cloudhole
-          # devtools-adb-extension
-          # firefox-sticky-window-containers
-        ];
-
         settings = {
           # Performance settings
           "gfx.webrender.all" = true; # Force enable GPU acceleration

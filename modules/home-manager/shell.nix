@@ -1,4 +1,5 @@
 { config, pkgs, ... }:
+
 {
   programs.zsh = {
     enable = true;
@@ -15,8 +16,16 @@
         "docker"
         "aws"
         #"vi-mode"
-     ];
+      ];
     };
   };
 
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.pay-respects = {
+    enable = true;
+  };
 }

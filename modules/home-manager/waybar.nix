@@ -1,6 +1,12 @@
-{ config, pkgs, ... }:
+{ pkgs, ... } :
 {
+  home.packages = with pkgs; [
+    font-awesome
+    swaynotificationcenter
+    kitty
+  ];
   programs.waybar = {
+    enable = true;
     settings = {
       mainBar = {
         layer = "top";
@@ -167,9 +173,13 @@
         };
       };
     };
+    style = ''
+      *{
+        font-family: "Arimo Nerd Font", "Font Awesome 7 Free", sans-serif;
+      }
+      #workspaces button.active {
+        background: #64727D;
+      }
+    '';
   };
-  home.packages = with pkgs; [
-      swaynotificationcenter
-      kitty
-  ];
 }
