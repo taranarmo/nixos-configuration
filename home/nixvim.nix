@@ -106,6 +106,7 @@
           };
           markdown = {
             sources = [
+              { name = "pandoc"; priority = 1100; }
               { name = "copilot"; priority = 1000; }
               { name = "luasnip"; priority = 900; }
               { name = "buffer"; priority = 800; }
