@@ -5,12 +5,12 @@
     ../modules/home-manager/git.nix
     ../modules/home-manager/shell.nix
     ../modules/home-manager/terminals.nix
+    ../modules/home-manager/tmux.nix
     ../modules/home-manager/utilities.nix
     ../modules/home-manager/development.nix
     ../modules/home-manager/pdf-viewer.nix
     ../modules/home-manager/hyprland.nix
     ../modules/home-manager/nixvim.nix
-    ../modules/home-manager/neovim.nix
     #../modules/home-manager/firefox.nix
     ../modules/home-manager/waybar.nix
     ../modules/home-manager/darkman.nix

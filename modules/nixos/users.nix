@@ -23,7 +23,6 @@
         aspellDicts.de
         aspellDicts.ru
         ausweisapp
-        htop-vim
         hurl
       ];
     };

@@ -20,8 +20,6 @@
     bluez
     gnupg
     rclone
-    tmux
-    screen
     wl-clipboard
     gcc
     unzip
@@ -41,6 +39,8 @@
     XDG_SESSION_TYPE = "wayland";
     NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # temp solution for SSL/SSH issue with determinate nix
   };
+
+  programs.screen.enable = true;
 
   security.polkit.enable = true;
 
