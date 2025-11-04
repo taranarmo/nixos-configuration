@@ -1,11 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   users = {
     users.taranarmo = {
       isNormalUser = true;
       description = "Sergey Volkov";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+      ];
       packages = with pkgs; [
         firefox-esr
         qutebrowser

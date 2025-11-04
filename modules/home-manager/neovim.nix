@@ -36,11 +36,11 @@
       autocmd FileType sql setlocal shiftwidth=2 tabstop=2
     '';
     extraPackages = with pkgs; [
-        # LSP servers
-        sqls
-        terraform-ls
-        nixd
-        python3Packages.jedi-language-server
+      # LSP servers
+      sqls
+      terraform-ls
+      nixd
+      python3Packages.jedi-language-server
     ];
     plugins = with pkgs.vimPlugins; [
       julia-vim

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   networking = {
@@ -6,19 +11,28 @@
       enable = true;
       #package = pkgs.nftables;
       trustedInterfaces = [ "docker0" ];
-      allowedTCPPorts = [ 22 80 443 ]; # Enable ssh, http, https
+      allowedTCPPorts = [
+        22
+        80
+        443
+      ]; # Enable ssh, http, https
       checkReversePath = false;
     };
     nat = {
       enable = true;
-      internalInterfaces = ["ve-+"];
+      internalInterfaces = [ "ve-+" ];
       externalInterface = "eth0";
     };
-    nameservers = [ "127.0.0.1" "::1" "1.1.1.1" "8.8.8.8" ];
+    nameservers = [
+      "127.0.0.1"
+      "::1"
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
     networkmanager = {
       enable = true;
       dns = "none";
-      unmanaged = [ "interface-name:ve-*"];
+      unmanaged = [ "interface-name:ve-*" ];
     };
   };
 

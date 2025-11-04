@@ -3,7 +3,8 @@
 let
   foreground = "rgba(26, 22, 23, 0.70)";
   font = config.stylix.fonts.serif.name;
-in {
+in
+{
   programs.hyprlock = {
     enable = true;
     settings = {

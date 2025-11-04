@@ -1,4 +1,4 @@
-{ pkgs, ... } :
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
     font-awesome
@@ -42,7 +42,15 @@
         };
         "backlight" = {
           "format" = "{percent}󰳲";
-          "fotmat-icons" = ["󰃚" "󰃛" "󰃜" "󰃝" "󰃞" "󰃟" "󰃠"];
+          "fotmat-icons" = [
+            "󰃚"
+            "󰃛"
+            "󰃜"
+            "󰃝"
+            "󰃞"
+            "󰃟"
+            "󰃠"
+          ];
         };
         "bluetooth" = {
           "format-on" = "󰂯";
@@ -50,9 +58,11 @@
           "format-connected" = "󰂱";
           "format-connected-battery" = " {device_alias} {device_battery_percentage}%";
           "tooltip-format" = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
-          "tooltip-format-connected" = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
+          "tooltip-format-connected" =
+            "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
           "tooltip-format-enumerate-connected" = "{device_alias}\t{device_address}";
-          "tooltip-format-enumerate-connected-battery" = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
+          "tooltip-format-enumerate-connected-battery" =
+            "{device_alias}\t{device_address}\t{device_battery_percentage}%";
         };
         "sway/mode" = {
           "format" = " {}";
@@ -85,7 +95,19 @@
         "battery" = {
           "format" = "{capacity}% {icon}";
           "format-alt" = "{time} {icon}";
-          "format-icons" = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+          "format-icons" = [
+            "󰂎"
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+            "󰁹"
+          ];
           "format-charging" = "{capacity}% {icon}󰚥";
           "interval" = 30;
           "states" = {
@@ -98,16 +120,27 @@
           "thermal-zone" = 6;
           "critical-threshold" = 80;
           "format" = "{temperatureC}°C {icon}";
-          "format-icons" = ["" "" "" "" ""];
+          "format-icons" = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
         "network" = {
           "format" = "{icon}";
           "format-alt" = "{ipaddr}/{cidr} {icon}";
           "format-alt-click" = "click-right";
           "format-icons" = {
-            "wifi" = ["󰤟" "󰤢" "󰤥" "󰤨"];
-            "ethernet" = ["󰈀"];
-            "disconnected" = ["󰌙 "];
+            "wifi" = [
+              "󰤟"
+              "󰤢"
+              "󰤥"
+              "󰤨"
+            ];
+            "ethernet" = [ "󰈀" ];
+            "disconnected" = [ "󰌙 " ];
           };
           "on-click" = "kitty -e nmtui";
           "tooltip" = false;
@@ -118,8 +151,16 @@
           "format-alt-click" = "click-right";
           "format-muted" = "󰝟";
           "format-icons" = {
-            "phone" = [" 󰕿" " 󰖀" " 󰕾"];
-            "default" = ["󰕿" "󰖀" "󰕾"];
+            "phone" = [
+              " 󰕿"
+              " 󰖀"
+              " 󰕾"
+            ];
+            "default" = [
+              "󰕿"
+              "󰖀"
+              "󰕾"
+            ];
           };
           "scroll-step" = 1;
           "on-click" = "pavucontrol";

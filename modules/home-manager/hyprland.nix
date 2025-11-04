@@ -70,21 +70,27 @@
         # Screenshots
         "$mod Control Shift, c, exec, wl-copy < $(grimblast --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Area
         "$mod, C, exec, wl-copy < $(grimblast --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Active window
-      ] ++ (
-          # workspaces
-          # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-          builtins.concatLists (builtins.genList (
-              x: let
-                ws = let
+      ]
+      ++ (
+        # workspaces
+        # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+        builtins.concatLists (
+          builtins.genList (
+            x:
+            let
+              ws =
+                let
                   c = (x + 1) / 10;
                 in
-                  builtins.toString (x + 1 - (c * 10));
-              in [
-                "$mod, ${ws}, workspace, ${toString (x + 1)}"
-                "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
-              ]
-          ) 10)
-        );
+                builtins.toString (x + 1 - (c * 10));
+            in
+            [
+              "$mod, ${ws}, workspace, ${toString (x + 1)}"
+              "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
+            ]
+          ) 10
+        )
+      );
       bindl = [
         ", XF86AudioMute, exec, pactl set-sink-mute @DEFAULT_SINK@ toggle"
         ", XF86AudioMicMute, exec, pactl set-source-mute @DEFAULT_SOURCE@ toggle"

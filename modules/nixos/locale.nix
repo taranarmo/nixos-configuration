@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   time.timeZone = "Europe/Berlin";
@@ -6,7 +11,7 @@
   i18n = {
     defaultLocale = "en_DK.UTF-8";
     extraLocaleSettings = {
-      LC_LANG  = "en_DK.UTF-8";
+      LC_LANG = "en_DK.UTF-8";
       LC_ADDRESS = "en_DK.UTF-8";
       LC_IDENTIFICATION = "en_DK.UTF-8";
       LC_MEASUREMENT = "en_DK.UTF-8";

@@ -21,66 +21,68 @@
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
-#    nixpkgs-unfree = {
-#      url = "github:numtide/nixpkgs-unfree";
-#    };
+    #    nixpkgs-unfree = {
+    #      url = "github:numtide/nixpkgs-unfree";
+    #    };
 
-#    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-#    sops-nix = {
-#      url = "github:Mic92/sops-nix";
-#      inputs.nixpkgs.follows = "nixpkgs";
-#      inputs.nixpkgs-stable.follows = "nixpkgs";
-#    };
-#    peerix = {
-#      url = "github:cid-chan/peerix";
-#      inputs.nixpkgs.follows = "nixpkgs";
-#    };
-#    impermanence.url = "github:nix-community/impermanence";
-#
-#    nixos-anywhere = {
-#      url = "github:numtide/nixos-anywhere";
-#      inputs = {
-#        nixpkgs.follows = "nixpkgs";
-#        disko.follows = "disko";
-#      };
-#    };
+    #    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    #    sops-nix = {
+    #      url = "github:Mic92/sops-nix";
+    #      inputs.nixpkgs.follows = "nixpkgs";
+    #      inputs.nixpkgs-stable.follows = "nixpkgs";
+    #    };
+    #    peerix = {
+    #      url = "github:cid-chan/peerix";
+    #      inputs.nixpkgs.follows = "nixpkgs";
+    #    };
+    #    impermanence.url = "github:nix-community/impermanence";
+    #
+    #    nixos-anywhere = {
+    #      url = "github:numtide/nixos-anywhere";
+    #      inputs = {
+    #        nixpkgs.follows = "nixpkgs";
+    #        disko.follows = "disko";
+    #      };
+    #    };
 
-#    fenix = {
-#      url = "github:nix-community/fenix";
-#      inputs.nixpkgs.follows = "nixpkgs";
-#    };
-#
-#    # Other project inputs
-#    nvfetcher = {
-#      url = "github:berberman/nvfetcher";
-#      inputs.nixpkgs.follows = "nixpkgs";
-#    };
+    #    fenix = {
+    #      url = "github:nix-community/fenix";
+    #      inputs.nixpkgs.follows = "nixpkgs";
+    #    };
+    #
+    #    # Other project inputs
+    #    nvfetcher = {
+    #      url = "github:berberman/nvfetcher";
+    #      inputs.nixpkgs.follows = "nixpkgs";
+    #    };
   };
 
-  outputs = inputs@{
-    self,
-    nixpkgs,
-    home-manager,
-    nur,
-    catppuccin,
-    nixvim,
-    stylix,
-    determinate,
-    ...
-  }: {
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      nur,
+      catppuccin,
+      nixvim,
+      stylix,
+      determinate,
+      ...
+    }:
+    {
 
-    nixosConfigurations.nixos-ideapad = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs.flake-inputs = inputs;
-      modules = [
-        determinate.nixosModules.default
-        ./configuration.nix
-        ./nixos-ideapad.nix
-        nur.modules.nixos.default
-        catppuccin.nixosModules.catppuccin
-        home-manager.nixosModules.home-manager
-        stylix.nixosModules.stylix
-        {
+      nixosConfigurations.nixos-ideapad = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.flake-inputs = inputs;
+        modules = [
+          determinate.nixosModules.default
+          ./configuration.nix
+          ./nixos-ideapad.nix
+          nur.modules.nixos.default
+          catppuccin.nixosModules.catppuccin
+          home-manager.nixosModules.home-manager
+          stylix.nixosModules.stylix
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
@@ -92,26 +94,26 @@
                 stylix.homeModules.stylix
               ];
             };
-        }
-        ./cachix.nix
-        ./hardware/ideapad.nix
-        ./hardware/keyboard.nix
-        { networking.hostName = "nixos-ideapad"; }
-        #./firefox.nix
-      ];
-    };
+          }
+          ./cachix.nix
+          ./hardware/ideapad.nix
+          ./hardware/keyboard.nix
+          { networking.hostName = "nixos-ideapad"; }
+          #./firefox.nix
+        ];
+      };
 
-    nixosConfigurations.hp-gaming = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs.flake-inputs = inputs;
-      modules = [
-        determinate.nixosModules.default
-        ./configuration.nix
-        nur.modules.nixos.default
-        catppuccin.nixosModules.catppuccin
-        home-manager.nixosModules.home-manager
-        stylix.nixosModules.stylix
-        {
+      nixosConfigurations.hp-gaming = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.flake-inputs = inputs;
+        modules = [
+          determinate.nixosModules.default
+          ./configuration.nix
+          nur.modules.nixos.default
+          catppuccin.nixosModules.catppuccin
+          home-manager.nixosModules.home-manager
+          stylix.nixosModules.stylix
+          {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
@@ -123,13 +125,13 @@
                 stylix.homeModules.stylix
               ];
             };
-        }
-        ./cachix.nix
-        ./hardware/hp-gaming.nix
-        ./hardware/keyboard.nix
-        ./gaming.nix
-        { networking.hostName = "hp-gaming"; }
-      ];
+          }
+          ./cachix.nix
+          ./hardware/hp-gaming.nix
+          ./hardware/keyboard.nix
+          ./gaming.nix
+          { networking.hostName = "hp-gaming"; }
+        ];
+      };
     };
-  };
 }

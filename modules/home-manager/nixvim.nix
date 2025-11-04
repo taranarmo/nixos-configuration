@@ -87,57 +87,162 @@
         filetype = {
           python = {
             sources = [
-              { name = "nvim_lsp"; priority = 1000; }
-              { name = "copilot"; priority = 900; }
-              { name = "luasnip"; priority = 800; }
-              { name = "treesitter"; priority = 700; }
-              { name = "buffer"; priority = 600; }
-              { name = "calc"; priority = 500; }
-              { name = "async_path"; priority = 400; }
+              {
+                name = "nvim_lsp";
+                priority = 1000;
+              }
+              {
+                name = "copilot";
+                priority = 900;
+              }
+              {
+                name = "luasnip";
+                priority = 800;
+              }
+              {
+                name = "treesitter";
+                priority = 700;
+              }
+              {
+                name = "buffer";
+                priority = 600;
+              }
+              {
+                name = "calc";
+                priority = 500;
+              }
+              {
+                name = "async_path";
+                priority = 400;
+              }
             ];
           };
           sql = {
             sources = [
-              { name = "vim-dadbod-completion"; priority = 900; }
-              { name = "nvim_lsp"; priority = 900; }
-              { name = "treesitter"; priority = 700; }
-              { name = "buffer"; priority = 600; }
-              { name = "async_path"; priority = 500; }
-              { name = "calc"; priority = 400; }
-              { name = "copilot"; priority = 100; }
+              {
+                name = "vim-dadbod-completion";
+                priority = 900;
+              }
+              {
+                name = "nvim_lsp";
+                priority = 900;
+              }
+              {
+                name = "treesitter";
+                priority = 700;
+              }
+              {
+                name = "buffer";
+                priority = 600;
+              }
+              {
+                name = "async_path";
+                priority = 500;
+              }
+              {
+                name = "calc";
+                priority = 400;
+              }
+              {
+                name = "copilot";
+                priority = 100;
+              }
             ];
           };
           markdown = {
             sources = [
-              { name = "pandoc"; priority = 1100; }
-              { name = "copilot"; priority = 1000; }
-              { name = "luasnip"; priority = 900; }
-              { name = "buffer"; priority = 800; }
-              { name = "spell"; priority = 700; }
-              { name = "emoji"; priority = 600; }
-              { name = "dictionary"; priority = 500; }
-              { name = "calc"; priority = 400; }
-              { name = "async_path"; priority = 300; }
+              {
+                name = "pandoc";
+                priority = 1100;
+              }
+              {
+                name = "copilot";
+                priority = 1000;
+              }
+              {
+                name = "luasnip";
+                priority = 900;
+              }
+              {
+                name = "buffer";
+                priority = 800;
+              }
+              {
+                name = "spell";
+                priority = 700;
+              }
+              {
+                name = "emoji";
+                priority = 600;
+              }
+              {
+                name = "dictionary";
+                priority = 500;
+              }
+              {
+                name = "calc";
+                priority = 400;
+              }
+              {
+                name = "async_path";
+                priority = 300;
+              }
             ];
           };
           sh = {
             sources = [
-              { name = "copilot"; priority = 1000; }
-              { name = "buffer"; priority = 900; }
-              { name = "treesitter"; priority = 800; }
-              { name = "async_path"; priority = 700; }
-              { name = "calc"; priority = 600; }
+              {
+                name = "copilot";
+                priority = 1000;
+              }
+              {
+                name = "buffer";
+                priority = 900;
+              }
+              {
+                name = "treesitter";
+                priority = 800;
+              }
+              {
+                name = "async_path";
+                priority = 700;
+              }
+              {
+                name = "calc";
+                priority = 600;
+              }
             ];
           };
           tex = {
             sources = [
-              { name = "latex_symbols"; priority = 1000; }
-              { name = "copilot"; priority = 900; }
-              { name = "luasnip"; priority = 800; }
-              { name = "buffer"; priority = 700; }
-              { name = "treesitter"; priority = 600; }
-              { name = "spell"; priority = 500; }
-              { name = "async_path"; priority = 400; }
+              {
+                name = "latex_symbols";
+                priority = 1000;
+              }
+              {
+                name = "copilot";
+                priority = 900;
+              }
+              {
+                name = "luasnip";
+                priority = 800;
+              }
+              {
+                name = "buffer";
+                priority = 700;
+              }
+              {
+                name = "treesitter";
+                priority = 600;
+              }
+              {
+                name = "spell";
+                priority = 500;
+              }
+              {
+                name = "async_path";
+                priority = 400;
+              }
             ];
           };
         };

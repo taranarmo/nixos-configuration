@@ -33,13 +33,13 @@
     };
   };
 
-#  # Set QT theme to follow darkman
-#  qt = {
-#    enable = true;
-#    #platformTheme = "xdgdesktopportal";
-#    style = {
-#      name = "adwaita-dark";
-#      package = pkgs.adwaita-qt;
-#    };
-#  };
+  #  # Set QT theme to follow darkman
+  #  qt = {
+  #    enable = true;
+  #    #platformTheme = "xdgdesktopportal";
+  #    style = {
+  #      name = "adwaita-dark";
+  #      package = pkgs.adwaita-qt;
+  #    };
+  #  };
 }

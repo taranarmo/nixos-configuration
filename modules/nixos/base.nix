@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   # This value determines the NixOS release from which the default
@@ -8,7 +13,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-  
+
   # Base system packages
   environment.systemPackages = with pkgs; [
     vim-full
@@ -27,7 +32,13 @@
     gnumake
     jq
     qrencode
-    (pass.withExtensions(ps: with ps; [ pass-otp pass-update pass-file ]))
+    (pass.withExtensions (
+      ps: with ps; [
+        pass-otp
+        pass-update
+        pass-file
+      ]
+    ))
     dmenu-wayland
     ydotool
     linuxPackages.v4l2loopback
