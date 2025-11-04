@@ -290,34 +290,6 @@
     enable = true;
     enable32Bit = true;
   };
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true; # so that gtk works properly
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      waybar
-      wf-recorder
-      wdisplays
-      mako # notification daemon
-      grim # screenshots
-      sway-contrib.grimshot # screenshot helper
-      slurp # screen area selector
-     #kanshi
-      bemenu
-      wofi
-      swaynotificationcenter
-      nwg-bar
-    ];
-    extraSessionCommands = ''
-      export SDL_VIDEODRIVER=wayland
-      export QT_QPA_PLATFORM=wayland
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
-      export _JAVA_AWT_WM_NONREPARENTING=1
-      export MOZ_ENABLE_WAYLAND=1
-    '';
-  };
-  # programs.waybar.enable = true;
   programs.hyprland = {
     enable = true;
     withUWSM = true;
