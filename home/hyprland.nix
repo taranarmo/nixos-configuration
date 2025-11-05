@@ -92,8 +92,10 @@
         ", XF86AudioPrev, exec, playerctl previous"
       ];
       bindel = [
-        ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
-        ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
+        ", XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +1%"
+        "Shift, XF86AudioRaiseVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ +5%"
+        ", XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -1%"
+        "Shift, XF86AudioLowerVolume, exec, pactl set-sink-volume @DEFAULT_SINK@ -5%"
         ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
         ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
       ];
