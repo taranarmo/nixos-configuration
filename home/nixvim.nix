@@ -170,7 +170,14 @@
           };
         };
       };
-      iron.enable = true; # default for notebook-navigator
+      iron = { # default for notebook-navigator
+        enable = true;
+        settings = {
+          keymaps = {
+            interrupt = "<space>s<space>";
+          };
+        };
+      };
       # molten.enable = true; # doesn't respect current python environment
 
       vim-dadbod.enable = true;
