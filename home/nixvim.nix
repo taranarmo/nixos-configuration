@@ -50,6 +50,7 @@
     # Plugins
     plugins = {
       lualine.enable = true;
+      fzf-lua.enable = true;
       #ale.enable = true;
       #better-whitespace.enable = true;
       commentary.enable = true;
