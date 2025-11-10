@@ -77,7 +77,7 @@
           };
           snippet.expand = "luasnip";
           sources = [
-            { name = "copilot"; }
+            #{ name = "copilot"; }
             { name = "nvim_lsp"; }
             { name = "async_path"; }
             { name = "buffer"; }
@@ -91,10 +91,7 @@
                 name = "nvim_lsp";
                 priority = 1000;
               }
-              {
-                name = "copilot";
-                priority = 900;
-              }
+              # { name = "copilot"; priority = 900; }
               {
                 name = "luasnip";
                 priority = 800;
@@ -143,10 +140,7 @@
                 name = "calc";
                 priority = 400;
               }
-              {
-                name = "copilot";
-                priority = 100;
-              }
+              # { name = "copilot"; priority = 100; }
             ];
           };
           markdown = {
@@ -155,10 +149,7 @@
                 name = "pandoc";
                 priority = 1100;
               }
-              {
-                name = "copilot";
-                priority = 1000;
-              }
+              # { name = "copilot"; priority = 1000; }
               {
                 name = "luasnip";
                 priority = 900;
@@ -191,10 +182,7 @@
           };
           sh = {
             sources = [
-              {
-                name = "copilot";
-                priority = 1000;
-              }
+              # { name = "copilot"; priority = 1000; }
               {
                 name = "buffer";
                 priority = 900;
@@ -219,10 +207,7 @@
                 name = "latex_symbols";
                 priority = 1000;
               }
-              {
-                name = "copilot";
-                priority = 900;
-              }
+              # { name = "copilot"; priority = 900; }
               {
                 name = "luasnip";
                 priority = 800;
@@ -248,15 +233,14 @@
         };
       };
       luasnip.enable = true;
-      copilot-lua = {
-        enable = true;
-        settings = {
-          panel.enabled = false;
-          suggestion.enabled = false;
-        };
-      };
-      copilot-cmp.enable = true;
-      copilot-chat.enable = true;
+      # copilot-lua = {
+      #   enable = true;
+      #   settings = {
+      #     panel.enabled = false;
+      #     suggestion.enabled = false;
+      #   };
+      # };
+      # copilot-chat.enable = true;
       # jupyter related
       jupytext.enable = true;
       hydra.enable = true;
