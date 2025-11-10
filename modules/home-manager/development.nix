@@ -19,6 +19,9 @@
         plotly
         scikit-learn
         catppuccin
+        torch
+        tensorflow
+        keras
       ]
     ))
     postgresql
