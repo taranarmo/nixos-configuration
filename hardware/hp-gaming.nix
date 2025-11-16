@@ -12,6 +12,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    ../modules/nixos/cuda.nix
   ];
 
   boot.initrd.availableKernelModules = [
@@ -82,7 +83,6 @@
     };
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
-  nixpkgs.config.cudaSupport = true;
   services.tlp = {
     enable = true;
     settings = {
