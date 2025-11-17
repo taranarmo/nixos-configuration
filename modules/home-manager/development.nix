@@ -22,6 +22,7 @@
         torch
         tensorflow
         keras
+        nltk
       ]
     ))
     postgresql
