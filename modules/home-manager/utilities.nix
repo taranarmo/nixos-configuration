@@ -55,6 +55,7 @@
     nix-search-cli
     nixpkgs-review
     nix-forecast
+    nix-update
 
     # it provides the command `nom` works just like `nix`
     # with more details log output
