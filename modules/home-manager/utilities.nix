@@ -82,7 +82,5 @@
     usbutils # lsusb
 
     sqlite
-
-    zoom-us
   ];
 }
