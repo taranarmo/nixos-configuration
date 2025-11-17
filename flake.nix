@@ -77,7 +77,7 @@
         modules = [
           determinate.nixosModules.default
           ./configuration.nix
-          ./nixos-ideapad.nix
+          ./hosts/nixos-ideapad.nix
           nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
@@ -96,7 +96,6 @@
             };
           }
           ./cachix.nix
-          ./hardware/ideapad.nix
           ./hardware/keyboard.nix
           { networking.hostName = "nixos-ideapad"; }
           #./firefox.nix
@@ -109,6 +108,7 @@
         modules = [
           determinate.nixosModules.default
           ./configuration.nix
+          ./hosts/hp-gaming.nix
           nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
@@ -127,9 +127,8 @@
             };
           }
           ./cachix.nix
-          ./hardware/hp-gaming.nix
           ./hardware/keyboard.nix
-          ./gaming.nix
+          ./modules/nixos/gaming.nix
           { networking.hostName = "hp-gaming"; }
         ];
       };
