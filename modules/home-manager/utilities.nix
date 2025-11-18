@@ -56,6 +56,7 @@
     nixpkgs-review
     nix-forecast
     nix-update
+    nixfmt-tree
 
     # it provides the command `nom` works just like `nix`
     # with more details log output

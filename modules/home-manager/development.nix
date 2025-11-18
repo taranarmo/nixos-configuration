@@ -2,32 +2,30 @@
 
 {
   home.packages = with pkgs; [
-    # Python environment
-    (python3.withPackages (
-      ps: with ps; [
-        numpy
-        pandas
-        scipy
-        statsmodels
-        requests
-        matplotlib
-        seaborn
-        ipython
-        hickle
-        h5py
-        boto3
-        plotly
-        scikit-learn
-        catppuccin
-        torch
-        tensorflow
-        keras
-        nltk
-      ]
-    ))
+    # Create a custom Python environment with required packages including Jupyter
+    (python3.withPackages (ps: with ps; [
+      numpy
+      pandas
+      scipy
+      statsmodels
+      requests
+      matplotlib
+      seaborn
+      ipython
+      hickle
+      h5py
+      boto3
+      plotly
+      scikit-learn
+      torch
+      tensorflow
+      xgboost
+      keras
+      nltk
+      jupytext
+      jupyter
+    ]))
     postgresql
-    # Python language server for vim
-    python3Packages.jedi-language-server
   ];
 
   # File type settings

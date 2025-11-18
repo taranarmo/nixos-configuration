@@ -16,7 +16,6 @@
     ./modules/nixos/security.nix
     ./modules/nixos/shell.nix
     ./modules/nixos/git.nix
-    ./modules/nixos/python.nix
     ./modules/nixos/fonts.nix
     ./modules/nixos/virtualization.nix
     ./modules/nixos/users.nix
