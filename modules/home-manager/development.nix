@@ -26,6 +26,7 @@
       jupyter
     ]))
     postgresql
+    uv
   ];
 
   # File type settings
