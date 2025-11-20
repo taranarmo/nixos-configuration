@@ -44,6 +44,7 @@
     zstd
     bashmount
     libreoffice-fresh
+    marp-cli # slides in Markdown
 
     # clouds
     terraform
