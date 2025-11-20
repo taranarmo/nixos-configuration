@@ -12,7 +12,7 @@
 
     stylix.url = "github:danth/stylix/";
 
-    nurpkgs.url = "github:nix-community/NUR";
+    # nurpkgs.url = "github:nix-community/NUR";
 
     disko.url = "github:nix-community/disko";
 
@@ -62,7 +62,7 @@
       self,
       nixpkgs,
       home-manager,
-      nur,
+      # nur,
       catppuccin,
       nixvim,
       stylix,
@@ -78,7 +78,7 @@
           determinate.nixosModules.default
           ./configuration.nix
           ./hosts/nixos-ideapad.nix
-          nur.modules.nixos.default
+          # nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
@@ -109,7 +109,7 @@
           determinate.nixosModules.default
           ./configuration.nix
           ./hosts/hp-gaming.nix
-          nur.modules.nixos.default
+          # nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
           stylix.nixosModules.stylix
