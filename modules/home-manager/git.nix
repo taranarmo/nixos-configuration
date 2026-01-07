@@ -5,7 +5,7 @@
   programs.git = {
     enable = true;
     settings = {
-      user.name = "Sergey Volkov ";
+      user.name = "Sergei Volkov ";
       user.email = "taranarmo@gmail.com";
     };
   };
