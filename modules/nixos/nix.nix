@@ -16,7 +16,7 @@
         "flakes"
       ];
       trusted-users = [ "taranarmo" ];
-      max-substitution-jobs = 100;
+      max-substitution-jobs = 30;
       download-buffer-size = 524288000;
       substituters = [
         "https://cache.nixos.org/"
