@@ -293,10 +293,10 @@
       };
 
       # Treesitter configuration
-      treesitter = {
-        enable = true;
-        settings.ensure_installed = "all";
-      };
+      # treesitter = {
+      #   enable = true;
+      #   settings.ensure_installed = "all";
+      # };
 
       # CoQ completion
       #coq = {
