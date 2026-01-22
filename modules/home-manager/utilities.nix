@@ -66,8 +66,11 @@
     # productivity
     hugo # static site generator
     glow # markdown previewer in terminal
+
+    # LLM agents
     gemini-cli
     qwen-code
+    opencode
 
     btop # replacement of htop/nmon
     iotop # io monitoring
