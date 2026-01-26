@@ -68,9 +68,7 @@
     glow # markdown previewer in terminal
 
     # LLM agents
-    gemini-cli
     qwen-code
-    opencode
 
     btop # replacement of htop/nmon
     iotop # io monitoring
@@ -90,4 +88,8 @@
 
     sqlite
   ];
+
+  programs.gemini-cli.enable = true;
+  programs.opencode.enable = true;
+
 }
