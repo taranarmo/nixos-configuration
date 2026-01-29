@@ -70,7 +70,6 @@
     # LLM agents
     qwen-code
 
-    btop # replacement of htop/nmon
     iotop # io monitoring
     iftop # network monitoring
 
@@ -89,6 +88,7 @@
     sqlite
   ];
 
+  programs.btop.enable = true;
   programs.gemini-cli.enable = true;
   programs.opencode = {
     enable = true;
