@@ -5,7 +5,6 @@
   home.packages = with pkgs; [
 
     neofetch
-    nnn # terminal file manager
 
     # archives
     zip
@@ -18,20 +17,17 @@
     gojq
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processer https://github.com/mikefarah/yq
-    eza # A modern replacement for 'ls'
-    fzf # A command-line fuzzy finder
     moor
-    gh
 
     # networking tools
-    mtr # A network diagnostic tool
     iperf3
     dnsutils # `dig` + `nslookup`
     ldns # replacement of `dig`, it provide the command `drill`
-    aria2 # A lightweight multi-protocol & multi-source command-line download utility
     socat # replacement of openbsd-netcat
     nmap # A utility for network discovery and security auditing
     ipcalc # it is a calculator for the IPv4/v6 addresses
+
+    # misc
 
     # misc
     cowsay
@@ -52,7 +48,6 @@
     aws-vault
 
     # nix related
-    nix-index
     nix-search-cli
     nixpkgs-review
     nix-forecast
@@ -89,6 +84,24 @@
   ];
 
   programs.btop.enable = true;
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+    icons = "auto";
+  };
+  programs.fzf.enable = true;
+  programs.gh.enable = true;
+  programs.nnn.enable = true;
+  programs.aria2.enable = true;
+  programs.nix-index.enable = true;
+  programs.password-store = {
+    enable = true;
+    package = pkgs.pass.withExtensions (ps: [
+      ps.pass-otp
+      ps.pass-update
+      ps.pass-file
+    ]);
+  };
   programs.gemini-cli.enable = true;
   programs.opencode = {
     enable = true;
