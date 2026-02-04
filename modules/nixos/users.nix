@@ -16,7 +16,6 @@
       ];
       packages = with pkgs; [
         firefox-esr
-        qutebrowser
         lynx
         mpd
         mpc
