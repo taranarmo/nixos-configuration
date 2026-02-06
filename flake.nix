@@ -21,6 +21,8 @@
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
+    jovian-nixos.url = "github:Jovian-Experiments/Jovian-NixOS";
+
     #    nixpkgs-unfree = {
     #      url = "github:numtide/nixpkgs-unfree";
     #    };
