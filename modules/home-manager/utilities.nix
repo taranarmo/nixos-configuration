@@ -41,6 +41,7 @@
     bashmount
     libreoffice-fresh
     marp-cli # slides in Markdown
+    at # run command at specified time
 
     # clouds
     terraform
