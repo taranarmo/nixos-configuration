@@ -14,6 +14,20 @@
     brightnessctl
     playerctl
   ];
+  programs.rofi = {
+    enable = true;
+    pass.enable = true;
+    modes = [
+      "window"
+      "drun"
+      "run"
+      "ssh"
+      "filebrowser"
+      "recursivebrowser"
+      "combi"
+      "keys"
+    ];
+  };
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -56,7 +70,7 @@
         "$mod, Return, exec, kitty"
         "$mod Shift, Q, killactive, "
         "$mod, M, exit, "
-        "$mod, D, exec, wofi --show drun"
+        "$mod, D, exec, rofi -show drun"
         #"$mod, R, exec, wofi --show drun"
 
         #"$mod, L, exec, swaylock -f -c 000000"
