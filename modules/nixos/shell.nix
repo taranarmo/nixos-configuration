@@ -14,4 +14,6 @@
   programs.zsh = {
     enable = true;
   };
+
+  services.atd.enable = true;
 }
