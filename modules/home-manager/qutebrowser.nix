@@ -108,7 +108,7 @@ in
     '';
 
     settings = {
-      colors.webpage.bg = "transparent";
+      colors.webpage.bg = "${colors.base}";
     };
   };
 }
