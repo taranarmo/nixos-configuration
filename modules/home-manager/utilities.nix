@@ -108,9 +108,21 @@
     enable = true;
     settings = {
       plugin = [
+        "opencode-qwen-auth"
         "opencode-antigravity-auth@v1.3.1"
       ];
       provider = {
+        qwen = {
+          npm = "@ai-sdk/openai";
+          options = {
+            baseURL = "https://portal.qwen.ai/v1";
+            compatibility = "strict";
+          };
+          models = {
+            "qwen3-coder-plus" = {};
+            "qwen3-vl-plus" = { attachment = true; };
+          };
+        };
         google = {
           models = {
             "antigravity-gemini-3-pro" = {
@@ -181,5 +193,4 @@
       };
     };
   };
-
 }
