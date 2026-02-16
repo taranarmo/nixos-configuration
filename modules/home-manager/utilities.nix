@@ -84,7 +84,6 @@
     sqlite
   ];
 
-  programs.qutebrowser.enable = true;
   programs.btop.enable = true;
   programs.eza = {
     enable = true;
