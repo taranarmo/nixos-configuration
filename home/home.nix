@@ -18,6 +18,7 @@
     ../modules/home-manager/hyprlock.nix
     ../modules/home-manager/chromium.nix
     ../modules/home-manager/qutebrowser.nix
+    ../modules/home-manager/opencode
   ];
   home.username = "taranarmo";
   home.homeDirectory = "/home/taranarmo";
