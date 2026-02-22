@@ -14,14 +14,8 @@
       ipython
       hickle
       h5py
-      boto3
       plotly
       scikit-learn
-      torch
-      tensorflow
-      xgboost
-      keras
-      nltk
       jupytext
       jupyter
     ]))
