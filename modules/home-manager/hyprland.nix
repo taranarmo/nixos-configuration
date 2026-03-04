@@ -64,7 +64,7 @@
 
         "$mod, F, fullscreen, "
         "$mod Shift, Space, togglefloating, "
-        "$mod, Space, togglesplit, " # dwindle
+        "$mod, Space, layoutmsg, togglesplit "
 
         "$mod, Q, exec, kitty"
         "$mod, Return, exec, kitty"
