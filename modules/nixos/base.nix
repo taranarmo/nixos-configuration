@@ -21,7 +21,7 @@
     brightnessctl
     pulseaudio
     pavucontrol
-    helvum
+    crosspipe
     bluez
     gnupg
     rclone
