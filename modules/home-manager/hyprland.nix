@@ -27,6 +27,11 @@
       "combi"
       "keys"
     ];
+    plugins = with pkgs; [
+      rofi-calc
+      rofi-emoji
+      rofi-network-manager
+    ];
   };
 
   wayland.windowManager.hyprland = {
