@@ -21,6 +21,7 @@
     ]))
     postgresql
     uv
+    duckdb
   ];
 
   # File type settings
