@@ -141,7 +141,7 @@
         kb_layout = "eu,ru";
         kb_variant = "";
         kb_model = "pc101";
-        kb_options = "grp:lalt_lshift_toggle,grp:rwin_switch,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr,ctrl:nocaps";
+        kb_options = "grp:lalt_lshift_toggle,grp:rwin_switch,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr,compose:paus,ctrl:nocaps";
         kb_rules = "";
 
         follow_mouse = 1;
