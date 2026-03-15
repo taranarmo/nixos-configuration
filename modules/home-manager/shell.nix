@@ -15,6 +15,7 @@
         "pass"
         "docker"
         "aws"
+        "terraform"
         #"vi-mode"
       ];
     };

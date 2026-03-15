@@ -47,6 +47,7 @@
     terraform
     awscli2
     aws-vault
+    ssm-session-manager-plugin # aws session manager plugin
 
     # nix related
     nix-search-cli
