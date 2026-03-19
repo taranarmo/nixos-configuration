@@ -16,6 +16,13 @@
     wireplumber.enable = true;
   };
 
+  boot.kernelModules = [ "uvcvideo" ];
+
+  environment.systemPackages = with pkgs; [
+    libcamera
+    v4l-utils
+  ];
+
   hardware.bluetooth = {
     enable = true;
     settings = {
