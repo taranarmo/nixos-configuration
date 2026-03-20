@@ -19,8 +19,7 @@
     vim-full
     wget
     brightnessctl
-    pulseaudio
-    pavucontrol
+    pwvucontrol
     crosspipe
     bluez
     gnupg

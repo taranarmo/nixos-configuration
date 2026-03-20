@@ -4,6 +4,7 @@
     font-awesome
     swaynotificationcenter
     kitty
+    pwvucontrol
   ];
   programs.waybar = {
     enable = true;
@@ -163,7 +164,7 @@
             ];
           };
           "scroll-step" = 1;
-          "on-click" = "pavucontrol";
+          "on-click" = "pwvucontrol";
           "tooltip-format" = "{node_name}\nVolume: {volume}%";
         };
         "wireplumber#source" = {

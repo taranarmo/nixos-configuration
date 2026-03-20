@@ -90,7 +90,7 @@ This repository currently does not contain standard unit tests or NixOS VM tests
 
 ### Multimedia & Audio
 - Audio is managed via Pipewire (configured in `modules/nixos/multimedia.nix`).
-- Packages: `pavucontrol`, `helvum` (patchbay), `pulseaudio` (utils).
+- Packages: `pwvucontrol`, `helvum` (patchbay), `pulseaudio` (utils).
 
 ### Security & Secrets
 - `polkit` enabled for privilege escalation.
