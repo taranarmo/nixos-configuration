@@ -1,8 +1,8 @@
 {
   nix.settings = {
     substituters = [
-      "https://cache.nixos-cuda.org"
-      "https://cuda-maintainers.cachix.org"
+      "https://cache.nixos-cuda.org?priority=2"
+      "https://cuda-maintainers.cachix.org?priority=2"
     ];
     trusted-public-keys = [
       "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
