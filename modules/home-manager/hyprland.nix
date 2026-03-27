@@ -14,7 +14,10 @@
     brightnessctl
     playerctl
     wireplumber
+    wl-screenrec
+    slurp
   ];
+  programs.swayimg.enable = true;
   programs.rofi = {
     enable = true;
     pass.enable = true;
@@ -27,6 +30,8 @@
       "recursivebrowser"
       "combi"
       "keys"
+      "calc"
+      "emoji"
     ];
     plugins = with pkgs; [
       rofi-calc
@@ -91,6 +96,9 @@
         "$mod Control Shift, c, exec, wl-copy < $(grimblast --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Area
         "$mod, c, exec, wl-copy < $(grimblast --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Active window
         "$mod Shift, c, exec, wl-copy < $(grimblast --notify save output /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Active output (screen)
+
+        # Control Center
+        "$mod, grave, exec, swaync-client -t -sw"
       ]
       ++ (
         # workspaces
