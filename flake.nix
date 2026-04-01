@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
     catppuccin.url = "github:catppuccin/nix";
 
@@ -63,6 +64,7 @@
     inputs@{
       self,
       nixpkgs,
+      nixpkgs-master,
       home-manager,
       # nur,
       catppuccin,
@@ -88,6 +90,12 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
+            home-manager.extraSpecialArgs = {
+              pkgs-master = import nixpkgs-master {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+            };
             home-manager.users.taranarmo = {
               imports = [
                 ./home/home.nix
@@ -119,6 +127,12 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
+            home-manager.extraSpecialArgs = {
+              pkgs-master = import nixpkgs-master {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+            };
             home-manager.users.taranarmo = {
               imports = [
                 ./home/home.nix
