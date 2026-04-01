@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-master, ... }:
 
 {
   # Packages that should be installed to the user profile.
@@ -65,7 +65,7 @@
     glow # markdown previewer in terminal
 
     # LLM agents
-    qwen-code
+    pkgs-master.qwen-code
 
     iotop # io monitoring
     iftop # network monitoring
@@ -104,5 +104,8 @@
       ps.pass-file
     ]);
   };
-  programs.gemini-cli.enable = true;
+  programs.gemini-cli = {
+    enable = true;
+    package = pkgs-master.gemini-cli;
+  };
 }
