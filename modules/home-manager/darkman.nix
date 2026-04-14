@@ -23,6 +23,7 @@
   # Set GTK theme to follow darkman
   gtk = {
     enable = true;
+    gtk4.theme = config.gtk.theme;
     theme = {
       name = "Adwaita";
       package = pkgs.gnome-themes-extra;
