@@ -3,7 +3,7 @@
 {
   programs.opencode.settings = {
     plugin = [
-      "opencode-qwen-auth"
+      "opencode-qwencode-oauth"
     ];
 
     provider = {
@@ -14,8 +14,19 @@
           compatibility = "strict";
         };
         models = {
-          "qwen3-coder-plus" = {};
-          "qwen3-vl-plus" = { attachment = true; };
+          "coder-model" = {
+            id = "coder-model";
+            name = "Qwen Coder";
+            limit = {
+              context = 1048576;
+              output = 65536;
+            };
+            modalities = {
+              input = [ "text" "image" ];
+              output = [ "text" ];
+            };
+            attachment = true;
+          };
         };
       };
     };
