@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-master, ... }:
 
 {
   home.packages = with pkgs; [
@@ -21,7 +21,7 @@
     ]))
     postgresql
     uv
-    duckdb
+    pkgs-master.duckdb
   ];
 
   # File type settings
