@@ -74,13 +74,13 @@
       ...
     }:
     {
-      nixosConfigurations.hp = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.hp-omnibook = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs.flake-inputs = inputs;
         modules = [
           determinate.nixosModules.default
           ./configuration.nix
-          #./hosts/nixos-ideapad.nix
+          ./hosts/hp-omnibook.nix
           # nur.modules.nixos.default
           catppuccin.nixosModules.catppuccin
           home-manager.nixosModules.home-manager
@@ -106,7 +106,8 @@
           }
           ./cachix.nix
           ./hardware/keyboard.nix
-          { networking.hostName = "nixos-ideapad"; }
+          ./modules/nixos/gaming.nix
+          { networking.hostName = "hp-omnibook"; }
           #./firefox.nix
         ];
       };
