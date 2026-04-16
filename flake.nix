@@ -74,6 +74,42 @@
       ...
     }:
     {
+      nixosConfigurations.hp = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs.flake-inputs = inputs;
+        modules = [
+          determinate.nixosModules.default
+          ./configuration.nix
+          #./hosts/nixos-ideapad.nix
+          # nur.modules.nixos.default
+          catppuccin.nixosModules.catppuccin
+          home-manager.nixosModules.home-manager
+          stylix.nixosModules.stylix
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "hmbackup";
+            home-manager.extraSpecialArgs = {
+              pkgs-master = import nixpkgs-master {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+            };
+            home-manager.users.taranarmo = {
+              imports = [
+                ./home/home.nix
+                catppuccin.homeModules.catppuccin
+                nixvim.homeModules.nixvim
+                stylix.homeModules.stylix
+              ];
+            };
+          }
+          ./cachix.nix
+          ./hardware/keyboard.nix
+          { networking.hostName = "nixos-ideapad"; }
+          #./firefox.nix
+        ];
+      };
 
       nixosConfigurations.nixos-ideapad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
