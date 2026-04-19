@@ -64,9 +64,6 @@
     hugo # static site generator
     glow # markdown previewer in terminal
 
-    # LLM agents
-    pkgs-master.qwen-code
-
     iotop # io monitoring
     iftop # network monitoring
 

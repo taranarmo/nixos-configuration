@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./qwen.nix
     ./google.nix
   ];
 
