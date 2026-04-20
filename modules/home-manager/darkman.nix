@@ -1,10 +1,5 @@
 { config, pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    gnome-themes-extra
-    adwaita-icon-theme
-    adwaita-qt
-  ];
   services.darkman = {
     enable = true;
     settings = {
@@ -24,23 +19,6 @@
   gtk = {
     enable = true;
     gtk4.theme = config.gtk.theme;
-    theme = {
-      name = "Adwaita";
-      package = pkgs.gnome-themes-extra;
-    };
-    cursorTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-    };
   };
 
-  #  # Set QT theme to follow darkman
-  #  qt = {
-  #    enable = true;
-  #    #platformTheme = "xdgdesktopportal";
-  #    style = {
-  #      name = "adwaita-dark";
-  #      package = pkgs.adwaita-qt;
-  #    };
-  #  };
 }
