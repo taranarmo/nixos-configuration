@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  home.shellAliases = {
+    qrclip = "echo $(clippaste) && clippaste | qrencode -t ansiutf8";
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
