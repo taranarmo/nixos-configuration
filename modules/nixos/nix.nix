@@ -7,8 +7,7 @@
 
 {
   nix = {
-    # conflicts with determinate nix
-    # package = pkgs.nixVersions.latest;
+    package = pkgs.lixPackageSets.latest.lix;
     settings = {
       auto-optimise-store = true;
       experimental-features = [
@@ -17,7 +16,6 @@
       ];
       trusted-users = [ "taranarmo" ];
       max-substitution-jobs = 30;
-      download-buffer-size = 524288000;
       substituters = [
         "https://cache.nixos.org/?priority=1"
         "https://nix-community.cachix.org?priority=2"

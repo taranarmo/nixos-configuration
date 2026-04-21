@@ -20,8 +20,6 @@
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib.url = "github:hyprwm/contrib";
 
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-
     jovian-nixos.url = "github:Jovian-Experiments/Jovian-NixOS";
 
     #    nixpkgs-unfree = {
@@ -70,7 +68,6 @@
       catppuccin,
       nixvim,
       stylix,
-      determinate,
       ...
     }:
     {
@@ -78,7 +75,6 @@
         system = "x86_64-linux";
         specialArgs.flake-inputs = inputs;
         modules = [
-          determinate.nixosModules.default
           ./configuration.nix
           ./hosts/hp-omnibook.nix
           # nur.modules.nixos.default
@@ -116,7 +112,6 @@
         system = "x86_64-linux";
         specialArgs.flake-inputs = inputs;
         modules = [
-          determinate.nixosModules.default
           ./configuration.nix
           ./hosts/nixos-ideapad.nix
           # nur.modules.nixos.default
@@ -153,7 +148,6 @@
         system = "x86_64-linux";
         specialArgs.flake-inputs = inputs;
         modules = [
-          determinate.nixosModules.default
           ./configuration.nix
           ./hosts/hp-gaming.nix
           # nur.modules.nixos.default
