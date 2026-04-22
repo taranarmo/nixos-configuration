@@ -217,6 +217,14 @@
         vrr = 3;
       };
 
+      gesture = [
+        "3, left, dispatcher, sendshortcut, , XF86Back, activewindow"
+        "3, right, dispatcher, sendshortcut, , XF86Forward, activewindow"
+        "4, swipe, move"
+        "5, horizontal, workspace"
+        "5, pinch, fullscreen"
+      ];
+
       # Example windowrule v1
       # windowrule = "float, ^(kitty)$";
       # Example windowrule v2
