@@ -5,6 +5,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
 
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
     catppuccin.url = "github:catppuccin/nix";
 
     home-manager.url = "github:nix-community/home-manager/";
@@ -63,6 +66,7 @@
       self,
       nixpkgs,
       nixpkgs-master,
+      nix-index-database,
       home-manager,
       # nur,
       catppuccin,
@@ -97,6 +101,7 @@
                 catppuccin.homeModules.catppuccin
                 nixvim.homeModules.nixvim
                 stylix.homeModules.stylix
+                nix-index-database.hmModules.nix-index
               ];
             };
           }
@@ -134,6 +139,7 @@
                 catppuccin.homeModules.catppuccin
                 nixvim.homeModules.nixvim
                 stylix.homeModules.stylix
+                nix-index-database.hmModules.nix-index
               ];
             };
           }
@@ -170,6 +176,7 @@
                 catppuccin.homeModules.catppuccin
                 nixvim.homeModules.nixvim
                 stylix.homeModules.stylix
+                nix-index-database.hmModules.nix-index
               ];
             };
           }

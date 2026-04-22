@@ -93,6 +93,7 @@
   programs.nnn.enable = true;
   programs.aria2.enable = true;
   programs.nix-index.enable = true;
+  programs.nix-index-database.comma.enable = true;
   programs.password-store = {
     enable = true;
     package = pkgs.pass.withExtensions (ps: [
