@@ -281,7 +281,17 @@
         enable = true;
         inlayHints = true;
         servers = {
-          terraformls.enable = true;
+          terraformls = {
+            enable = true;
+            extraOptions = {
+              on_attach.__raw = ''
+                function(client, bufnr)
+                  client.server_capabilities.signatureHelpProvider = false
+                  client.server_capabilities.semanticTokensProvider = nil
+                end
+              '';
+            };
+          };
           nixd.enable = true;
           jedi_language_server.enable = true;
           pyright.enable = true;
@@ -308,7 +318,6 @@
     # Extra packages
     extraPackages = with pkgs; [
       sqlfluff
-      terraform-ls
       nixd
       python3Packages.jedi-language-server
     ];
