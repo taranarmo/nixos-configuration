@@ -102,9 +102,4 @@
       ps.pass-file
     ]);
   };
-  programs.gemini-cli = {
-    enable = true;
-    package = pkgs-master.gemini-cli;
-  };
-  programs.claude-code.enable = true;
 }
