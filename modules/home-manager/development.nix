@@ -18,6 +18,8 @@
       scikit-learn
       jupytext
       jupyter
+      boto3
+      duckdb
     ]))
     postgresql
     uv
