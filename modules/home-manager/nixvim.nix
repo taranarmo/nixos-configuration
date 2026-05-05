@@ -55,6 +55,19 @@
     plugins = {
       lualine.enable = true;
       fzf-lua.enable = true;
+      fff = {
+        enable = true;
+        settings = {
+          layout = {
+            height = 0.8;
+            width = 0.8;
+            preview_position = "right";
+          };
+          frecency.enabled = true;
+          history.enabled = true;
+          max_results = 100;
+        };
+      };
       #ale.enable = true;
       #better-whitespace.enable = true;
       commentary.enable = true;
@@ -316,6 +329,15 @@
       #  installArtifacts = true;
       #};
     };
+
+    keymaps = [
+      {
+        mode = "n";
+        key = "<leader>e";
+        action = ":FFFFind<CR>";
+        options.silent = true;
+      }
+    ];
 
     # Extra packages
     extraPackages = with pkgs; [
