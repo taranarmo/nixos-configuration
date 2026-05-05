@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-master, lib, ... }:
+{ config, pkgs, pkgs-small, lib, ... }:
 
 {
   imports = [
@@ -7,6 +7,6 @@
 
   programs.opencode = {
     enable = true;
-    package = pkgs-master.opencode;
+    package = pkgs.opencode;
   };
 }

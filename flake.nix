@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -65,7 +65,7 @@
     inputs@{
       self,
       nixpkgs,
-      nixpkgs-master,
+      nixpkgs-small,
       nix-index-database,
       home-manager,
       # nur,
@@ -90,7 +90,7 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
             home-manager.extraSpecialArgs = {
-              pkgs-master = import nixpkgs-master {
+              pkgs-small = import nixpkgs-small {
                 system = "x86_64-linux";
                 config.allowUnfree = true;
               };
@@ -128,7 +128,7 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
             home-manager.extraSpecialArgs = {
-              pkgs-master = import nixpkgs-master {
+              pkgs-small = import nixpkgs-small {
                 system = "x86_64-linux";
                 config.allowUnfree = true;
               };
@@ -165,7 +165,7 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
             home-manager.extraSpecialArgs = {
-              pkgs-master = import nixpkgs-master {
+              pkgs-small = import nixpkgs-small {
                 system = "x86_64-linux";
                 config.allowUnfree = true;
               };

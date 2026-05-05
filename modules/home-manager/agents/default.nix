@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-master, lib, ... }:
+{ config, pkgs, pkgs-small, lib, ... }:
 
 {
   imports = [
@@ -11,7 +11,7 @@
 
   programs.gemini-cli = {
     enable = true;
-    package = pkgs-master.gemini-cli;
+    package = pkgs-small.gemini-cli;
   };
 
   programs.claude-code = {
