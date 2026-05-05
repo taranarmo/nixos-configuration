@@ -7,6 +7,8 @@
     vimAlias = true;
     vimdiffAlias = true;
 
+    nixpkgs.config.allowUnfree = true;
+
     colorschemes.catppuccin.enable = true;
 
     diagnostic = {
