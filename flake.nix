@@ -101,7 +101,7 @@
                 catppuccin.homeModules.catppuccin
                 nixvim.homeModules.nixvim
                 stylix.homeModules.stylix
-                nix-index-database.hmModules.nix-index
+                nix-index-database.homeModules.nix-index
               ];
             };
           }
@@ -139,7 +139,7 @@
                 catppuccin.homeModules.catppuccin
                 nixvim.homeModules.nixvim
                 stylix.homeModules.stylix
-                nix-index-database.hmModules.nix-index
+                nix-index-database.homeModules.nix-index
               ];
             };
           }
@@ -176,7 +176,7 @@
                 catppuccin.homeModules.catppuccin
                 nixvim.homeModules.nixvim
                 stylix.homeModules.stylix
-                nix-index-database.hmModules.nix-index
+                nix-index-database.homeModules.nix-index
               ];
             };
           }
