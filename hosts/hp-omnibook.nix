@@ -14,6 +14,14 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  # Meteor Lake (iGPU device ID 7d51): drive the iGPU with `xe` instead of
+  # `i915` to avoid GPU hangs under sustained Vulkan/DXVK load (Steam games).
+  boot.kernelParams = [
+    "i915.force_probe=!7d51"
+    "xe.force_probe=7d51"
+  ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/39b5cd16-47a3-4ac0-a874-fd54da593a5b";
       fsType = "ext4";
