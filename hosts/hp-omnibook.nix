@@ -31,5 +31,6 @@
   hardware.cpu.intel.npu.enable = true;
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
+  custom.notebook.enable = true;
   custom.display.scaling = "1.33";
 }

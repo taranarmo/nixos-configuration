@@ -22,5 +22,6 @@
     ./modules/nixos/multimedia.nix
     ./modules/nixos/graphics.nix
     ./modules/nixos/system-services.nix
+    ./modules/nixos/notebook.nix
   ];
 }

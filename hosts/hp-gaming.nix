@@ -83,11 +83,5 @@
     };
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
-  services.tlp = {
-    enable = true;
-    settings = {
-      STOP_CHARGE_THRESH_BAT0 = 85;
-    };
-  };
-  services.thermald.enable = true;
+  custom.notebook.enable = true;
 }
