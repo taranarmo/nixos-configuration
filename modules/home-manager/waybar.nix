@@ -5,6 +5,7 @@
     swaynotificationcenter
     kitty
     pwvucontrol
+    yad
   ];
   programs.waybar = {
     enable = true;
@@ -82,7 +83,26 @@
         };
         "clock" = {
           "format" = "{:%a %d %b %H:%M}";
-          "tooltip" = false;
+          "tooltip-format" = "<tt><span size='200%'>{calendar}</span></tt>";
+          "calendar" = {
+            "mode" = "month";
+            "mode-mon-col" = 3;
+            "weeks-pos" = "right";
+            "on-scroll" = 1;
+            "format" = {
+              "months" = "<span color='#f9e2af'><b>{}</b></span>";
+              "days" = "<span color='#cdd6f4'><b>{}</b></span>";
+              "weeks" = "<span color='#74c7ec'><b>W{}</b></span>";
+              "weekdays" = "<span color='#fab387'><b>{}</b></span>";
+              "today" = "<span color='#f38ba8'><b><u>{}</u></b></span>";
+            };
+          };
+          "on-click" = "GDK_BACKEND=wayland ${pkgs.yad}/bin/yad --calendar --width=600 --height=500 --undecorated --fixed --close-on-unfocus --no-buttons --posx=650 --posy=60 --title='Calendar' --font-name='Arimo Nerd Font 16'";
+          "actions" = {
+            "on-click-right" = "mode";
+            "on-scroll-up" = "shift_up";
+            "on-scroll-down" = "shift_down";
+          };
         };
         "cpu" = {
           "interval" = 1;
@@ -221,6 +241,15 @@
       }
       #workspaces button.active {
         background: #64727D;
+      }
+      #tooltip {
+        background: rgba(30, 30, 46, 0.9);
+        border: 2px solid #cba6f7;
+        border-radius: 10px;
+        padding: 20px;
+      }
+      #tooltip label {
+        font-size: 16px;
       }
     '';
   };
