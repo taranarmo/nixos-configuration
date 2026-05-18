@@ -17,6 +17,10 @@
     wl-screenrec
     slurp
   ];
+  services.cliphist = {
+    enable = true;
+    allowImages = true;
+  };
   programs.swayimg.enable = true;
   programs.rofi = {
     enable = true;
@@ -82,6 +86,7 @@
         "$mod Shift, Q, killactive, "
         "$mod, M, exit, "
         "$mod, D, exec, rofi -show drun"
+        "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
         #"$mod, R, exec, wofi --show drun"
 
         #"$mod, L, exec, swaylock -f -c 000000"
@@ -143,6 +148,8 @@
         "hyprland-per-window-layout"
         "swayidle -w timeout 90 'brightnessctl -s & brightnessctl set 5%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 1200 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
         "[ -d /tmp/screenshots ] || mkdir /tmp/screenshots"
+        "wl-paste --type text --watch cliphist store"
+        "wl-paste --type image --watch cliphist store"
       ];
       monitor = [
         "${osConfig.custom.display.internalMonitor},preferred,auto,${osConfig.custom.display.scaling}"
