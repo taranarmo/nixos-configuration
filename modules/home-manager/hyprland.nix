@@ -47,63 +47,62 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
+    configType = "lua";
     settings = {
-      "$mod" = "SUPER";
       bind = [
         # Move focus with mainMod + arrow keys
-        "$mod, left, movefocus, l"
-        "$mod, right, movefocus, r"
-        "$mod, up, movefocus, u"
-        "$mod, down, movefocus, d"
+        { mod = "SUPER"; key = "left"; dispatcher = "movefocus"; arg = "l"; }
+        { mod = "SUPER"; key = "right"; dispatcher = "movefocus"; arg = "r"; }
+        { mod = "SUPER"; key = "up"; dispatcher = "movefocus"; arg = "u"; }
+        { mod = "SUPER"; key = "down"; dispatcher = "movefocus"; arg = "d"; }
         # Move focus with mainMod + vi-like keys
-        "$mod, H, movefocus, l"
-        "$mod, L, movefocus, r"
-        "$mod, K, movefocus, u"
-        "$mod, J, movefocus, d"
+        { mod = "SUPER"; key = "H"; dispatcher = "movefocus"; arg = "l"; }
+        { mod = "SUPER"; key = "L"; dispatcher = "movefocus"; arg = "r"; }
+        { mod = "SUPER"; key = "K"; dispatcher = "movefocus"; arg = "u"; }
+        { mod = "SUPER"; key = "J"; dispatcher = "movefocus"; arg = "d"; }
         # Move window with arrow keys
-        "$mod Shift, Left, movewindow, l"
-        "$mod Shift, Right, movewindow, r"
-        "$mod Shift, Up, movewindow, u"
-        "$mod Shift, Down, movewindow, d"
+        { mod = "SUPER SHIFT"; key = "Left"; dispatcher = "movewindow"; arg = "l"; }
+        { mod = "SUPER SHIFT"; key = "Right"; dispatcher = "movewindow"; arg = "r"; }
+        { mod = "SUPER SHIFT"; key = "Up"; dispatcher = "movewindow"; arg = "u"; }
+        { mod = "SUPER SHIFT"; key = "Down"; dispatcher = "movewindow"; arg = "d"; }
         # Move window with vi-like keys
-        "$mod Shift, H, movewindow, l"
-        "$mod Shift, L, movewindow, r"
-        "$mod Shift, K, movewindow, u"
-        "$mod Shift, J, movewindow, d"
+        { mod = "SUPER SHIFT"; key = "H"; dispatcher = "movewindow"; arg = "l"; }
+        { mod = "SUPER SHIFT"; key = "L"; dispatcher = "movewindow"; arg = "r"; }
+        { mod = "SUPER SHIFT"; key = "K"; dispatcher = "movewindow"; arg = "u"; }
+        { mod = "SUPER SHIFT"; key = "J"; dispatcher = "movewindow"; arg = "d"; }
 
         # Move workspace between monitors with vi-like keys
-        "$mod Control Shift, H, movecurrentworkspacetomonitor, l"
-        "$mod Control Shift, L, movecurrentworkspacetomonitor, r"
-        "$mod Control Shift, K, movecurrentworkspacetomonitor, u"
-        "$mod Control Shift, J, movecurrentworkspacetomonitor, d"
+        { mod = "SUPER CONTROL SHIFT"; key = "H"; dispatcher = "movecurrentworkspacetomonitor"; arg = "l"; }
+        { mod = "SUPER CONTROL SHIFT"; key = "L"; dispatcher = "movecurrentworkspacetomonitor"; arg = "r"; }
+        { mod = "SUPER CONTROL SHIFT"; key = "K"; dispatcher = "movecurrentworkspacetomonitor"; arg = "u"; }
+        { mod = "SUPER CONTROL SHIFT"; key = "J"; dispatcher = "movecurrentworkspacetomonitor"; arg = "d"; }
 
-        "$mod, F, fullscreen, "
-        "$mod Shift, Space, togglefloating, "
-        "$mod, Space, layoutmsg, togglesplit "
+        { mod = "SUPER"; key = "F"; dispatcher = "fullscreen"; arg = ""; }
+        { mod = "SUPER SHIFT"; key = "Space"; dispatcher = "togglefloating"; arg = ""; }
+        { mod = "SUPER"; key = "Space"; dispatcher = "layoutmsg"; arg = "togglesplit "; }
 
-        "$mod, Q, exec, kitty"
-        "$mod, Return, exec, kitty"
-        "$mod Shift, Q, killactive, "
-        "$mod, M, exit, "
-        "$mod, D, exec, rofi -show drun"
-        "$mod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-        #"$mod, R, exec, wofi --show drun"
+        { mod = "SUPER"; key = "Q"; dispatcher = "exec"; arg = "kitty"; }
+        { mod = "SUPER"; key = "Return"; dispatcher = "exec"; arg = "kitty"; }
+        { mod = "SUPER SHIFT"; key = "Q"; dispatcher = "killactive"; arg = ""; }
+        { mod = "SUPER"; key = "M"; dispatcher = "exit"; arg = ""; }
+        { mod = "SUPER"; key = "D"; dispatcher = "exec"; arg = "rofi -show drun"; }
+        { mod = "SUPER"; key = "V"; dispatcher = "exec"; arg = "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
 
-        #"$mod, L, exec, swaylock -f -c 000000"
-        "Control + Alt, L, exec, swaylock -f -c 000000"
-        "Control + Alt, Delete, exec, nwg-bar"
+        { mod = "CONTROL ALT"; key = "L"; dispatcher = "exec"; arg = "swaylock -f -c 000000"; }
+        { mod = "CONTROL ALT"; key = "Delete"; dispatcher = "exec"; arg = "nwg-bar"; }
 
-        #"Control, Space, exec, hyprctl switchxkblayout current next"
-
-        ", Print, exec, grimblast copy area"
+        { mod = ""; key = "Print"; dispatcher = "exec"; arg = "grimblast copy area"; }
 
         # Screenshots
-        "$mod Control Shift, c, exec, wl-copy < $(grimblast --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Area
-        "$mod, c, exec, wl-copy < $(grimblast --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Active window
-        "$mod Shift, c, exec, wl-copy < $(grimblast --notify save output /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)" # Active output (screen)
+        { mod = "SUPER CONTROL SHIFT"; key = "c"; dispatcher = "exec"; arg = "wl-copy < $(grimblast --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)"; }
+        { mod = "SUPER"; key = "c"; dispatcher = "exec"; arg = "wl-copy < $(grimblast --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)"; }
+        { mod = "SUPER SHIFT"; key = "c"; dispatcher = "exec"; arg = "wl-copy < $(grimblast --notify save output /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)"; }
 
         # Control Center
-        "$mod, grave, exec, swaync-client -t -sw"
+        { mod = "SUPER"; key = "grave"; dispatcher = "exec"; arg = "swaync-client -t -sw"; }
+
+        # Submap trigger
+        { mod = "SUPER"; key = "R"; dispatcher = "submap"; arg = "resize"; }
       ]
       ++ (
         # workspaces
@@ -119,29 +118,29 @@
                 builtins.toString (x + 1 - (c * 10));
             in
             [
-              "$mod, ${ws}, workspace, ${toString (x + 1)}"
-              "$mod SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
+              { mod = "SUPER"; key = ws; dispatcher = "workspace"; arg = toString (x + 1); }
+              { mod = "SUPER SHIFT"; key = ws; dispatcher = "movetoworkspacesilent"; arg = toString (x + 1); }
             ]
           ) 10
         )
       );
       bindl = [
-        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_SINK@ toggle"
-        ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_SOURCE@ toggle"
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl previous"
+        { mod = ""; key = "XF86AudioMute"; dispatcher = "exec"; arg = "wpctl set-mute @DEFAULT_SINK@ toggle"; }
+        { mod = ""; key = "XF86AudioMicMute"; dispatcher = "exec"; arg = "wpctl set-mute @DEFAULT_SOURCE@ toggle"; }
+        { mod = ""; key = "XF86AudioPlay"; dispatcher = "exec"; arg = "playerctl play-pause"; }
+        { mod = ""; key = "XF86AudioNext"; dispatcher = "exec"; arg = "playerctl next"; }
+        { mod = ""; key = "XF86AudioPrev"; dispatcher = "exec"; arg = "playerctl previous"; }
       ];
       bindel = [
-        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 1%+"
-        "Shift, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%+"
-        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 1%-"
-        "Shift, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_SINK@ 5%-"
-        ", XF86MonBrightnessDown, exec, brightnessctl set 5%-"
-        ", XF86MonBrightnessUp, exec, brightnessctl set 5%+"
+        { mod = ""; key = "XF86AudioRaiseVolume"; dispatcher = "exec"; arg = "wpctl set-volume @DEFAULT_SINK@ 1%+"; }
+        { mod = "SHIFT"; key = "XF86AudioRaiseVolume"; dispatcher = "exec"; arg = "wpctl set-volume @DEFAULT_SINK@ 5%+"; }
+        { mod = ""; key = "XF86AudioLowerVolume"; dispatcher = "exec"; arg = "wpctl set-volume @DEFAULT_SINK@ 1%-"; }
+        { mod = "SHIFT"; key = "XF86AudioLowerVolume"; dispatcher = "exec"; arg = "wpctl set-volume @DEFAULT_SINK@ 5%-"; }
+        { mod = ""; key = "XF86MonBrightnessDown"; dispatcher = "exec"; arg = "brightnessctl set 5%-"; }
+        { mod = ""; key = "XF86MonBrightnessUp"; dispatcher = "exec"; arg = "brightnessctl set 5%+"; }
       ];
       bindm = [
-        "$mod, mouse:272, movewindow" # move window with mouse
+        { mod = "SUPER"; key = "mouse:272"; dispatcher = "movewindow"; } # move window with mouse
       ];
       exec-once = [
         "waybar"
@@ -152,8 +151,8 @@
         "wl-paste --type image --watch cliphist store"
       ];
       monitor = [
-        "${osConfig.custom.display.internalMonitor},preferred,auto,${osConfig.custom.display.scaling}"
-        ",preferred,auto,1"
+        { name = osConfig.custom.display.internalMonitor; res = "preferred"; pos = "auto"; scale = osConfig.custom.display.scaling; }
+        { name = ""; res = "preferred"; pos = "auto"; scale = "1"; }
       ];
 
       input = {
@@ -231,24 +230,28 @@
         "5, pinch, fullscreen"
       ];
 
+      submap = {
+        resize = {
+          binde = [
+            { mod = ""; key = "h"; dispatcher = "resizeactive"; arg = "10 0"; }
+            { mod = ""; key = "l"; dispatcher = "resizeactive"; arg = "-10 0"; }
+            { mod = ""; key = "k"; dispatcher = "resizeactive"; arg = "0 -10"; }
+            { mod = ""; key = "j"; dispatcher = "resizeactive"; arg = "0 10"; }
+            { mod = "SHIFT"; key = "h"; dispatcher = "resizeactive"; arg = "50 0"; }
+            { mod = "SHIFT"; key = "l"; dispatcher = "resizeactive"; arg = "-50 0"; }
+            { mod = "SHIFT"; key = "k"; dispatcher = "resizeactive"; arg = "0 -50"; }
+            { mod = "SHIFT"; key = "j"; dispatcher = "resizeactive"; arg = "0 50"; }
+          ];
+          bind = [
+            { mod = ""; key = "escape"; dispatcher = "submap"; arg = "reset"; }
+          ];
+        };
+      };
+
       # Example windowrule v1
       # windowrule = "float, ^(kitty)$";
       # Example windowrule v2
       # windowrulev2 = "float,class:^(kitty)$,title:^(kitty)$";
     };
-    extraConfig = ''
-      bind = $mod, R, submap, resize
-      submap = resize
-      binde = , h, resizeactive, 10 0
-      binde = , l, resizeactive, -10 0
-      binde = , k, resizeactive, 0 -10
-      binde = , j, resizeactive, 0 10
-      binde = shift, h, resizeactive, 50 0
-      binde = shift, l, resizeactive, -50 0
-      binde = shift, k, resizeactive, 0 -50
-      binde = shift, j, resizeactive, 0 50
-      bind = , escape, submap, reset
-      submap = reset
-    '';
   };
 }
