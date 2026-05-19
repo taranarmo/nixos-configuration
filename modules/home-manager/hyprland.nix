@@ -1,4 +1,11 @@
-{ config, pkgs, osConfig, ... }:
+{ config, lib, pkgs, osConfig, ... }:
+
+let
+  inherit (lib.generators) mkLuaInline;
+
+  bind = chord: disp: { _args = [ chord (mkLuaInline disp) ]; };
+  bindo = chord: disp: opts: { _args = [ chord (mkLuaInline disp) opts ]; };
+in
 
 {
   home.packages = with pkgs; [
@@ -48,65 +55,184 @@
     enable = true;
     systemd.enable = false;
     configType = "lua";
+
     settings = {
+      config = {
+        general = {
+          gaps_in = 3;
+          gaps_out = 5;
+          border_size = 2;
+          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+          "col.inactive_border" = "rgba(595959aa)";
+          layout = "dwindle";
+          allow_tearing = false;
+          resize_on_border = true;
+        };
+        decoration = {
+          rounding = 10;
+          blur = {
+            enabled = true;
+            size = 3;
+            passes = 1;
+          };
+        };
+        animations.enabled = true;
+        dwindle.preserve_split = true;
+        master.new_status = "master";
+        misc = {
+          force_default_wallpaper = 0;
+          vrr = 3;
+        };
+        ecosystem.no_update_news = true;
+        input = {
+          kb_layout = "eu,ru";
+          kb_variant = "";
+          kb_model = "pc101";
+          kb_options = "grp:lalt_lshift_toggle,grp:rwin_switch,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr,compose:paus,ctrl:nocaps";
+          kb_rules = "";
+          follow_mouse = 1;
+          touchpad = {
+            natural_scroll = false;
+            disable_while_typing = 1;
+          };
+          sensitivity = 0;
+        };
+      };
+
+      curve = {
+        _args = [
+          "myBezier"
+          {
+            type = "bezier";
+            points = [ [ 0.05 0.9 ] [ 0.1 1.05 ] ];
+          }
+        ];
+      };
+
+      animation = [
+        { leaf = "windows";     enabled = true; speed = 1;  bezier = "myBezier"; }
+        { leaf = "windowsOut";  enabled = true; speed = 1;  bezier = "default"; style = "popin 80%"; }
+        { leaf = "border";      enabled = true; speed = 10; bezier = "default"; }
+        { leaf = "borderangle"; enabled = true; speed = 8;  bezier = "default"; }
+        { leaf = "fade";        enabled = true; speed = 2;  bezier = "default"; }
+        { leaf = "workspaces";  enabled = true; speed = 3;  bezier = "default"; }
+      ];
+
+      monitor = [
+        {
+          output = osConfig.custom.display.internalMonitor;
+          mode = "preferred";
+          position = "auto";
+          scale = osConfig.custom.display.scaling;
+        }
+        {
+          output = "";
+          mode = "preferred";
+          position = "auto";
+          scale = 1;
+        }
+      ];
+
+      gesture = [
+        { fingers = 4; direction = "swipe";      action = "move"; }
+        { fingers = 5; direction = "horizontal"; action = "workspace"; }
+        { fingers = 5; direction = "pinch";      action = "fullscreen"; }
+        {
+          fingers = 3;
+          direction = "left";
+          action = mkLuaInline ''function() hl.dispatch(hl.dsp.send_shortcut({ mods = "", key = "XF86Back" })) end'';
+        }
+        {
+          fingers = 3;
+          direction = "right";
+          action = mkLuaInline ''function() hl.dispatch(hl.dsp.send_shortcut({ mods = "", key = "XF86Forward" })) end'';
+        }
+      ];
+
+      exec_cmd = [
+        "waybar"
+        "hyprland-per-window-layout"
+        "swayidle -w timeout 90 'brightnessctl -s & brightnessctl set 5%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 1200 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
+        "[ -d /tmp/screenshots ] || mkdir /tmp/screenshots"
+        "wl-paste --type text --watch cliphist store"
+        "wl-paste --type image --watch cliphist store"
+      ];
+
       bind = [
-        # Move focus with mainMod + arrow keys
-        { mod = "SUPER"; key = "left"; dispatcher = "movefocus"; arg = "l"; }
-        { mod = "SUPER"; key = "right"; dispatcher = "movefocus"; arg = "r"; }
-        { mod = "SUPER"; key = "up"; dispatcher = "movefocus"; arg = "u"; }
-        { mod = "SUPER"; key = "down"; dispatcher = "movefocus"; arg = "d"; }
-        # Move focus with mainMod + vi-like keys
-        { mod = "SUPER"; key = "H"; dispatcher = "movefocus"; arg = "l"; }
-        { mod = "SUPER"; key = "L"; dispatcher = "movefocus"; arg = "r"; }
-        { mod = "SUPER"; key = "K"; dispatcher = "movefocus"; arg = "u"; }
-        { mod = "SUPER"; key = "J"; dispatcher = "movefocus"; arg = "d"; }
+        # Move focus with arrow keys
+        (bind "SUPER + left"  ''hl.dsp.focus({ direction = "l" })'')
+        (bind "SUPER + right" ''hl.dsp.focus({ direction = "r" })'')
+        (bind "SUPER + up"    ''hl.dsp.focus({ direction = "u" })'')
+        (bind "SUPER + down"  ''hl.dsp.focus({ direction = "d" })'')
+        # Move focus with vi-like keys
+        (bind "SUPER + H" ''hl.dsp.focus({ direction = "l" })'')
+        (bind "SUPER + L" ''hl.dsp.focus({ direction = "r" })'')
+        (bind "SUPER + K" ''hl.dsp.focus({ direction = "u" })'')
+        (bind "SUPER + J" ''hl.dsp.focus({ direction = "d" })'')
         # Move window with arrow keys
-        { mod = "SUPER SHIFT"; key = "Left"; dispatcher = "movewindow"; arg = "l"; }
-        { mod = "SUPER SHIFT"; key = "Right"; dispatcher = "movewindow"; arg = "r"; }
-        { mod = "SUPER SHIFT"; key = "Up"; dispatcher = "movewindow"; arg = "u"; }
-        { mod = "SUPER SHIFT"; key = "Down"; dispatcher = "movewindow"; arg = "d"; }
+        (bind "SUPER + SHIFT + Left"  ''hl.dsp.window.move({ direction = "l" })'')
+        (bind "SUPER + SHIFT + Right" ''hl.dsp.window.move({ direction = "r" })'')
+        (bind "SUPER + SHIFT + Up"    ''hl.dsp.window.move({ direction = "u" })'')
+        (bind "SUPER + SHIFT + Down"  ''hl.dsp.window.move({ direction = "d" })'')
         # Move window with vi-like keys
-        { mod = "SUPER SHIFT"; key = "H"; dispatcher = "movewindow"; arg = "l"; }
-        { mod = "SUPER SHIFT"; key = "L"; dispatcher = "movewindow"; arg = "r"; }
-        { mod = "SUPER SHIFT"; key = "K"; dispatcher = "movewindow"; arg = "u"; }
-        { mod = "SUPER SHIFT"; key = "J"; dispatcher = "movewindow"; arg = "d"; }
+        (bind "SUPER + SHIFT + H" ''hl.dsp.window.move({ direction = "l" })'')
+        (bind "SUPER + SHIFT + L" ''hl.dsp.window.move({ direction = "r" })'')
+        (bind "SUPER + SHIFT + K" ''hl.dsp.window.move({ direction = "u" })'')
+        (bind "SUPER + SHIFT + J" ''hl.dsp.window.move({ direction = "d" })'')
 
-        # Move workspace between monitors with vi-like keys
-        { mod = "SUPER CONTROL SHIFT"; key = "H"; dispatcher = "movecurrentworkspacetomonitor"; arg = "l"; }
-        { mod = "SUPER CONTROL SHIFT"; key = "L"; dispatcher = "movecurrentworkspacetomonitor"; arg = "r"; }
-        { mod = "SUPER CONTROL SHIFT"; key = "K"; dispatcher = "movecurrentworkspacetomonitor"; arg = "u"; }
-        { mod = "SUPER CONTROL SHIFT"; key = "J"; dispatcher = "movecurrentworkspacetomonitor"; arg = "d"; }
+        # Move current workspace between monitors with vi-like keys
+        (bind "SUPER + CONTROL + SHIFT + H" ''hl.dsp.workspace.move({ monitor = "l" })'')
+        (bind "SUPER + CONTROL + SHIFT + L" ''hl.dsp.workspace.move({ monitor = "r" })'')
+        (bind "SUPER + CONTROL + SHIFT + K" ''hl.dsp.workspace.move({ monitor = "u" })'')
+        (bind "SUPER + CONTROL + SHIFT + J" ''hl.dsp.workspace.move({ monitor = "d" })'')
 
-        { mod = "SUPER"; key = "F"; dispatcher = "fullscreen"; arg = ""; }
-        { mod = "SUPER SHIFT"; key = "Space"; dispatcher = "togglefloating"; arg = ""; }
-        { mod = "SUPER"; key = "Space"; dispatcher = "layoutmsg"; arg = "togglesplit "; }
+        (bind "SUPER + F"             ''hl.dsp.window.fullscreen({ action = "toggle" })'')
+        (bind "SUPER + SHIFT + Space" ''hl.dsp.window.float({ action = "toggle" })'')
+        (bind "SUPER + Space"         ''hl.dsp.layout("togglesplit")'')
 
-        { mod = "SUPER"; key = "Q"; dispatcher = "exec"; arg = "kitty"; }
-        { mod = "SUPER"; key = "Return"; dispatcher = "exec"; arg = "kitty"; }
-        { mod = "SUPER SHIFT"; key = "Q"; dispatcher = "killactive"; arg = ""; }
-        { mod = "SUPER"; key = "M"; dispatcher = "exit"; arg = ""; }
-        { mod = "SUPER"; key = "D"; dispatcher = "exec"; arg = "rofi -show drun"; }
-        { mod = "SUPER"; key = "V"; dispatcher = "exec"; arg = "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
+        (bind "SUPER + Q"         ''hl.dsp.exec_cmd("kitty")'')
+        (bind "SUPER + Return"    ''hl.dsp.exec_cmd("kitty")'')
+        (bind "SUPER + SHIFT + Q" ''hl.dsp.window.close()'')
+        (bind "SUPER + M"         ''hl.dsp.exit()'')
+        (bind "SUPER + D"         ''hl.dsp.exec_cmd("rofi -show drun")'')
+        (bind "SUPER + V"         ''hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy")'')
 
-        { mod = "CONTROL ALT"; key = "L"; dispatcher = "exec"; arg = "swaylock -f -c 000000"; }
-        { mod = "CONTROL ALT"; key = "Delete"; dispatcher = "exec"; arg = "nwg-bar"; }
+        (bind "CONTROL + ALT + L"      ''hl.dsp.exec_cmd("swaylock -f -c 000000")'')
+        (bind "CONTROL + ALT + Delete" ''hl.dsp.exec_cmd("nwg-bar")'')
 
-        { mod = ""; key = "Print"; dispatcher = "exec"; arg = "grimblast copy area"; }
+        (bind "Print" ''hl.dsp.exec_cmd("grimblast copy area")'')
 
         # Screenshots
-        { mod = "SUPER CONTROL SHIFT"; key = "c"; dispatcher = "exec"; arg = "wl-copy < $(grimblast --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)"; }
-        { mod = "SUPER"; key = "c"; dispatcher = "exec"; arg = "wl-copy < $(grimblast --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)"; }
-        { mod = "SUPER SHIFT"; key = "c"; dispatcher = "exec"; arg = "wl-copy < $(grimblast --notify save output /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)"; }
+        (bind "SUPER + CONTROL + SHIFT + c" ''hl.dsp.exec_cmd("wl-copy < $(grimblast --notify save area /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)")'')
+        (bind "SUPER + c"                   ''hl.dsp.exec_cmd("wl-copy < $(grimblast --notify save active /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)")'')
+        (bind "SUPER + SHIFT + c"           ''hl.dsp.exec_cmd("wl-copy < $(grimblast --notify save output /tmp/screenshots/screenshot-$(date --iso-8601=seconds).png)")'')
 
         # Control Center
-        { mod = "SUPER"; key = "grave"; dispatcher = "exec"; arg = "swaync-client -t -sw"; }
+        (bind "SUPER + grave" ''hl.dsp.exec_cmd("swaync-client -t -sw")'')
+
+        # Move window with mouse
+        (bindo "SUPER + mouse:272" ''hl.dsp.window.drag()'' { mouse = true; })
 
         # Submap trigger
-        { mod = "SUPER"; key = "R"; dispatcher = "submap"; arg = "resize"; }
+        (bind "SUPER + R" ''hl.dsp.submap("resize")'')
+
+        # Media keys (work while screen locked)
+        (bindo "XF86AudioMute"    ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_SINK@ toggle")''   { locked = true; })
+        (bindo "XF86AudioMicMute" ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_SOURCE@ toggle")'' { locked = true; })
+        (bindo "XF86AudioPlay"    ''hl.dsp.exec_cmd("playerctl play-pause")''                   { locked = true; })
+        (bindo "XF86AudioNext"    ''hl.dsp.exec_cmd("playerctl next")''                         { locked = true; })
+        (bindo "XF86AudioPrev"    ''hl.dsp.exec_cmd("playerctl previous")''                     { locked = true; })
+
+        # Volume / brightness (locked + repeating on hold)
+        (bindo "XF86AudioRaiseVolume"         ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 1%+")'' { locked = true; repeating = true; })
+        (bindo "SHIFT + XF86AudioRaiseVolume" ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%+")'' { locked = true; repeating = true; })
+        (bindo "XF86AudioLowerVolume"         ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 1%-")'' { locked = true; repeating = true; })
+        (bindo "SHIFT + XF86AudioLowerVolume" ''hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_SINK@ 5%-")'' { locked = true; repeating = true; })
+        (bindo "XF86MonBrightnessDown"        ''hl.dsp.exec_cmd("brightnessctl set 5%-")''               { locked = true; repeating = true; })
+        (bindo "XF86MonBrightnessUp"          ''hl.dsp.exec_cmd("brightnessctl set 5%+")''               { locked = true; repeating = true; })
       ]
       ++ (
-        # workspaces
-        # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+        # workspaces: SUPER + {1..0} switches, SUPER + SHIFT + {1..0} moves window silently
         builtins.concatLists (
           builtins.genList (
             x:
@@ -116,142 +242,30 @@
                   c = (x + 1) / 10;
                 in
                 builtins.toString (x + 1 - (c * 10));
+              n = toString (x + 1);
             in
             [
-              { mod = "SUPER"; key = ws; dispatcher = "workspace"; arg = toString (x + 1); }
-              { mod = "SUPER SHIFT"; key = ws; dispatcher = "movetoworkspacesilent"; arg = toString (x + 1); }
+              (bind "SUPER + ${ws}"         ''hl.dsp.focus({ workspace = "${n}" })'')
+              (bind "SUPER + SHIFT + ${ws}" ''hl.dsp.window.move({ workspace = "${n}", follow = false })'')
             ]
           ) 10
         )
       );
-      bindl = [
-        { mod = ""; key = "XF86AudioMute"; dispatcher = "exec"; arg = "wpctl set-mute @DEFAULT_SINK@ toggle"; }
-        { mod = ""; key = "XF86AudioMicMute"; dispatcher = "exec"; arg = "wpctl set-mute @DEFAULT_SOURCE@ toggle"; }
-        { mod = ""; key = "XF86AudioPlay"; dispatcher = "exec"; arg = "playerctl play-pause"; }
-        { mod = ""; key = "XF86AudioNext"; dispatcher = "exec"; arg = "playerctl next"; }
-        { mod = ""; key = "XF86AudioPrev"; dispatcher = "exec"; arg = "playerctl previous"; }
+    };
+
+    submaps.resize = {
+      onDispatch = "";
+      settings.bind = [
+        (bindo "h"         ''hl.dsp.window.resize({ x = 10,  y = 0,   relative = true })'' { repeating = true; })
+        (bindo "l"         ''hl.dsp.window.resize({ x = -10, y = 0,   relative = true })'' { repeating = true; })
+        (bindo "k"         ''hl.dsp.window.resize({ x = 0,   y = -10, relative = true })'' { repeating = true; })
+        (bindo "j"         ''hl.dsp.window.resize({ x = 0,   y = 10,  relative = true })'' { repeating = true; })
+        (bindo "SHIFT + h" ''hl.dsp.window.resize({ x = 50,  y = 0,   relative = true })'' { repeating = true; })
+        (bindo "SHIFT + l" ''hl.dsp.window.resize({ x = -50, y = 0,   relative = true })'' { repeating = true; })
+        (bindo "SHIFT + k" ''hl.dsp.window.resize({ x = 0,   y = -50, relative = true })'' { repeating = true; })
+        (bindo "SHIFT + j" ''hl.dsp.window.resize({ x = 0,   y = 50,  relative = true })'' { repeating = true; })
+        (bind  "escape"    ''hl.dsp.submap("reset")'')
       ];
-      bindel = [
-        { mod = ""; key = "XF86AudioRaiseVolume"; dispatcher = "exec"; arg = "wpctl set-volume @DEFAULT_SINK@ 1%+"; }
-        { mod = "SHIFT"; key = "XF86AudioRaiseVolume"; dispatcher = "exec"; arg = "wpctl set-volume @DEFAULT_SINK@ 5%+"; }
-        { mod = ""; key = "XF86AudioLowerVolume"; dispatcher = "exec"; arg = "wpctl set-volume @DEFAULT_SINK@ 1%-"; }
-        { mod = "SHIFT"; key = "XF86AudioLowerVolume"; dispatcher = "exec"; arg = "wpctl set-volume @DEFAULT_SINK@ 5%-"; }
-        { mod = ""; key = "XF86MonBrightnessDown"; dispatcher = "exec"; arg = "brightnessctl set 5%-"; }
-        { mod = ""; key = "XF86MonBrightnessUp"; dispatcher = "exec"; arg = "brightnessctl set 5%+"; }
-      ];
-      bindm = [
-        { mod = "SUPER"; key = "mouse:272"; dispatcher = "movewindow"; } # move window with mouse
-      ];
-      exec-once = [
-        "waybar"
-        "hyprland-per-window-layout"
-        "swayidle -w timeout 90 'brightnessctl -s & brightnessctl set 5%' resume 'brightnessctl -r' timeout 180 'swaylock -f -c 000000' timeout 200 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' timeout 1200 'systemctl suspend' before-sleep 'swaylock -f -c 000000'"
-        "[ -d /tmp/screenshots ] || mkdir /tmp/screenshots"
-        "wl-paste --type text --watch cliphist store"
-        "wl-paste --type image --watch cliphist store"
-      ];
-      monitor = [
-        { name = osConfig.custom.display.internalMonitor; res = "preferred"; pos = "auto"; scale = osConfig.custom.display.scaling; }
-        { name = ""; res = "preferred"; pos = "auto"; scale = "1"; }
-      ];
-
-      input = {
-        kb_layout = "eu,ru";
-        kb_variant = "";
-        kb_model = "pc101";
-        kb_options = "grp:lalt_lshift_toggle,grp:rwin_switch,lv3:ralt_switch,compose:lwin-altgr,compose:rctrl-altgr,compose:paus,ctrl:nocaps";
-        kb_rules = "";
-
-        follow_mouse = 1;
-
-        touchpad = {
-          natural_scroll = "no";
-          disable_while_typing = 1;
-        };
-
-        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
-      };
-
-      general = {
-        gaps_in = 3;
-        gaps_out = 5;
-        border_size = 2;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
-        layout = "dwindle";
-        allow_tearing = false;
-        resize_on_border = true;
-      };
-
-      ecosystem = {
-        no_update_news = true;
-      };
-
-      decoration = {
-        rounding = 10;
-        blur = {
-          enabled = true;
-          size = 3;
-          passes = 1;
-        };
-      };
-
-      animations = {
-        enabled = true;
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-        animation = [
-          "windows, 1, 1, myBezier"
-          "windowsOut, 1, 1, default, popin 80%"
-          "border, 1, 10, default"
-          "borderangle, 1, 8, default"
-          "fade, 1, 2, default"
-          "workspaces, 1, 3, default"
-        ];
-      };
-
-      dwindle = {
-        preserve_split = true; # you probably want this
-      };
-
-      master = {
-        new_status = "master";
-      };
-
-      misc = {
-        force_default_wallpaper = 0; # Set to 0 to disable the anime mascot wallpapers
-        vrr = 3;
-      };
-
-      gesture = [
-        "3, left, dispatcher, sendshortcut, , XF86Back, activewindow"
-        "3, right, dispatcher, sendshortcut, , XF86Forward, activewindow"
-        "4, swipe, move"
-        "5, horizontal, workspace"
-        "5, pinch, fullscreen"
-      ];
-
-      submap = {
-        resize = {
-          binde = [
-            { mod = ""; key = "h"; dispatcher = "resizeactive"; arg = "10 0"; }
-            { mod = ""; key = "l"; dispatcher = "resizeactive"; arg = "-10 0"; }
-            { mod = ""; key = "k"; dispatcher = "resizeactive"; arg = "0 -10"; }
-            { mod = ""; key = "j"; dispatcher = "resizeactive"; arg = "0 10"; }
-            { mod = "SHIFT"; key = "h"; dispatcher = "resizeactive"; arg = "50 0"; }
-            { mod = "SHIFT"; key = "l"; dispatcher = "resizeactive"; arg = "-50 0"; }
-            { mod = "SHIFT"; key = "k"; dispatcher = "resizeactive"; arg = "0 -50"; }
-            { mod = "SHIFT"; key = "j"; dispatcher = "resizeactive"; arg = "0 50"; }
-          ];
-          bind = [
-            { mod = ""; key = "escape"; dispatcher = "submap"; arg = "reset"; }
-          ];
-        };
-      };
-
-      # Example windowrule v1
-      # windowrule = "float, ^(kitty)$";
-      # Example windowrule v2
-      # windowrulev2 = "float,class:^(kitty)$,title:^(kitty)$";
     };
   };
 }
