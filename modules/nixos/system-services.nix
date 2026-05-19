@@ -43,7 +43,7 @@
     package = pkgs.kdePackages.sddm;
   };
 
-  services.ollama.enable = true;
+  services.ollama.enable = false;
   services.pcscd.enable = true;
   services.fwupd.enable = true;
   services.logind.settings.Login.HandleLidSwitchDocked = "suspend-then-hibernate";
