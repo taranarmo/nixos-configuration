@@ -62,8 +62,6 @@ in
           gaps_in = 3;
           gaps_out = 5;
           border_size = 2;
-          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          "col.inactive_border" = "rgba(595959aa)";
           layout = "dwindle";
           allow_tearing = false;
           resize_on_border = true;
@@ -241,7 +239,7 @@ in
                 let
                   c = (x + 1) / 10;
                 in
-                builtins.toString (x + 1 - (c * 10));
+                toString (x + 1 - (c * 10));
               n = toString (x + 1);
             in
             [
