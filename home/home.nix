@@ -27,6 +27,7 @@
   catppuccin = {
     enable = true;
     flavor = "mocha";
+    hyprland.enable = false; # catppuccin's hyprland integration only emits hyprlang sources
   };
   gtk = {
     enable = true;
