@@ -5,8 +5,9 @@
     ./opencode
   ];
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs-small; [
     rtk
+    antigravity-cli
   ];
 
   programs.gemini-cli = {
