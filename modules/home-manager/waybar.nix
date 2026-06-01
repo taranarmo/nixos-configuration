@@ -21,7 +21,7 @@
           "hyprland/workspaces"
           "hyprland/submap"
         ];
-        modules-center = [ "clock" ];
+        modules-center = [ "hyprland/window" ];
         modules-right = [
           "custom/notification"
           "tray"
@@ -37,6 +37,7 @@
           "battery"
           "hyprland/language"
           "sway/language"
+          "clock"
         ];
         "hyprland/language" = {
           "format-eu" = "EU";
