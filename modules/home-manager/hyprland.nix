@@ -216,7 +216,10 @@ in
 
         # Media keys (work while screen locked)
         (bindo "XF86AudioMute"    ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_SINK@ toggle")''   { locked = true; })
-        (bindo "XF86AudioMicMute" ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_SOURCE@ toggle")'' { locked = true; })
+        # Push-to-talk: unmute mic while held, mute on release. SHIFT toggles mute.
+        (bindo "XF86AudioMicMute"         ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_SOURCE@ 0")''      { locked = true; })
+        (bindo "XF86AudioMicMute"         ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_SOURCE@ 1")''      { locked = true; release = true; })
+        (bindo "SHIFT + XF86AudioMicMute" ''hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_SOURCE@ toggle")'' { locked = true; })
         (bindo "XF86AudioPlay"    ''hl.dsp.exec_cmd("playerctl play-pause")''                   { locked = true; })
         (bindo "XF86AudioNext"    ''hl.dsp.exec_cmd("playerctl next")''                         { locked = true; })
         (bindo "XF86AudioPrev"    ''hl.dsp.exec_cmd("playerctl previous")''                     { locked = true; })
