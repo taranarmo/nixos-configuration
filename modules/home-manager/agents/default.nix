@@ -10,9 +10,9 @@
     antigravity-cli
   ];
 
-  programs.gemini-cli = {
+  programs.antigravity-cli = {
     enable = true;
-    package = pkgs-small.gemini-cli;
+    package = pkgs-small.antigravity-cli;
   };
 
   programs.claude-code = {
