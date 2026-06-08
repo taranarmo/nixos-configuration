@@ -7,8 +7,22 @@
     pwvucontrol
     yad
   ];
+  # Waybar (0.15.0) aborts on monitor hotplug: the battery module's worker thread
+  # throws an uncaught std::runtime_error ("Could not watch events for .../BAT0")
+  # when re-enumerating /sys/class/power_supply races the ucsi-source-psy-* USB-C
+  # supplies appearing/disappearing during PD negotiation (see the "bat"/"adapter"
+  # pinning in the battery module below). Without this, systemd restarts it a few
+  # times during the event storm, trips the default start-rate limit (5 starts /
+  # 10s), gives up, and leaves no panel at all. Disabling the rate limit lets it
+  # keep restarting until the display settles and it comes back up.
+  systemd.user.services.waybar = {
+    Unit.StartLimitIntervalSec = 0;
+    Service.RestartSec = 2;
+  };
+
   programs.waybar = {
     enable = true;
+    systemd.enable = true;
     settings = {
       mainBar = {
         layer = "top";
@@ -115,6 +129,14 @@
           "format" = "{}% ";
         };
         "battery" = {
+          # Pin the real battery/adapter so the module stops auto-enumerating the
+          # volatile ucsi-source-psy-* USB-C power supplies that flap in and out
+          # during DP-alt/PD negotiation on display hotplug. The battery worker
+          # throws an uncaught std::runtime_error ("Could not watch events for
+          # .../BAT0") when that enumeration races a device removal, which aborts
+          # the whole bar. See the systemd auto-restart note above for the safety net.
+          "bat" = "BAT0";
+          "adapter" = "ADP1";
           "format" = "{capacity}% {icon}";
           "format-alt" = "{time} {icon}";
           "format-icons" = [
