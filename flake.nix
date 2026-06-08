@@ -14,7 +14,7 @@
 
     nixvim.url = "github:nix-community/nixvim/";
 
-    stylix.url = "github:danth/stylix/";
+    stylix.url = "github:nix-community/stylix/";
 
     # nurpkgs.url = "github:nix-community/NUR";
 
