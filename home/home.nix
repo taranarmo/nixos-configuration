@@ -25,6 +25,7 @@
   home.homeDirectory = "/home/taranarmo";
 
   catppuccin = {
+    autoEnable = true;
     enable = true;
     flavor = "mocha";
     hyprland.enable = false; # catppuccin's hyprland integration only emits hyprlang sources
