@@ -7,6 +7,7 @@
     settings = {
       user.name = "Sergei Volkov ";
       user.email = "taranarmo@gmail.com";
+      diff.colorMoved = "default";
     };
   };
   programs.delta = {
