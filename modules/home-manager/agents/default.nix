@@ -17,5 +17,6 @@
 
   programs.claude-code = {
     enable = true;
+    package = pkgs-small.claude-code;
   };
 }
