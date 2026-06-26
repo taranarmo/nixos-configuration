@@ -9,12 +9,16 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
     catppuccin.url = "github:catppuccin/nix";
+    catppuccin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager/";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixvim.url = "github:nix-community/nixvim/";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     stylix.url = "github:nix-community/stylix/";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
 
     # nurpkgs.url = "github:nix-community/NUR";
 
