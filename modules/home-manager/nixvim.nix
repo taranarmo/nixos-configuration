@@ -8,6 +8,7 @@
     vimdiffAlias = true;
 
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.source = pkgs.path;
 
     colorschemes.catppuccin.enable = true;
 
