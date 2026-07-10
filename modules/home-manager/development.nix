@@ -12,7 +12,6 @@
       matplotlib
       seaborn
       ipython
-      hickle
       h5py
       plotly
       scikit-learn
