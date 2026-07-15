@@ -84,4 +84,6 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
   custom.notebook.enable = true;
+
+  custom.networking.wirelessInterface = "wlo1";
 }

@@ -41,4 +41,6 @@
 
   custom.notebook.enable = true;
   custom.display.scaling = "1.33";
+
+  custom.networking.wirelessInterface = "wlo1";
 }
