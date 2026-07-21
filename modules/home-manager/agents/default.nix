@@ -5,9 +5,8 @@
     ./opencode
   ];
 
-  home.packages = with pkgs-small; [
+  home.packages = with pkgs; [
     rtk
-    antigravity-cli
   ];
 
   programs.antigravity-cli = {
