@@ -20,6 +20,7 @@
       boto3
       duckdb
     ]))
+    julia
     postgresql
     uv
     duckdb
