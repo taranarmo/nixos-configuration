@@ -29,6 +29,15 @@
     enable = true;
     flavor = "mocha";
     hyprland.enable = false; # catppuccin's hyprland integration only emits hyprlang sources
+    cursors.enable = false; # set the cursor explicitly below (with hyprcursor for Hyprland)
+  };
+
+  home.pointerCursor = {
+    enable = true;
+    package = pkgs.catppuccin-cursors.mochaDark;
+    name = "catppuccin-mocha-dark-cursors";
+    size = 24;
+    gtk.enable = true;
   };
   gtk = {
     enable = true;
