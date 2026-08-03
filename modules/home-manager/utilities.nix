@@ -39,7 +39,10 @@
     gawk
     zstd
     bashmount
-    libreoffice-fresh
+    #libreoffice-fresh
+    sc-im
+    csvkit
+    xlsx2csv
     marp-cli # slides in Markdown
     at # run command at specified time
 
