@@ -23,6 +23,7 @@ in
     wireplumber
     wl-screenrec
     slurp
+    wdisplays
   ];
   services.cliphist = {
     enable = true;
