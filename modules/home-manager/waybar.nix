@@ -163,7 +163,7 @@ in
           "tooltip" = false;
         };
         "temperature" = {
-          "thermal-zone" = 6;
+          # "thermal-zone" = 6;
           "critical-threshold" = 80;
           "format" = "{temperatureC}°C {icon}";
           "format-icons" = [
