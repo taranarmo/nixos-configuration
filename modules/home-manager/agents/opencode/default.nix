@@ -1,4 +1,11 @@
-{ config, pkgs, pkgs-small, lib, ... }:
+{
+  config,
+  pkgs,
+  pkgs-small,
+  llm-pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -7,6 +14,6 @@
 
   programs.opencode = {
     enable = true;
-    package = pkgs.opencode;
+    package = llm-pkgs.opencode;
   };
 }

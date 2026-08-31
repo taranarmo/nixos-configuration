@@ -1,21 +1,28 @@
-{ config, pkgs, pkgs-small, lib, ... }:
+{
+  config,
+  pkgs,
+  pkgs-small,
+  llm-pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
     ./opencode
   ];
 
-  home.packages = with pkgs; [
-    rtk
+  home.packages = [
+    llm-pkgs.rtk
   ];
 
   programs.antigravity-cli = {
     enable = true;
-    package = pkgs-small.antigravity-cli;
+    package = llm-pkgs.antigravity-cli;
   };
 
   programs.claude-code = {
     enable = true;
-    package = pkgs-small.claude-code;
+    package = llm-pkgs.claude-code;
   };
 }

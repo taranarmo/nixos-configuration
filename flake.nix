@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
+    llm-agents.url = "github:numtide/llm-agents.nix";
+
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -70,6 +72,7 @@
       self,
       nixpkgs,
       nixpkgs-small,
+      llm-agents,
       nix-index-database,
       home-manager,
       # nur,
@@ -81,7 +84,11 @@
     {
       nixosConfigurations.hp-omnibook = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.flake-inputs = inputs;
+        specialArgs = {
+          flake-inputs = inputs;
+          inherit inputs;
+          llm-pkgs = llm-agents.packages.x86_64-linux;
+        };
         modules = [
           ./configuration.nix
           ./hosts/hp-omnibook.nix
@@ -94,10 +101,12 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
             home-manager.extraSpecialArgs = {
+              inherit inputs;
               pkgs-small = import nixpkgs-small {
                 system = "x86_64-linux";
                 config.allowUnfree = true;
               };
+              llm-pkgs = llm-agents.packages.x86_64-linux;
             };
             home-manager.users.taranarmo = {
               imports = [
@@ -119,7 +128,11 @@
 
       nixosConfigurations.nixos-ideapad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.flake-inputs = inputs;
+        specialArgs = {
+          flake-inputs = inputs;
+          inherit inputs;
+          llm-pkgs = llm-agents.packages.x86_64-linux;
+        };
         modules = [
           ./configuration.nix
           ./hosts/nixos-ideapad.nix
@@ -132,10 +145,12 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
             home-manager.extraSpecialArgs = {
+              inherit inputs;
               pkgs-small = import nixpkgs-small {
                 system = "x86_64-linux";
                 config.allowUnfree = true;
               };
+              llm-pkgs = llm-agents.packages.x86_64-linux;
             };
             home-manager.users.taranarmo = {
               imports = [
@@ -156,7 +171,11 @@
 
       nixosConfigurations.hp-gaming = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs.flake-inputs = inputs;
+        specialArgs = {
+          flake-inputs = inputs;
+          inherit inputs;
+          llm-pkgs = llm-agents.packages.x86_64-linux;
+        };
         modules = [
           ./configuration.nix
           ./hosts/hp-gaming.nix
@@ -169,10 +188,12 @@
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "hmbackup";
             home-manager.extraSpecialArgs = {
+              inherit inputs;
               pkgs-small = import nixpkgs-small {
                 system = "x86_64-linux";
                 config.allowUnfree = true;
               };
+              llm-pkgs = llm-agents.packages.x86_64-linux;
             };
             home-manager.users.taranarmo = {
               imports = [
