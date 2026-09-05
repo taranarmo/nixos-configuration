@@ -32,7 +32,6 @@ in
   programs.swayimg.enable = true;
   programs.rofi = {
     enable = true;
-    pass.enable = true;
     modes = [
       "window"
       "drun"
