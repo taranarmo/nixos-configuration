@@ -10,6 +10,7 @@
 {
   imports = [
     ./opencode
+    ./sandbox.nix
   ];
 
   home.packages = [
