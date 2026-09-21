@@ -64,7 +64,7 @@ This repository currently does not contain standard unit tests or NixOS VM tests
 - `flake.nix`: The source of truth. Defines inputs and system outputs.
 - `configuration.nix`: The entry point for shared NixOS configuration.
 - `home/home.nix`: The entry point for shared Home Manager configuration.
-- `cachix.nix`: Global binary cache settings.
+- `caches.nix`: Global binary cache settings (imports all caches from `caches/`).
 
 ### Host Roles
 - `nixos-ideapad`: Lenovo laptop, Intel graphics, power management optimized (powersave).

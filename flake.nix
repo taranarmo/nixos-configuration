@@ -118,7 +118,7 @@
               ];
             };
           }
-          ./cachix.nix
+          ./caches.nix
           ./hardware/keyboard.nix
           ./modules/nixos/gaming.nix
           { networking.hostName = "hp-omnibook"; }
@@ -162,7 +162,7 @@
               ];
             };
           }
-          ./cachix.nix
+          ./caches.nix
           ./hardware/keyboard.nix
           { networking.hostName = "nixos-ideapad"; }
           #./firefox.nix
@@ -205,7 +205,7 @@
               ];
             };
           }
-          ./cachix.nix
+          ./caches.nix
           ./hardware/keyboard.nix
           ./modules/nixos/gaming.nix
           { networking.hostName = "hp-gaming"; }

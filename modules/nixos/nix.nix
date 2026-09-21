@@ -16,17 +16,6 @@
       ];
       trusted-users = [ "taranarmo" ];
       max-substitution-jobs = 30;
-      substituters = [
-        "https://cache.nixos.org/?priority=1"
-        "https://nix-community.cachix.org?priority=2"
-        "https://hyprland.cachix.org?priority=2"
-        "https://cache.flox.dev?priority=1"
-      ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        "flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs="
-      ];
     };
     gc = {
       automatic = true;
