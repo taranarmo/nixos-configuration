@@ -20,6 +20,7 @@ completely hidden and protected from unauthorized access or accidental modificat
 
 Options:
   -C, --dir, --workspace DIR  Run inside DIR instead of current working directory
+  -e, --env VAR[=VAL]         Forward or set an environment variable inside sandbox
   --ro-dir DIR                Mount an additional directory read-only
   --rw-dir DIR                Mount an additional directory read-write
   --no-net                    Disable network access inside the sandbox
@@ -30,6 +31,9 @@ Examples:
   agent-box agy
   agent-box claude
   agent-box opencode
+  GH_TOKEN=$(gh auth token) agent-box claude
+  aws-vault exec my-profile -- agent-box claude
+  agent-box -e CUSTOM_TOKEN=xyz claude
   agent-box -C ~/src/my-project claude
   agent-box                   # Starts an isolated interactive shell
   nix develop -c agent-box agy
@@ -42,11 +46,26 @@ SHARE_NET=1
 ALLOW_HOME=0
 EXTRA_MOUNTS=()
 CUSTOM_CMD=()
+MANUAL_ENVS=()
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -h|--help)
       usage
+      ;;
+    -e|--env)
+      if [[ -z "${2:-}" ]]; then
+        echo "Error: $1 requires a variable name or VAR=VAL argument" >&2
+        exit 1
+      fi
+      if [[ "$2" == *"="* ]]; then
+        MANUAL_ENVS+=(--setenv "${2%%=*}" "${2#*=}")
+      else
+        if [[ -n "${!2:-}" ]]; then
+          MANUAL_ENVS+=(--setenv "$2" "${!2}")
+        fi
+      fi
+      shift 2
       ;;
     -C|--dir|--workspace)
       if [[ -z "${2:-}" ]]; then
@@ -140,12 +159,17 @@ if [[ -n "${LC_ALL:-}" ]]; then
   ENV_ARGS+=(--setenv LC_ALL "$LC_ALL")
 fi
 
-# Pass API keys, tokens, and git author credentials
+# Pass API keys, tokens, and cloud credentials
 while IFS= read -r var; do
   if [[ -n "${!var:-}" ]]; then
     ENV_ARGS+=(--setenv "$var" "${!var}")
   fi
-done < <(env | cut -d= -f1 | grep -E '(_API_KEY|_TOKEN|_SECRET|^OPENCODE_|^GEMINI_|^ANTHROPIC_|^OPENAI_|^GOOGLE_|^GIT_AUTHOR_|^GIT_COMMITTER_)' || true)
+done < <(env | cut -d= -f1 | grep -E '(_API_KEY|_TOKEN|_SECRET|_KEY_ID|_SESSION_TOKEN|^AWS_|^GH_|^GITHUB_|^OPENCODE_|^GEMINI_|^ANTHROPIC_|^OPENAI_|^GOOGLE_|^GIT_AUTHOR_|^GIT_COMMITTER_)' || true)
+
+# Add manually passed environment variables (-e/--env)
+if [[ ${#MANUAL_ENVS[@]} -gt 0 ]]; then
+  ENV_ARGS+=("${MANUAL_ENVS[@]}")
+fi
 
 EXTRA_BWRAP_ARGS=()
 if [[ -n "${AGENT_BOX_EXTRA_ARGS:-}" ]]; then
