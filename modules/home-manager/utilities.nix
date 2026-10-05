@@ -77,7 +77,11 @@
 
     # system call monitoring
     strace # system call monitoring
-    ltrace # library call monitoring
+    (ltrace.overrideAttrs (old: {
+      postPatch = (old.postPatch or "") + ''
+        sed -i '1i #pragma GCC diagnostic ignored "-Wvolatile"' testsuite/ltrace.minor/demangle-lib.cpp testsuite/ltrace.minor/demangle.cpp
+      '';
+    })) # library call monitoring
     lsof # list open files
 
     # system tools
