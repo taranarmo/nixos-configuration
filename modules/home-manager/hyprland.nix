@@ -32,18 +32,20 @@ in
   programs.swayimg.enable = true;
   programs.rofi = {
     enable = true;
-    modes = [
-      "window"
-      "drun"
-      "run"
-      "ssh"
-      "filebrowser"
-      "recursivebrowser"
-      "combi"
-      "keys"
-      "calc"
-      "emoji"
-    ];
+    settings = {
+      modes = [
+        "window"
+        "drun"
+        "run"
+        "ssh"
+        "filebrowser"
+        "recursivebrowser"
+        "combi"
+        "keys"
+        "calc"
+        "emoji"
+      ];
+    };
     plugins = with pkgs; [
       rofi-calc
       rofi-emoji
