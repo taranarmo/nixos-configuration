@@ -1,7 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  programs.kitty.enable = true;
+  programs.kitty = {
+    enable = true;
+    settings = {
+      remember_window_size = false;
+    };
+  };
   home.sessionVariables = {
     PAGER = "${pkgs.moor}/bin/moor";
     MANPAGER = "${pkgs.moor}/bin/moor";
