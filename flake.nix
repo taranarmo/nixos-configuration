@@ -31,9 +31,10 @@
 
     jovian-nixos.url = "github:Jovian-Experiments/Jovian-NixOS";
 
-    #    nixpkgs-unfree = {
-    #      url = "github:numtide/nixpkgs-unfree";
-    #    };
+    nixpkgs-unfree = {
+      url = "github:numtide/nixpkgs-unfree";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     #    sops-nix = {

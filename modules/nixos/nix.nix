@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -16,6 +17,10 @@
       ];
       trusted-users = [ "taranarmo" ];
       max-substitution-jobs = 30;
+    };
+    registry = {
+      nixpkgs-unfree.flake = inputs.nixpkgs-unfree;
+      unfree.flake = inputs.nixpkgs-unfree;
     };
     gc = {
       automatic = true;
