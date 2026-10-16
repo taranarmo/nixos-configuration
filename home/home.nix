@@ -32,6 +32,9 @@
     cursors.enable = false; # set the cursor explicitly below (with hyprcursor for Hyprland)
   };
 
+  # Disable Stylix overlays in Home Manager when home-manager.useGlobalPkgs is enabled
+  stylix.overlays.enable = false;
+
   home.pointerCursor = {
     enable = true;
     package = pkgs.catppuccin-cursors.mochaDark;
