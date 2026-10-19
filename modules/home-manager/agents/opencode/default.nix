@@ -8,12 +8,8 @@
 }:
 
 {
-  imports = [
-    ./google.nix
-  ];
-
   programs.opencode = {
     enable = true;
-    package = llm-pkgs.opencode;
+    package = llm-pkgs.opencode2;
   };
 }
