@@ -1,0 +1,164 @@
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+
+# Generates ~/.config/gtk-4.0/gtk.css from the global Catppuccin flavor/accent
+# (config.catppuccin.flavor / config.catppuccin.accent).
+#
+# Why: pwvucontrol (and other libadwaita apps) ignore the `gtk-theme` setting by
+# design, so neither catppuccin/nix's gtk port (icons only) nor any GTK theme
+# package can color them. The supported hook is the GTK user stylesheet
+# (~/.config/gtk-4.0/gtk.css). On GTK >= 4.22 / libadwaita >= 1.9, `@define-color`
+# is inert for libadwaita widgets, and only element-scoped CSS custom properties
+# (e.g. `window { --window-bg-color: ...; }`) win the cascade — see
+# https://github.com/nix-community/stylix/issues/2472.
+#
+# This themes ALL libadwaita/GTK4 apps globally (pwvucontrol, helvum, ...).
+let
+  flavor = config.catppuccin.flavor;
+  accent = config.catppuccin.accent;
+
+  palette =
+    (builtins.fromJSON (builtins.readFile "${inputs.catppuccin-palette}/palette.json")).${flavor};
+  colors = palette.colors;
+  dark = palette.dark;
+
+  hex = name: colors.${name}.hex;
+  tint = a: "rgba(0, 0, 6, ${a})";
+
+  # libadwaita uses stronger/darker shades per light vs dark style:
+  # these must always be partially-transparent blacks.
+  # (https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/css-variables.html)
+  shadeHard = tint (if dark then "0.36" else "0.12");
+  shadeMid = tint (if dark then "0.25" else "0.07");
+  shadeSoft = tint (if dark then "0.90" else "0.12");
+
+  windowVars = {
+    # accent — per config.catppuccin.accent
+    accent-bg-color = hex accent;
+    accent-fg-color = hex "base";
+    accent-color = hex accent;
+
+    destructive-bg-color = hex "red";
+    destructive-fg-color = hex "base";
+    destructive-color = hex "red";
+    success-bg-color = hex "green";
+    success-fg-color = hex "base";
+    success-color = hex "green";
+    warning-bg-color = hex "yellow";
+    warning-fg-color = hex "base";
+    warning-color = hex "yellow";
+    error-bg-color = hex "red";
+    error-fg-color = hex "base";
+    error-color = hex "red";
+
+    window-bg-color = hex "base";
+    window-fg-color = hex "text";
+    view-bg-color = hex "mantle";
+    view-fg-color = hex "text";
+
+    headerbar-bg-color = hex "mantle";
+    headerbar-fg-color = hex "text";
+    headerbar-border-color = hex "surface0";
+    headerbar-backdrop-color = hex "base";
+    headerbar-shade-color = shadeHard;
+    headerbar-darker-shade-color = shadeSoft;
+
+    sidebar-bg-color = hex "surface0";
+    sidebar-fg-color = hex "text";
+    sidebar-backdrop-color = hex "mantle";
+    sidebar-border-color = shadeHard;
+    sidebar-shade-color = shadeMid;
+
+    secondary-sidebar-bg-color = hex "mantle";
+    secondary-sidebar-fg-color = hex "text";
+    secondary-sidebar-backdrop-color = hex "crust";
+    secondary-sidebar-border-color = shadeHard;
+    secondary-sidebar-shade-color = shadeMid;
+
+    card-bg-color = hex "surface0";
+    card-fg-color = hex "text";
+    card-shade-color = shadeHard;
+
+    dialog-bg-color = hex "surface0";
+    dialog-fg-color = hex "text";
+    popover-bg-color = hex "surface0";
+    popover-fg-color = hex "text";
+    popover-shade-color = shadeMid;
+
+    overview-bg-color = hex "mantle";
+    overview-fg-color = hex "text";
+    thumbnail-bg-color = hex "surface0";
+    thumbnail-fg-color = hex "text";
+    active-toggle-bg-color = hex "surface1";
+    active-toggle-fg-color = hex "text";
+
+    shade-color = shadeMid;
+    scrollbar-outline-color = if dark then hex "text" else hex "base";
+  }
+  // (lib.mapAttrs (_: hex) {
+    # libadwaita accent hue variables -> Catppuccin equivalents
+    accent-blue = "blue";
+    accent-teal = "teal";
+    accent-green = "green";
+    accent-yellow = "yellow";
+    accent-orange = "peach";
+    accent-red = "red";
+    accent-pink = "pink";
+    accent-purple = "mauve";
+    accent-slate = "lavender";
+  });
+
+  # Same colors for GTK apps still using legacy named colours
+  # (@define-color — consulted by legacy GTK4 apps, ignored by libadwaita >= 1.9).
+  legacyVars =
+    (lib.mapAttrs' (
+      name: value: lib.nameValuePair (lib.replaceStrings [ "-" ] [ "_" ] name) value
+    ) windowVars)
+    // {
+      theme_bg_color = hex "base";
+      theme_fg_color = hex "text";
+      theme_base_color = hex "mantle";
+      theme_text_color = hex "text";
+      theme_selected_bg_color = hex accent;
+      theme_selected_fg_color = hex "base";
+      theme_unfocused_bg_color = hex "base";
+      theme_unfocused_fg_color = hex "subtext0";
+      theme_unfocused_base_color = hex "mantle";
+      theme_unfocused_text_color = hex "subtext1";
+      theme_unfocused_selected_bg_color = hex accent;
+      theme_unfocused_selected_fg_color = hex "base";
+      insensitive_bg_color = hex "surface0";
+      insensitive_fg_color = hex "overlay0";
+      insensitive_base_color = hex "mantle";
+      borders = shadeHard;
+    };
+
+  gtkCss = pkgs.writeText "gtk4-gtk.css" ''
+    /* Catppuccin ${flavor} (accent: ${accent}) for GTK4 / libadwaita apps.
+     * Generated by modules/home-manager/catppuccin-gtk4.nix — do not edit;
+     * changes are re-evaluated with the global flavor/accent settings.
+     */
+    window {
+    ${lib.concatStrings (
+      lib.mapAttrsToList (name: value: ''
+        --${name}: ${value};
+      '') windowVars
+    )}
+    }
+
+    /* Legacy named colours (for non-libadwaita GTK4 apps; ignored by libadwaita >= 1.9) */
+    ${lib.concatStrings (
+      lib.mapAttrsToList (name: value: ''
+        @define-color ${name} ${value};
+      '') legacyVars
+    )}
+  '';
+in
+{
+  xdg.configFile."gtk-4.0/gtk.css".source = gtkCss;
+}
