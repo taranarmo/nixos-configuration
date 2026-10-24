@@ -24,5 +24,6 @@
     ./modules/nixos/graphics.nix
     ./modules/nixos/system-services.nix
     ./modules/nixos/notebook.nix
+    ./modules/nixos/battery-manager.nix
   ];
 }

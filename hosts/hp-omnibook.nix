@@ -34,6 +34,27 @@
   ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Battery charge limit: backport hp-wmi charge_behaviour support (upstream
+  # commits 574245e62cb0 + 929433336e0a, review-ilpo-next 2026-10-15) and add
+  # this machine's board (8E3B) to the quirk table. Exposes
+  # /sys/class/power_supply/BAT0/charge_behaviour (auto / inhibit-charge /
+  # force-discharge); used by custom.battery-manager to hold ~80% on AC.
+  # Drop these once the 8E3B quirk lands in mainline.
+  boot.kernelPatches = [
+    {
+      name = "hp-wmi-hwmon-keep-alive";
+      patch = ./patches/hp-wmi-hwmon-keep-alive.patch;
+    }
+    {
+      name = "hp-wmi-charge-behaviour";
+      patch = ./patches/hp-wmi-charge-behaviour.patch;
+    }
+    {
+      name = "hp-wmi-charge-behaviour-omnibook-8e3b";
+      patch = ./patches/hp-wmi-charge-behaviour-omnibook-8e3b.patch;
+    }
+  ];
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/39b5cd16-47a3-4ac0-a874-fd54da593a5b";
     fsType = "ext4";
@@ -55,6 +76,7 @@
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   custom.notebook.enable = true;
+  custom.battery-manager.enable = true;
   custom.display.scaling = "1.33";
 
   custom.networking.wirelessInterface = "wlo1";

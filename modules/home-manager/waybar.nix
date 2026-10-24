@@ -5,28 +5,17 @@ let
   # .../BAT0") because its inotify_add_watch on the battery node races the
   # ucsi-source-psy-* USB-C supplies churning during PD negotiation on display
   # hotplug (and now even at startup). A plain sysfs poll can't crash the bar.
-  batteryScript = pkgs.writeShellScript "waybar-battery" ''
-    bat=/sys/class/power_supply/BAT0
-    [ -d "$bat" ] || exit 0
-    cap=$(cat "$bat/capacity")
-    status=$(cat "$bat/status")
-    icons=(󰂎 󰁺 󰁻 󰁼 󰁽 󰁾 󰁿 󰂀 󰂁 󰂂 󰁹)
-    idx=$(( (cap + 5) / 10 ))
-    [ "$idx" -gt 10 ] && idx=10
-    icon="''${icons[$idx]}"
-    if [ "$status" = "Charging" ]; then
-      text="$cap% $icon󰚥"
+  # Dedicated charge-cap badge. Shows nothing while charging to 100%, and
+  # "(80)" in green while the 80% cap (battery-charge-hold.service) is
+  # armed. The native battery module above has no notion of the persisted
+  # limit, so this custom module surfaces it.
+  batteryScript = pkgs.writeShellScript "waybar-battery-cap" ''
+    limit=$(cat /var/lib/battery-charge-hold/limit 2>/dev/null)
+    if [ "$limit" = "80" ]; then
+      printf '{"text":"(80)","class":"capped"}\n'
     else
-      text="$cap% $icon"
+      printf '{"text":"","class":""}\n'
     fi
-    class="normal"
-    if [ "$cap" -le 10 ]; then
-      class="critical"
-    elif [ "$cap" -le 25 ]; then
-      class="warning"
-    fi
-    [ "$status" = "Charging" ] && class="charging"
-    printf '{"text":"%s","class":"%s","percentage":%s}\n' "$text" "$class" "$cap"
   '';
 in
 {
@@ -76,6 +65,7 @@ in
           "wireplumber#source"
           "network"
           "idle_inhibitor"
+          "battery"
           "custom/battery"
           "hyprland/language"
           "sway/language"
@@ -160,7 +150,36 @@ in
           "exec" = "${batteryScript}";
           "return-type" = "json";
           "interval" = 30;
+          # Also refreshes immediately when battery-charge-control toggles
+          # the cap (it pkill-signals waybar with RTMIN+8).
+          "signal" = 8;
+          "hide-empty-text" = true;
           "tooltip" = false;
+          "on-click" = "battery-charge-control toggle";
+        };
+        # Native battery module, trialed alongside custom/battery (which was
+        # written to replace it: the native worker aborts with
+        # "Could not watch events for .../BAT0" when its inotify races the
+        # ucsi-source-psy supplies during PD negotiation — if the bar starts
+        # flapping on display hotplug, remove this block again).
+        "battery" = {
+          "bat" = "BAT0";
+          "interval" = 30;
+          "states" = {
+            "warning" = 25;
+            "critical" = 10;
+          };
+          "format" = "{capacity}% {icon}";
+          "format-charging" = "{capacity}% 󰂄";
+          "format-plugged" = "{capacity}% 󰚥";
+          "format-icons" = {
+            "charging" = [ "󰢜" "󰂆" "󰂈" "󰂉" "󰂊" "󰂅" ];
+            "default" = [ "󰁺" "󰁼" "󰁾" "󰂀" "󰂂" "󰁹" ];
+          };
+          "tooltip-format" = "{capacity}% · {power} W";
+          # Click toggles the 80% charge cap (passwordless sudo rule for
+          # battery-charge-control-write is in battery-manager.nix).
+          "on-click" = "battery-charge-control toggle";
         };
         "temperature" = {
           # "thermal-zone" = 6;
@@ -275,6 +294,9 @@ in
       }
       #tooltip label {
         font-size: 16px;
+      }
+      #custom-battery.capped {
+        color: #a6e3a1;
       }
     '';
   };

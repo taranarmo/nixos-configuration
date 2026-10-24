@@ -1,0 +1,25 @@
+Add the HP OmniBook 7 14-fr0xxx (board 8E3B) to the hp-wmi
+charge_behaviour quirk table. The machine's DSDT contains the SBCO/SBCC
+methods behind the HP BIOS WMI dispatch object, and the driver only
+registers the power_supply extension after a successful GBCO read, so
+this is safe for boards where the interface is absent.
+
+Tested on HP OmniBook 7 14-fr0xxx (BIOS 94.19): inhibit-charge stops
+charging on AC, auto restores charging. Candidate for submission
+upstream.
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -605,6 +605,13 @@
+ 			DMI_MATCH(DMI_BOARD_NAME, "8C15"),
+ 		},
+ 	},
++	{
++		/* HP OmniBook 7 14-fr0xxx */
++		.matches = {
++			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
++			DMI_MATCH(DMI_BOARD_NAME, "8E3B"),
++		},
++	},
+ };
+ #endif
+ 
