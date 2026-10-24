@@ -11,7 +11,7 @@
     ../modules/home-manager/pdf-viewer.nix
     ../modules/home-manager/hyprland.nix
     ../modules/home-manager/nixvim.nix
-    #../modules/home-manager/firefox.nix
+    ../modules/home-manager/firefox.nix
     ../modules/home-manager/brave.nix
     ../modules/home-manager/waybar.nix
     ../modules/home-manager/darkman.nix

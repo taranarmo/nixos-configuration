@@ -2,34 +2,140 @@
   config,
   lib,
   pkgs,
-  flake-inputs,
   inputs,
   ...
 }:
+
+let
+  addons = inputs.firefox-addons.packages.${pkgs.system};
+in
 {
+  # Expose the tridactyl native messenger binary at tridactyl's conventional
+  # install location (matching what `:installnative` creates), so anything
+  # path-based (e.g. the extension's own checks / update scripts) finds it.
+  home.file.".local/share/tridactyl/bin/native_main".source =
+    "${pkgs.tridactyl-native}/bin/native_main";
+
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox.override { cfg.enableTridactylNative = true; };
+    configPath = ".mozilla/firefox";
+    package = pkgs.firefox.override {
+      cfg = {
+        enableTridactylNative = true;
+      };
+    };
+
+    nativeMessagingHosts = [
+      pkgs.tridactyl-native
+    ];
+
     profiles."taranarmo" = {
+      id = 0;
+      isDefault = true;
+
+      extensions.force = true;
+      extensions.packages = with addons; [
+        firefox-color # applies the catppuccin theme (see catppuccin.firefox settings below; Firefox strips its stored settings when not installed)
+        tridactyl
+        darkreader
+        translate-web-pages
+        cookie-editor
+        export-cookies-txt
+      ];
+
+      # Custom Search Engines
+      search = {
+        force = true;
+        default = "DuckDuckGo";
+        engines = {
+          "Nix Packages" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@np" ];
+          };
+          "NixOS Options" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/options";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@no" ];
+          };
+          "Home Manager Options" = {
+            urls = [
+              {
+                template = "https://home-manager-options.extranix.com/";
+                params = [
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            definedAliases = [ "@hm" ];
+          };
+          "GitHub" = {
+            urls = [
+              {
+                template = "https://github.com/search";
+                params = [
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
+            definedAliases = [ "@gh" ];
+          };
+        };
+      };
+
       settings = {
+        # Automatically enable extensions without prompting
+        "extensions.autoDisableScopes" = 0;
+
         # Performance settings
         "gfx.webrender.all" = true; # Force enable GPU acceleration
         "media.ffmpeg.vaapi.enabled" = true;
         "widget.dmabuf.force-enabled" = true; # Required in recent Firefoxes
 
-        # Re-bind ctrl to super (would interfere with tridactyl otherwise)
+        # Re-bind ctrl to super (interferes with tridactyl otherwise)
         "ui.key.accelKey" = 91;
 
-        # Keep the reader button enabled at all times; really don't
-        # care if it doesn't work 20% of the time, most websites are
-        # crap and unreadable without this
+        # Keep reader button enabled at all times
         "reader.parse-on-load.force-enabled" = true;
 
-        # Hide the "sharing indicator", it's especially annoying
-        # with tiling WMs on wayland
+        # Hide sharing indicator on wayland tiling WMs
         "privacy.webrtc.legacyGlobalIndicator" = false;
 
-        # Actual settings
+        # Privacy and hardening
         "app.shield.optoutstudies.enabled" = false;
         "app.update.auto" = false;
         "browser.bookmarks.restore_default_bookmarks" = false;
@@ -63,8 +169,10 @@
         "identity.fxaccounts.enabled" = false;
         "privacy.trackingprotection.enabled" = true;
         "privacy.trackingprotection.socialtracking.enabled" = true;
-        # Theme will be handled by darkman/xdg-desktop-portal
+
+        # Desktop portal integration for file picker & mime handler
         "widget.use-xdg-desktop-portal.file-picker" = 1;
+        "widget.use-xdg-desktop-portal.mime-handler" = 1;
       };
     };
   };

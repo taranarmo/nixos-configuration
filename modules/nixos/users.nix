@@ -15,7 +15,6 @@
         "wheel"
       ];
       packages = with pkgs; [
-        firefox-esr
         lynx
         mpd
         mpc
