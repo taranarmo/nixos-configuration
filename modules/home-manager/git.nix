@@ -5,7 +5,7 @@
   programs.git = {
     enable = true;
     settings = {
-      user.name = "Sergei Volkov ";
+      user.name = "Sergei Volkov";
       user.email = "taranarmo@gmail.com";
       diff.colorMoved = "default";
     };
