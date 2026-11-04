@@ -17,6 +17,104 @@ let
       printf '{"text":"","class":""}\n'
     fi
   '';
+
+  # Highest temperature across all sensors.
+  # Avoids dummy thermal zones like INT3400 (which reports a static 20°C)
+  # and non-temperature sensors like ucsi-source-psy (which exposes 20V voltage).
+  temperatureScript = pkgs.writeShellScript "waybar-max-temp" ''
+    max_val=0
+    max_source=""
+    is_hwmon=0
+    declare -A dev_max
+
+    # 1. Check all hwmon temperature sensors
+    for t in /sys/class/hwmon/hwmon*/temp*_input; do
+      [ -f "$t" ] || continue
+      read -r v < "$t" 2>/dev/null || continue
+      if (( v > 0 && v < 140000 )); then
+        hdir="''${t%/*}"
+        name=""
+        [ -f "$hdir/name" ] && read -r name < "$hdir/name" 2>/dev/null
+        [ -z "$name" ] && name="''${hdir##*/}"
+        d_deg=$(( (v + 500) / 1000 ))
+        cur_d="''${dev_max[$name]:-0}"
+        if (( d_deg > cur_d )); then
+          dev_max[$name]=$d_deg
+        fi
+        if (( v > max_val )); then
+          max_val=$v
+          max_source="$t"
+          is_hwmon=1
+        fi
+      fi
+    done
+
+    # 2. Check thermal zones (skip dummy zones like INT3400)
+    for z in /sys/class/thermal/thermal_zone*; do
+      [ -f "$z/temp" ] || continue
+      read -r type < "$z/type" 2>/dev/null || continue
+      [[ "$type" == *INT3400* || "$type" == *int3400* ]] && continue
+      read -r v < "$z/temp" 2>/dev/null || continue
+      if (( v > 0 && v < 140000 )); then
+        d_deg=$(( (v + 500) / 1000 ))
+        cur_d="''${dev_max[$type]:-0}"
+        if (( d_deg > cur_d )); then
+          dev_max[$type]=$d_deg
+        fi
+        if (( v > max_val )); then
+          max_val=$v
+          max_source="$type"
+          is_hwmon=0
+        fi
+      fi
+    done
+
+    if (( max_val == 0 )); then
+      printf '{"text":"N/A","tooltip":"No sensor found","class":"","percentage":0}\n'
+      exit 0
+    fi
+
+    deg=$(( (max_val + 500) / 1000 ))
+    source_desc=""
+
+    if (( is_hwmon )); then
+      hdir="''${max_source%/*}"
+      name=""
+      [ -f "$hdir/name" ] && read -r name < "$hdir/name" 2>/dev/null
+      base="''${max_source##*/}"
+      base="''${base%_input}"
+      label=""
+      [ -f "$hdir/''${base}_label" ] && read -r label < "$hdir/''${base}_label" 2>/dev/null
+      if [ -n "$name" ] && [ -n "$label" ]; then
+        source_desc="$name ($label)"
+      elif [ -n "$name" ]; then
+        source_desc="$name ($base)"
+      else
+        source_desc="$base"
+      fi
+    else
+      source_desc="$max_source"
+    fi
+
+    cls=""
+    if (( deg >= 80 )); then
+      cls="critical"
+    elif (( deg >= 70 )); then
+      cls="warning"
+    fi
+
+    pct=$deg
+    if (( pct > 100 )); then pct=100; fi
+    if (( pct < 0 )); then pct=0; fi
+
+    tooltip="Highest: ''${deg}°C (''${source_desc})"
+    for k in "''${!dev_max[@]}"; do
+      tooltip+="\\n  ''${k}: ''${dev_max[$k]}°C"
+    done
+
+    printf '{"text":"%d°C","tooltip":"%s","class":"%s","percentage":%d}\n' \
+      "$deg" "$tooltip" "$cls" "$pct"
+  '';
 in
 {
   home.packages = with pkgs; [
@@ -57,7 +155,7 @@ in
           "custom/notification"
           "tray"
           "bluetooth"
-          "temperature"
+          "custom/temperature"
           "cpu"
           "memory"
           "backlight"
@@ -181,10 +279,11 @@ in
           # battery-charge-control-write is in battery-manager.nix).
           "on-click" = "battery-charge-control toggle";
         };
-        "temperature" = {
-          # "thermal-zone" = 6;
-          "critical-threshold" = 80;
-          "format" = "{temperatureC}°C {icon}";
+        "custom/temperature" = {
+          "exec" = "${temperatureScript}";
+          "return-type" = "json";
+          "interval" = 10;
+          "format" = "{text} {icon}";
           "format-icons" = [
             ""
             ""
@@ -297,6 +396,12 @@ in
       }
       #custom-battery.capped {
         color: #a6e3a1;
+      }
+      #custom-temperature.critical {
+        color: #f38ba8;
+      }
+      #custom-temperature.warning {
+        color: #fab387;
       }
     '';
   };
