@@ -21,13 +21,13 @@
     enable = true; # runs the Avahi daemon
     nssmdns4 = true; # enables the mDNS NSS plug-in
     openFirewall = true; # opens the firewall for UDP port 5353
-    publish = {
-      enable = true;
-      addresses = true;
-      domain = true;
-      hinfo = true;
-      userServices = true;
-      workstation = true;
+    settings.publish = {
+      "disable-publishing" = false;
+      "disable-user-service-publishing" = false;
+      "publish-addresses" = true;
+      "publish-domain" = true;
+      "publish-hinfo" = true;
+      "publish-workstation" = true;
     };
   };
 
