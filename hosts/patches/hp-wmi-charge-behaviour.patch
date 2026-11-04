@@ -69,7 +69,7 @@ Upstream author: Shang En Sim <sim@shangen.org>
  struct bios_rfkill2_device_state {
  	u8 radio_type;
  	u8 bus_type;
-@@ -561,6 +589,25 @@
+@@ -561,6 +589,26 @@
  	"32"  /* Detachable */
  };
  
@@ -89,13 +89,14 @@ Upstream author: Shang En Sim <sim@shangen.org>
 +			DMI_MATCH(DMI_BOARD_NAME, "8C15"),
 +		},
 +	},
++	{},
 +};
 +#endif
 +
  #define DEVICE_MODE_TABLET	0x06
  
  #define CPU_FAN 0
-@@ -790,6 +837,200 @@
+@@ -790,6 +838,200 @@
  	return val;
  }
  
@@ -296,7 +297,7 @@ Upstream author: Shang En Sim <sim@shangen.org>
  static int hp_wmi_get_dock_state(void)
  {
  	int state = hp_wmi_read_int(HPWMI_HARDWARE_QUERY);
-@@ -2541,6 +2782,10 @@
+@@ -2541,6 +2783,10 @@
  	if (err < 0)
  		return err;
  

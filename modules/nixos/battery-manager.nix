@@ -318,6 +318,23 @@ in
       }
     ];
 
+    # Re-arm battery charge hold immediately when an AC or USB-PD charger is plugged in or renegotiates.
+    # Note: We write directly to sysfs rather than restarting the daemon service, preventing
+    # rapid-fire udev bursts across multiple power supplies from tripping systemd's StartLimitBurst.
+    services.udev.extraRules = let
+      udevInhibitScript = pkgs.writeShellScript "udev-battery-charge-inhibit" ''
+        if [ "$(${pkgs.coreutils}/bin/cat /var/lib/battery-charge-hold/limit 2>/dev/null)" = "80" ]; then
+          cb=/sys/class/power_supply/BAT0/charge_behaviour
+          cap=$(${pkgs.coreutils}/bin/cat /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo 0)
+          if [ "$cap" -ge 80 ] && [ -w "$cb" ]; then
+            echo inhibit-charge > "$cb" 2>/dev/null || true
+          fi
+        fi
+      '';
+    in ''
+      SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${udevInhibitScript}"
+    '';
+
     # Software limit notifier service (systemd user daemon)
     systemd.user.services.battery-soft-limit = {
       description = "Software battery charge limit notification daemon";
@@ -373,6 +390,10 @@ in
     systemd.services.battery-charge-hold = {
       description = "Battery charge hold daemon (mode-based charge_behaviour)";
       wantedBy = [ "multi-user.target" ];
+      unitConfig = {
+        # Never fail permanently from rate-limiting on rapid resume/udev triggers
+        StartLimitIntervalSec = 0;
+      };
       serviceConfig = {
         Type = "simple";
         StateDirectory = "battery-charge-hold";
@@ -397,6 +418,7 @@ in
           # manual writes are not fought.
           first=1
           last_limit=""
+          last_status=""
           while :; do
             limit=$(cat "$limit_file" 2>/dev/null || echo 100)
             if [ "$limit" = "80" ]; then
@@ -408,37 +430,43 @@ in
               fi
 
               # Only intervene while on AC (anything but "Discharging").
-              target=auto
+              target=""
               if [ "$status" != "Discharging" ]; then
                 if [ "$cap" -ge 80 ]; then
                   target=inhibit-charge
                 elif [ "$cap" -le 75 ]; then
                   target=auto
-                else
-                  # Inside the hysteresis band: keep the current behaviour.
-                  target=""
+                elif [ "$status" = "Charging" ] && [ "$cur" = "inhibit-charge" ]; then
+                  # The EC autonomously reset to active charging on charger plug; sync sysfs so it reflects auto charging up to 80%
+                  target=auto
                 fi
               fi
 
               if [ -n "$target" ]; then
                 # On the first iteration after every (re)start (boot,
-                # nixos-rebuild switch, resume hook), write unconditionally.
-                # The sysfs value is a kernel-side cache: the driver queries
-                # the firmware only at probe time, so the cache can report a
-                # stale mode after suspend/resume — comparing against it
-                # would then see no discrepancy and let the battery charge
-                # to 100%.
-                if [ "$first" = 1 ] || [ "$cur" != "$target" ]; then
+                # nixos-rebuild switch, resume hook, udev charger event),
+                # or if the mode changed, or if AC status transitioned,
+                # or if target is inhibit-charge but hardware is actively Charging
+                # (stale sysfs cache bypassed by firmware/EC on charger swap),
+                # write unconditionally.
+                if [ "$first" = 1 ] || [ "$cur" != "$target" ] || [ "$status" != "$last_status" ] || { [ "$target" = "inhibit-charge" ] && [ "$status" = "Charging" ]; }; then
                   echo "$target" > "$cb" 2>/dev/null || true
                   cur=$target
                 fi
               fi
+              last_status=$status
             elif [ "$first" = 1 ] || [ "$last_limit" = "80" ]; then
               echo auto > "$cb" 2>/dev/null || true
             fi
             first=0
             last_limit=$limit
-            sleep 30
+
+            # Poll faster (5s) when actively charging near/above the limit to catch transitions quickly
+            if [ "$limit" = "80" ] && [ "$status" = "Charging" ]; then
+              sleep 5
+            else
+              sleep 30
+            fi
           done
         ''}";
         Restart = "on-failure";
@@ -467,6 +495,27 @@ in
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${pkgs.systemd}/bin/systemctl --no-block restart battery-charge-hold.service";
+      };
+    };
+
+    # While the system is asleep the daemon is not running, so firmware left
+    # in "auto" charges an unplugged-then-later-plugged laptop straight to
+    # 100%. Inhibit charging just before sleep (harmless while on battery,
+    # and the firmware retains the mode), making plugging in during sleep a
+    # no-op; the resume hook above re-asserts the hysteresis after wake.
+    systemd.services.battery-charge-hold-sleep = {
+      description = "Inhibit battery charging before system sleep";
+      wantedBy = [ "sleep.target" ];
+      before = [ "sleep.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${pkgs.writeShellScript "battery-charge-hold-sleep" ''
+          limit=$(cat /var/lib/battery-charge-hold/limit 2>/dev/null)
+          [ "$limit" = "80" ] || exit 0
+          cb=/sys/class/power_supply/BAT0/charge_behaviour
+          [ -f "$cb" ] || exit 0
+          echo inhibit-charge > "$cb" 2>/dev/null || true
+        ''}";
       };
     };
   };
