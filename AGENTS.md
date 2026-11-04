@@ -99,7 +99,7 @@ This repository currently does not contain standard unit tests or NixOS VM tests
 
 ### LLM Agents & Sandbox (`agent-box`)
 - Managed in `modules/home-manager/agents/`.
-- Available agents: `agy` (Antigravity CLI), `claude-code`, `opencode`, `rtk`.
+- Available agents: `agy` (Antigravity CLI), `claude-code`, `opencode`.
 - **Sandbox execution (`agent-box` / `agent-sandbox`)**: Runs agents inside a Bubblewrap container with access strictly restricted to the project directory and Nix (store + daemon socket).
 - **Security**: Host `$HOME` (`~/.ssh`, `~/.aws`, personal dotfiles) is cloaked via `tmpfs`.
 - **Auth Tokens**: Cloud/dev credentials are passed via environment variables (e.g. `GH_TOKEN=$(gh auth token) agent-box claude` or `aws-vault exec <profile> -- agent-box claude`).

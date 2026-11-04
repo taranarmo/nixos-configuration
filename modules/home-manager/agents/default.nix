@@ -13,10 +13,6 @@
     ./sandbox.nix
   ];
 
-  home.packages = [
-    llm-pkgs.rtk
-  ];
-
   programs.antigravity-cli = {
     enable = true;
     package = llm-pkgs.antigravity-cli;
