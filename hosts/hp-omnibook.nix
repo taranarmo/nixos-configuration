@@ -78,6 +78,7 @@
   custom.notebook.enable = true;
   custom.battery-manager.enable = true;
   custom.display.scaling = "1.33";
+  custom.display.internalBitdepth = 10;
 
   custom.networking.wirelessInterface = "wlo1";
 }

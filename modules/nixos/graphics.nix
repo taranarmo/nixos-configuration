@@ -17,6 +17,11 @@
       default = "eDP-1";
       description = "Identifier for the internal laptop monitor";
     };
+    internalBitdepth = lib.mkOption {
+      type = lib.types.nullOr lib.types.int;
+      default = null;
+      description = "Color bit depth for the internal monitor (e.g. 10 for OLED)";
+    };
   };
 
   config = {

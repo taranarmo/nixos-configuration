@@ -119,12 +119,14 @@ in
       ];
 
       monitor = [
-        {
+        ({
           output = osConfig.custom.display.internalMonitor;
           mode = "preferred";
           position = "auto";
           scale = osConfig.custom.display.scaling;
-        }
+        } // lib.optionalAttrs (osConfig.custom.display.internalBitdepth != null) {
+          bitdepth = osConfig.custom.display.internalBitdepth;
+        })
         {
           output = "";
           mode = "preferred";
