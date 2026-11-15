@@ -83,6 +83,9 @@ in
           force_default_wallpaper = 0;
           vrr = 3;
         };
+        render = {
+          cm_auto_hdr = 0;
+        };
         ecosystem.no_update_news = true;
         input = {
           kb_layout = "eu,ru";
