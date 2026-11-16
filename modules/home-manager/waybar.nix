@@ -260,8 +260,10 @@ in
         # "Could not watch events for .../BAT0" when its inotify races the
         # ucsi-source-psy supplies during PD negotiation — if the bar starts
         # flapping on display hotplug, remove this block again).
+        # `bat` is deliberately left unset so waybar auto-detects the battery
+        # node: it is BAT1 on nixos-ideapad and BAT0 on hp-omnibook (hardcoding
+        # BAT0 made the inotify watch fail outright on the ideapad).
         "battery" = {
-          "bat" = "BAT0";
           "interval" = 30;
           "states" = {
             "warning" = 25;
