@@ -23,7 +23,6 @@
         telegram-desktop
         apvlv
         libnotify
-        mpv
         aspell
         aspellDicts.en
         aspellDicts.de

@@ -64,6 +64,9 @@
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.graphics.extraPackages = with pkgs; [
+    nvidia-vaapi-driver
+  ];
   hardware.nvidia = {
     open = false;
     prime = {

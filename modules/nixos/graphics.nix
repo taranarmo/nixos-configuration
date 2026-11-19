@@ -28,7 +28,15 @@
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
+      extraPackages = with pkgs; [
+        intel-media-driver # VA-API (iHD) for Intel iGPUs (H.264, HEVC, VP9, AV1)
+        vpl-gpu-rt # Intel VPL / QuickSync runtime
+      ];
     };
+
+    environment.systemPackages = with pkgs; [
+      libva-utils # vainfo for verifying VA-API hardware acceleration
+    ];
     programs.hyprland = {
       enable = true;
       withUWSM = true;

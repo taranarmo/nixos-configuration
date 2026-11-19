@@ -9,6 +9,7 @@
     ../modules/home-manager/utilities.nix
     ../modules/home-manager/development.nix
     ../modules/home-manager/pdf-viewer.nix
+    ../modules/home-manager/mpv.nix
     ../modules/home-manager/hyprland.nix
     ../modules/home-manager/nixvim.nix
     ../modules/home-manager/firefox.nix
