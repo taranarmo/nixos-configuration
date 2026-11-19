@@ -18,7 +18,7 @@
     ../modules/home-manager/hypridle.nix
     ../modules/home-manager/hyprlock.nix
     ../modules/home-manager/chromium.nix
-    ../modules/home-manager/qutebrowser.nix
+    # ../modules/home-manager/qutebrowser.nix
     ../modules/home-manager/catppuccin-gtk4.nix
     ../modules/home-manager/agents
   ];
