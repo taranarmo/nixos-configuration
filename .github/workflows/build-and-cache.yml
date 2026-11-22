@@ -1,0 +1,148 @@
+name: Build and Cache NixOS Configurations
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      host:
+        description: "Specific host to build (leave empty for all)"
+        required: false
+        default: ""
+        type: string
+
+concurrency:
+  group: build-and-cache-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      hosts: ${{ steps.set-hosts.outputs.hosts }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Discover NixOS hosts
+        id: set-hosts
+        env:
+          INPUT_HOST: ${{ inputs.host }}
+        run: |
+          all_hosts=$(nix eval .#nixosConfigurations --apply builtins.attrNames --json)
+          if [ -n "$INPUT_HOST" ]; then
+            if ! echo "$all_hosts" | jq -e --arg h "$INPUT_HOST" 'index($h) != null' >/dev/null; then
+              echo "Unknown host '$INPUT_HOST'. Available hosts: $all_hosts" >&2
+              exit 1
+            fi
+            hosts=$(jq -cn --arg h "$INPUT_HOST" '[$h]')
+          else
+            hosts="$all_hosts"
+          fi
+          echo "Discovered hosts: $hosts"
+          echo "hosts=$hosts" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: discover
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        host: ${{ fromJson(needs.discover.outputs.hosts) }}
+    env:
+      CACHIX_NAME: ${{ vars.CACHIX_NAME || 'taranarmo' }}
+    steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            extra-substituters = https://cache.nixos-cuda.org https://cache.flox.dev https://hyprland.cachix.org https://nix-community.cachix.org https://cache.numtide.com
+            extra-trusted-public-keys = cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M= flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
+            max-jobs = 1
+            cores = 4
+
+      - name: Determine Cachix capabilities
+        id: cachix-mode
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          CACHIX_NAME_VAR: ${{ vars.CACHIX_NAME }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          if [ -n "${CACHIX_AUTH_TOKEN:-}" ] || [ -n "${CACHIX_NAME_VAR:-}" ]; then
+            echo "can_use=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "can_use=false" >> "$GITHUB_OUTPUT"
+          fi
+          if [ -n "${CACHIX_AUTH_TOKEN:-}" ] && { [ "${GITHUB_EVENT_NAME}" != "pull_request" ] || [ "${HEAD_REPO}" = "${GITHUB_REPOSITORY}" ]; }; then
+            echo "can_push=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "can_push=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Configure Cachix
+        if: steps.cachix-mode.outputs.can_use == 'true'
+        uses: cachix/cachix-action@v16
+        with:
+          name: ${{ env.CACHIX_NAME }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: true
+
+      - name: Pre-build patched kernel
+        env:
+          HOST: ${{ matrix.host }}
+          CAN_PUSH: ${{ steps.cachix-mode.outputs.can_push }}
+        run: |
+          HAS_PATCHES=$(nix eval ".#nixosConfigurations.${HOST}.config.boot.kernelPatches" --apply 'p: builtins.length p > 0')
+          if [ "$HAS_PATCHES" = "true" ]; then
+            echo "Building patched kernel for ${HOST}..."
+            if [ "$CAN_PUSH" = "true" ]; then
+              cachix watch-exec --watch-mode post-build-hook "$CACHIX_NAME" -- \
+                nix build ".#nixosConfigurations.${HOST}.config.boot.kernelPackages.kernel" --no-link -L
+            else
+              nix build ".#nixosConfigurations.${HOST}.config.boot.kernelPackages.kernel" --no-link -L
+            fi
+          else
+            echo "No kernel patches for ${HOST}; skipping kernel pre-build."
+          fi
+
+      - name: Build host configuration
+        env:
+          HOST: ${{ matrix.host }}
+          CAN_PUSH: ${{ steps.cachix-mode.outputs.can_push }}
+        run: |
+          if [ "$CAN_PUSH" = "true" ]; then
+            cachix watch-exec --watch-mode post-build-hook "$CACHIX_NAME" -- \
+              nix build ".#nixosConfigurations.${HOST}.config.system.build.toplevel" --no-link -L
+          else
+            nix build ".#nixosConfigurations.${HOST}.config.system.build.toplevel" --no-link -L
+          fi

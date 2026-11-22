@@ -1,0 +1,62 @@
+name: Update Flake Inputs
+
+on:
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: update-flake
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.FLAKE_UPDATE_TOKEN || github.token }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update flake.lock
+        id: update
+        run: |
+          nix flake update 2>&1 | tee /tmp/flake-update.log
+          {
+            echo "log<<EOF_FLAKE_LOG"
+            cat /tmp/flake-update.log
+            echo "EOF_FLAKE_LOG"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.FLAKE_UPDATE_TOKEN || github.token }}
+          branch: flake-update
+          delete-branch: true
+          commit-message: "chore(flake): update inputs"
+          title: "chore(flake): update inputs"
+          body: |
+            Automated daily `nix flake update`.
+
+            Please review and merge manually once all host builds pass and are pushed to Cachix.
+
+            <details>
+            <summary><code>nix flake update</code> output</summary>
+
+            ```text
+            ${{ steps.update.outputs.log }}
+            ```
+
+            </details>
