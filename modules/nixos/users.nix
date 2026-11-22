@@ -9,7 +9,7 @@
   users = {
     users.taranarmo = {
       isNormalUser = true;
-      description = "Sergey Volkov";
+      description = "Sergei Volkov";
       extraGroups = [
         "networkmanager"
         "wheel"
