@@ -81,6 +81,14 @@ jobs:
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           skipPush: true
 
+      - name: Preserve upstream substituters
+        run: |
+          if [ -f "$HOME/.config/nix/nix.conf" ]; then
+            sed -i -E 's/^[[:space:]]*substituters[[:space:]]*=/extra-substituters =/; s/^[[:space:]]*trusted-public-keys[[:space:]]*=/extra-trusted-public-keys =/' "$HOME/.config/nix/nix.conf"
+          fi
+          echo "Active substituters: $(nix config show substituters)"
+          echo "Active trusted-public-keys: $(nix config show trusted-public-keys)"
+
       - name: Build all NixOS configurations
         env:
           INPUT_HOST: ${{ inputs.host }}
