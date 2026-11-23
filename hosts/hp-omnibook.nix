@@ -42,10 +42,6 @@
   # Drop these once the 8E3B quirk lands in mainline.
   boot.kernelPatches = [
     {
-      name = "hp-wmi-hwmon-keep-alive";
-      patch = ./patches/hp-wmi-hwmon-keep-alive.patch;
-    }
-    {
       name = "hp-wmi-charge-behaviour";
       patch = ./patches/hp-wmi-charge-behaviour.patch;
     }
