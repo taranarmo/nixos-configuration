@@ -21,6 +21,8 @@ concurrency:
 
 permissions:
   contents: read
+  pull-requests: write
+  issues: write
 
 jobs:
   build:
@@ -110,6 +112,7 @@ jobs:
           for h in "${hosts[@]}"; do
             targets+=(".#nixosConfigurations.${h}.config.system.build.toplevel")
           done
+          printf '%s\n' "${hosts[@]}" > /tmp/built-hosts.txt
           echo "Building targets: ${targets[*]}"
 
           if [ "$CAN_PUSH" = "true" ]; then
@@ -117,6 +120,74 @@ jobs:
               nix build "${targets[@]}" --no-link --keep-going -L
           else
             nix build "${targets[@]}" --no-link --keep-going -L
+          fi
+
+          for h in "${hosts[@]}"; do
+            nix build ".#nixosConfigurations.${h}.config.system.build.toplevel" --out-link "/tmp/new-${h}"
+          done
+
+      - name: Diff closures, comment on PR, and mark ready
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          BOT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_READY_TOKEN: ${{ secrets.FLAKE_UPDATE_TOKEN || github.token }}
+        run: |
+          mapfile -t hosts < /tmp/built-hosts.txt
+          DIX="$(nix build --no-link --print-out-paths ".#nixosConfigurations.${hosts[0]}.pkgs.dix")/bin/dix"
+
+          git fetch --depth=1 origin "$BASE_SHA"
+          git worktree add --detach /tmp/base "$BASE_SHA"
+          trap 'git worktree remove --force /tmp/base 2>/dev/null || true' EXIT
+
+          base_hosts=$(nix eval "path:/tmp/base#nixosConfigurations" --apply builtins.attrNames --json)
+          base_targets=()
+          for h in "${hosts[@]}"; do
+            if echo "$base_hosts" | jq -e --arg h "$h" 'index($h) != null' >/dev/null; then
+              base_targets+=("path:/tmp/base#nixosConfigurations.${h}.config.system.build.toplevel")
+            fi
+          done
+          if [ "${#base_targets[@]}" -gt 0 ]; then
+            nix build "${base_targets[@]}" --no-link --keep-going
+            for h in "${hosts[@]}"; do
+              if echo "$base_hosts" | jq -e --arg h "$h" 'index($h) != null' >/dev/null; then
+                nix build "path:/tmp/base#nixosConfigurations.${h}.config.system.build.toplevel" --out-link "/tmp/old-${h}"
+              fi
+            done
+          fi
+
+          {
+            printf '@%s All NixOS configurations built and cached for `%s`. Marking PR ready for review.\n\n' "$REPO_OWNER" "${HEAD_SHA:0:7}"
+            printf '### Package changes (`dix diff`)\n\n'
+            for h in "${hosts[@]}"; do
+              if [ ! -e "/tmp/old-${h}" ]; then
+                printf -- '- **%s**: new host added in this PR.\n\n' "$h"
+                continue
+              fi
+              diff_out=$("$DIX" --color=never diff "/tmp/old-${h}" "/tmp/new-${h}")
+              if [ -z "$diff_out" ]; then
+                diff_out="No package changes."
+              fi
+              size_line=$(printf '%s\n' "$diff_out" | grep -E '^SIZE:' | tail -n1 || true)
+              if [ "${#diff_out}" -gt 16000 ]; then
+                diff_out="${diff_out:0:16000}"$'\n... (truncated)'
+              fi
+              if [ -n "$size_line" ]; then
+                printf '<details>\n<summary><strong>%s</strong> — <code>%s</code></summary>\n\n' "$h" "$size_line"
+              else
+                printf '<details>\n<summary><strong>%s</strong></summary>\n\n' "$h"
+              fi
+              printf '```text\n%s\n```\n\n</details>\n\n' "$diff_out"
+            done
+          } > /tmp/pr-comment.md
+
+          GH_TOKEN="$BOT_TOKEN" gh pr comment "$PR_NUMBER" --body-file /tmp/pr-comment.md
+
+          if [ "$(GH_TOKEN="$PR_READY_TOKEN" gh pr view "$PR_NUMBER" --json isDraft -q .isDraft)" = "true" ]; then
+            GH_TOKEN="$PR_READY_TOKEN" gh pr ready "$PR_NUMBER"
           fi
 
       - name: Report remaining disk space

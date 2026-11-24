@@ -45,12 +45,13 @@ jobs:
           token: ${{ secrets.FLAKE_UPDATE_TOKEN || github.token }}
           branch: flake-update
           delete-branch: true
+          draft: true
           commit-message: "chore(flake): update inputs"
           title: "chore(flake): update inputs"
           body: |
             Automated daily `nix flake update`.
 
-            Please review and merge manually once all host builds pass and are pushed to Cachix.
+            This PR starts as a draft while CI builds and caches all hosts. Once complete, CI will comment with the package diff (via `dix`), ping you, and mark the PR ready for review.
 
             <details>
             <summary><code>nix flake update</code> output</summary>
